@@ -90,17 +90,17 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
   return Promise.all(issues);
 };
 
-const seedComments = (issue: Issue): Promise<Comment> =>
+const seedComments = (issue: Issue, user: User): Promise<Comment> =>
   createEntity(Comment, {
     body: "Be nice to each other! Don't be mean to each other!",
     issue,
-    user: issue.users[0],
+    user,
   });
 
 const seedGuestUserEntities = async (user: User): Promise<void> => {
   const project = await seedProject(user);
   const issues = await seedIssues(project);
-  await seedComments(issues[issues.length - 1]);
+  await seedComments(issues[issues.length - 1], project.users[0]);
 };
 
 export default seedGuestUserEntities;

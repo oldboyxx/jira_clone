@@ -9,7 +9,7 @@ import seedGuestUserEntities from 'database/seeds/guestUser';
 const router = express.Router();
 
 router.post(
-  '/users/guest',
+  '/authentication/guest',
   catchErrors(async (req, res) => {
     const user = await createEntity(User, req.body);
     await seedGuestUserEntities(user);
