@@ -1,13 +1,12 @@
 {
   "name": "jira_api",
-  "author": "Ivor Reic",
-  "license": "ISC",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "author": "Ivor Reic",
+  "license": "MIT",
   "scripts": {
     "start": "nodemon --exec ts-node --files src/index.ts",
-    "db-seed": "nodemon --exec ts-node --files src/database/seeds/development/index.ts"
+    "db-seed": "nodemon --exec ts-node --files src/database/seeds/development/index.ts",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -37,7 +36,6 @@
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-prettier": "^3.1.1",
-    "husky": "^3.1.0",
     "lint-staged": "^9.4.3",
     "nodemon": "^2.0.0",
     "prettier": "^1.19.1",
@@ -47,11 +45,6 @@
   "_moduleDirectories": [
     "src"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.ts": [
       "eslint --fix",

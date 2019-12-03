@@ -1,0 +1,38 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "rules": {
+    "radix": 0,
+    "no-restricted-syntax": 0,
+    "no-await-in-loop": 0,
+    "no-console": 0,
+    "consistent-return": 0,
+    "no-param-reassign": [2, { "props": false }],
+    "no-return-assign": [2, "except-parens"],
+    "no-use-before-define": 0,
+    "import/prefer-default-export": 0,
+    "import/no-cycle": 0,
+    "react/no-array-index-key": 0,
+    "react/forbid-prop-types": 0,
+    "jsx-a11y/click-events-have-key-events": 0
+  },
+  "settings": {
+    // Allows us to use absolute imports within codebase
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
+}
