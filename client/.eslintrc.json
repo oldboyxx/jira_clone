@@ -12,7 +12,10 @@
     "jest": true
   },
   "extends": ["airbnb", "prettier", "prettier/react"],
+  "plugins": ["react-hooks"],
   "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "radix": 0,
     "no-restricted-syntax": 0,
     "no-await-in-loop": 0,
@@ -25,10 +28,12 @@
     "import/no-cycle": 0,
     "react/no-array-index-key": 0,
     "react/forbid-prop-types": 0,
+    "react/state-in-constructor": 0,
+    "react/jsx-props-no-spreading": 0,
     "jsx-a11y/click-events-have-key-events": 0
   },
   "settings": {
-    // Allows us to use absolute imports within codebase
+    // Allows us to lint absolute "src" imports within codebase
     "import/resolver": {
       "node": {
         "moduleDirectory": ["node_modules", "src/"]

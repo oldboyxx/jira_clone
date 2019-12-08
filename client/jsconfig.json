@@ -1,0 +1,8 @@
+// This config allows VSCode intellisense to work with absolute "src" imports and jsx files
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "jsx": "react"
+  },
+  "exclude": ["node_modules", "dist", "dev"]
+}
