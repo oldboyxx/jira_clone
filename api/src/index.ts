@@ -9,6 +9,7 @@ import { authenticateUser } from 'middleware/authentication';
 import authenticationRoutes from 'controllers/authentication';
 import projectsRoutes from 'controllers/projects';
 import issuesRoutes from 'controllers/issues';
+import usersRoutes from 'controllers/users';
 import { RouteNotFoundError } from 'errors';
 import { errorHandler } from 'errors/errorHandler';
 
@@ -30,7 +31,7 @@ const initializeExpress = (): void => {
 
   app.use((_req, res, next) => {
     res.respond = (data): void => {
-      res.status(200).send({ data });
+      res.status(200).send(data);
     };
     next();
   });
@@ -41,6 +42,7 @@ const initializeExpress = (): void => {
 
   app.use('/', projectsRoutes);
   app.use('/', issuesRoutes);
+  app.use('/', usersRoutes);
 
   app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));
   app.use(errorHandler);

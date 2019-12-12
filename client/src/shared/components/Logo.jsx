@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
   className: PropTypes.string,
-  width: PropTypes.number,
+  size: PropTypes.number,
 };
 
 const defaultProps = {
   className: undefined,
-  width: 28,
+  size: 28,
 };
 
-const Logo = ({ className, width }) => (
+const Logo = ({ className, size }) => (
   <span className={className}>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.76 75.76" width={width}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75.76 75.76" width={size}>
       <defs>
         <linearGradient
           id="linear-gradient"

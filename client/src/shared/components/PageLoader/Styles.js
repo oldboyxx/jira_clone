@@ -2,6 +2,6 @@ import styled from 'styled-components';
 
 export default styled.div`
   width: 100%;
-  padding: 100px;
+  padding-top: 200px;
   text-align: center;
 `;

@@ -41,16 +41,16 @@ class Issue extends BaseEntity {
   @Column('varchar')
   priority: IssuePriority;
 
-  @Column({ type: 'text', nullable: true })
+  @Column('text', { nullable: true })
   description: string | null;
 
-  @Column({ type: 'integer', nullable: true })
+  @Column('integer', { nullable: true })
   estimate: number | null;
 
-  @Column({ type: 'integer', nullable: true })
+  @Column('integer', { nullable: true })
   timeSpent: number | null;
 
-  @Column({ type: 'integer', nullable: true })
+  @Column('integer', { nullable: true })
   timeRemaining: number | null;
 
   @CreateDateColumn({ type: 'timestamp' })

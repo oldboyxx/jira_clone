@@ -85,7 +85,7 @@ export default createGlobalStyle`
   }
 
   p {
-    line-height: 1.6;
+    line-height: 1.4285;
     a {
       ${mixin.link()}
     }
@@ -104,5 +104,5 @@ export default createGlobalStyle`
     touch-action: manipulation;
   }
 
-  ${mixin.placeholderColor(color.textLightBlue)}
+  ${mixin.placeholderColor(color.textLight)}
 `;

@@ -8,9 +8,7 @@ import { StyledButton, StyledSpinner } from './Styles';
 const propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  type: PropTypes.string,
-  hollow: PropTypes.bool,
-  color: PropTypes.oneOf(['primary', 'success', 'danger']),
+  color: PropTypes.oneOf(['primary', 'secondary', 'empty']),
   icon: PropTypes.string,
   iconSize: PropTypes.number,
   disabled: PropTypes.bool,
@@ -21,11 +19,9 @@ const propTypes = {
 const defaultProps = {
   className: undefined,
   children: undefined,
-  type: 'button',
-  hollow: false,
-  color: 'primary',
+  color: 'secondary',
   icon: undefined,
-  iconSize: undefined,
+  iconSize: 18,
   disabled: false,
   working: false,
   onClick: () => {},
@@ -33,7 +29,7 @@ const defaultProps = {
 
 const Button = ({
   children,
-  hollow,
+  color: propsColor,
   icon,
   iconSize,
   disabled,
@@ -43,21 +39,31 @@ const Button = ({
 }) => (
   <StyledButton
     {...buttonProps}
-    hollow={hollow}
     onClick={() => {
       if (!disabled && !working) {
         onClick();
       }
     }}
+    color={propsColor}
     disabled={disabled || working}
     working={working}
     iconOnly={!children}
   >
-    {working && <StyledSpinner size={26} color={hollow ? color.textMediumBlue : '#fff'} />}
-    {!working && icon && (
-      <Icon type={icon} size={iconSize} color={hollow ? color.textMediumBlue : '#fff'} />
+    {working && (
+      <StyledSpinner
+        iconOnly={!children}
+        size={26}
+        color={propsColor === 'primary' ? '#fff' : color.textDark}
+      />
     )}
-    {children}
+    {!working && icon && (
+      <Icon
+        type={icon}
+        size={iconSize}
+        color={propsColor === 'primary' ? '#fff' : color.textDark}
+      />
+    )}
+    <div>{children}</div>
   </StyledButton>
 );
 

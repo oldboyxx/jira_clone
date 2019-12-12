@@ -64,11 +64,11 @@ const SelectDropdown = ({
   };
 
   const handleInputKeyDown = event => {
-    if (event.keyCode === KeyCodes.escape) {
+    if (event.keyCode === KeyCodes.ESCAPE) {
       handleInputEscapeKeyDown(event);
-    } else if (event.keyCode === KeyCodes.enter) {
+    } else if (event.keyCode === KeyCodes.ENTER) {
       handleInputEnterKeyDown(event);
-    } else if (event.keyCode === KeyCodes.arrowDown || event.keyCode === KeyCodes.arrowUp) {
+    } else if (event.keyCode === KeyCodes.ARROW_DOWN || event.keyCode === KeyCodes.ARROW_UP) {
       handleInputArrowUpOrDownKeyDown(event);
     }
   };
@@ -101,7 +101,7 @@ const SelectDropdown = ({
     const $optionsHeight = $options.getBoundingClientRect().height;
     const $activeHeight = $active.getBoundingClientRect().height;
 
-    if (event.keyCode === KeyCodes.arrowDown) {
+    if (event.keyCode === KeyCodes.ARROW_DOWN) {
       if ($options.lastElementChild === $active) {
         $active.classList.remove(activeOptionClass);
         $options.firstElementChild.classList.add(activeOptionClass);
@@ -113,7 +113,7 @@ const SelectDropdown = ({
           $options.scrollTop += $activeHeight;
         }
       }
-    } else if (event.keyCode === KeyCodes.arrowUp) {
+    } else if (event.keyCode === KeyCodes.ARROW_UP) {
       if ($options.firstElementChild === $active) {
         $active.classList.remove(activeOptionClass);
         $options.lastElementChild.classList.add(activeOptionClass);

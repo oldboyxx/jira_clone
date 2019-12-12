@@ -72,7 +72,7 @@ const ConfirmModal = ({
           {confirmInput && (
             <>
               <InputLabel>{`Type ${confirmInput} below to confirm.`}</InputLabel>
-              <StyledInput onChange={(event, value) => handleConfirmInputChange(value)} />
+              <StyledInput onChange={handleConfirmInputChange} />
               <br />
             </>
           )}

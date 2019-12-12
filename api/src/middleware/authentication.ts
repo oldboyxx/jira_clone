@@ -1,7 +1,6 @@
 import { Request } from 'express';
 
 import { verifyToken } from 'utils/authToken';
-import { findEntityOrThrow } from 'utils/typeorm';
 import { catchErrors, InvalidTokenError } from 'errors';
 import { User } from 'entities';
 
@@ -20,6 +19,10 @@ export const authenticateUser = catchErrors(async (req, _res, next) => {
   if (!userId) {
     throw new InvalidTokenError('Authentication token is invalid.');
   }
-  req.currentUser = await findEntityOrThrow(User, userId);
+  const user = await User.findOne(userId);
+  if (!user) {
+    throw new InvalidTokenError('Authentication token is invalid: User not found.');
+  }
+  req.currentUser = user;
   next();
 });

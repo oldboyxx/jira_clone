@@ -6,7 +6,7 @@ import Icon from 'shared/components/Icon';
 export const StyledSelect = styled.div`
   position: relative;
   width: 100%;
-  border-radius: 4px;
+  border-radius: 3px;
   border: 1px solid ${color.borderLight};
   background: #fff;
   ${font.size(14)}
@@ -41,7 +41,7 @@ export const ChevronIcon = styled(Icon)`
 
 export const Placeholder = styled.div`
   padding: 11px 0 0 15px;
-  color: ${color.textLightBlue};
+  color: ${color.textLight};
 `;
 
 export const ValueSingle = styled.div`

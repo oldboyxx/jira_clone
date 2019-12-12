@@ -4,83 +4,79 @@ import Spinner from 'shared/components/Spinner';
 import { color, font, mixin } from 'shared/utils/styles';
 
 export const StyledButton = styled.button`
-  display: inline-block;
-  height: 36px;
-  line-height: 34px;
-  padding: 0 18px;
-  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  line-height: 1;
+  padding: 0 ${props => (props.iconOnly ? 9 : 12)}px;
   white-space: nowrap;
-  text-align: center;
-  border-radius: 4px;
+  border-radius: 3px;
   transition: all 0.1s;
-  appearance: none !important;
+  appearance: none;
   ${mixin.clickable}
-  ${font.bold}
-  ${font.size(14)}
-  ${props => (props.hollow ? hollowStyles : filledStyles)}
+  ${font.size(14.5)}
+  ${props => buttonColors[props.color]}
   &:disabled {
     opacity: 0.6;
     cursor: default;
   }
   i {
-    position: relative;
-    top: -1px;
-    right: 4px;
-    margin-right: 7px;
-    display: inline-block;
-    vertical-align: middle;
-    line-height: 1;
-    font-size: 16px;
-  }
-  ${props => (props.iconOnly ? iconOnlyStyles : '')}
-`;
-
-const filledStyles = props => css`
-  color: #fff;
-  background: ${color[props.color]};
-  border: 1px solid ${color[props.color]};
-  ${!props.disabled &&
-    css`
-      &:hover,
-      &:focus {
-        background: ${mixin.darken(color[props.color], 0.15)};
-        border: 1px solid ${mixin.darken(color[props.color], 0.15)};
-      }
-      &:active {
-        background: ${mixin.lighten(color[props.color], 0.1)};
-        border: 1px solid ${mixin.lighten(color[props.color], 0.1)};
-      }
-    `}
-`;
-
-const hollowStyles = props => css`
-  color: ${color.textMediumBlue};
-  background: #fff;
-  border: 1px solid ${color.borderBlue};
-  ${!props.disabled &&
-    css`
-      &:hover,
-      &:focus {
-        border: 1px solid ${mixin.darken(color.borderBlue, 0.15)};
-      }
-      &:active {
-        border: 1px solid ${color.borderBlue};
-      }
-    `}
-`;
-
-const iconOnlyStyles = css`
-  padding: 0 12px;
-  i {
-    right: 0;
-    margin-right: 0;
+    margin-right: ${props => (props.iconOnly ? 0 : 7)}px;
   }
 `;
+
+const secondaryAndEmptyShared = css`
+  color: ${color.textDark};
+  ${font.regular}
+  &:not(:disabled) {
+    &:hover {
+      background: ${color.backgroundLight};
+    }
+    &:active {
+      color: ${color.primary};
+      background: ${mixin.rgba(color.primary, 0.15)};
+    }
+    ${props =>
+      props.isActive &&
+      `
+      color: ${color.primary};
+      background: ${mixin.rgba(color.primary, 0.15)} !important;
+    `}
+  }
+`;
+
+const buttonColors = {
+  primary: css`
+    color: #fff;
+    background: ${color.primary};
+    ${font.medium}
+    &:not(:disabled) {
+      &:hover {
+        background: ${mixin.lighten(color.primary, 0.15)};
+      }
+      &:active {
+        background: ${mixin.darken(color.primary, 0.1)};
+      }
+      ${props =>
+        props.isActive &&
+        `
+        background: ${mixin.darken(color.primary, 0.1)} !important;
+    `}
+    }
+  `,
+  secondary: css`
+    background: ${color.secondary};
+    ${secondaryAndEmptyShared};
+  `,
+  empty: css`
+    background: #fff;
+    ${secondaryAndEmptyShared};
+  `,
+};
 
 export const StyledSpinner = styled(Spinner)`
   position: relative;
-  right: 8px;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 1;
+  top: 1px;
+  margin-right: ${props => (props.iconOnly ? 0 : 7)}px;
 `;

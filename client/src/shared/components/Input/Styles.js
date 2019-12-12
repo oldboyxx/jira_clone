@@ -5,29 +5,29 @@ import { color, font } from 'shared/utils/styles';
 export default styled.div`
   position: relative;
   display: inline-block;
-  height: 40px;
+  height: 32px;
   width: 100%;
   input {
     height: 100%;
     width: 100%;
-    padding: 0 15px;
-    border-radius: 4px;
-    border: 1px solid ${color.borderLight};
-    box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.03);
-    background: #fff;
+    padding: 0 7px;
+    border-radius: 3px;
+    border: 1px solid ${color.borderLightest};
+    background: ${color.backgroundLightest};
     ${font.regular}
-    ${font.size(14)}
+    ${font.size(15)}
     &:focus {
-      border: 1px solid ${color.borderMedium};
+      background: #fff;
+      border: 1px solid ${color.borderInputFocus};
+      box-shadow: 0 0 0 1px ${color.borderInputFocus};
     }
-    ${props => (props.icon ? 'padding-left: 40px;' : '')}
+    ${props => (props.icon ? 'padding-left: 32px;' : '')}
     ${props => (props.invalid ? `&, &:focus { border: 1px solid ${color.danger}; }` : '')}
   }
   i {
     position: absolute;
-    top: 12px;
-    left: 14px;
-    font-size: 16px;
+    top: 8px;
+    left: 8px;
     pointer-events: none;
     color: ${color.textMedium};
   }

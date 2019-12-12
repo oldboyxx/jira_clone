@@ -93,10 +93,10 @@ const Select = ({
   const handleFocusedSelectKeydown = event => {
     if (isDropdownOpen) return;
 
-    if (event.keyCode === KeyCodes.enter) {
+    if (event.keyCode === KeyCodes.ENTER) {
       event.preventDefault();
     }
-    if (event.keyCode !== KeyCodes.escape && event.keyCode !== KeyCodes.tab && !event.shiftKey) {
+    if (event.keyCode !== KeyCodes.ESCAPE && event.keyCode !== KeyCodes.TAB && !event.shiftKey) {
       setDropdownOpen(true);
     }
   };

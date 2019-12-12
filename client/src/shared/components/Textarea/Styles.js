@@ -6,17 +6,18 @@ export default styled.div`
   display: inline-block;
   width: 100%;
   textarea {
-    width: 100%;
-    padding: 13px 15px 14px;
-    border-radius: 4px;
-    border: 1px solid ${color.borderLight};
-    box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.03);
-    background: #fff;
     overflow-y: hidden;
+    width: 100%;
+    padding: 6px 7px 7px;
+    border-radius: 3px;
+    border: 1px solid ${color.borderLightest};
+    background: ${color.backgroundLightest};
     ${font.regular}
-    ${font.size(14)}
+    ${font.size(15)}
     &:focus {
-      border: 1px solid ${color.borderMedium};
+      background: #fff;
+      border: 1px solid ${color.borderInputFocus};
+      box-shadow: 0 0 0 1px ${color.borderInputFocus};
     }
     ${props => (props.invalid ? `&, &:focus { border: 1px solid ${color.danger}; }` : '')}
   }

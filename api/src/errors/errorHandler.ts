@@ -17,5 +17,5 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
         data: {},
       };
 
-  res.status(errorData.status).send({ errors: [errorData] });
+  res.status(errorData.status).send({ error: errorData });
 };

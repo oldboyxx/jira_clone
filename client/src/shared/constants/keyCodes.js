@@ -1,7 +1,7 @@
 export const KeyCodes = {
-  escape: 27,
-  tab: 9,
-  enter: 13,
-  arrowUp: 38,
-  arrowDown: 40,
+  ESCAPE: 27,
+  TAB: 9,
+  ENTER: 13,
+  ARROW_UP: 38,
+  ARROW_DOWN: 40,
 };

@@ -14,7 +14,7 @@ const defaultProps = {
   className: undefined,
   avatarUrl: null,
   name: '',
-  size: 24,
+  size: 32,
 };
 
 const colors = [
@@ -30,12 +30,12 @@ const colors = [
 
 const getColorFromName = name => colors[name.toLocaleLowerCase().charCodeAt(0) % colors.length];
 
-const Avatar = ({ className, avatarUrl, name, size }) => {
+const Avatar = ({ className, avatarUrl, name, size, ...otherProps }) => {
   if (avatarUrl) {
-    return <Image className={className} size={size} avatarUrl={avatarUrl} />;
+    return <Image className={className} size={size} avatarUrl={avatarUrl} {...otherProps} />;
   }
   return (
-    <Letter className={className} size={size} color={getColorFromName(name)}>
+    <Letter className={className} size={size} color={getColorFromName(name)} {...otherProps}>
       <span>{name.charAt(0)}</span>
     </Letter>
   );

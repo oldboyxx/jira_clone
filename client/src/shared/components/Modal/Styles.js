@@ -15,7 +15,7 @@ export const ScrollOverlay = styled.div`
 
 export const ClickableOverlay = styled.div`
   min-height: 100%;
-  background: ${mixin.rgba(color.textLightBlue, 0.7)};
+  background: ${mixin.rgba(color.textLight, 0.7)};
   ${props => clickOverlayStyles[props.variant]}
 `;
 

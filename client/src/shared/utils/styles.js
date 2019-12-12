@@ -1,33 +1,46 @@
 import Color from 'color';
 
 export const color = {
-  primary: '#2553B3', // blue
+  primary: '#0052cc', // Blue
   success: '#29A638', // green
   danger: '#E13C3C', // red
   warning: '#F89C1C', // orange
-  accent: '#8A46D7', // purple
+  secondary: '#F4F5F7', // light grey
 
-  textDarkest: '#323232',
-  textDark: '#616161',
-  textMedium: '#75787D',
-  textMediumBlue: '#78869F',
-  textLight: '#959595',
-  textLightBlue: '#96A1B5',
+  textDarkest: '#172b4d',
+  textDark: '#42526E',
+  textMedium: '#5E6C84',
+  textLight: '#8993a4',
+  textLink: '#0052cc',
 
-  backgroundDark: '#8393AD',
-  backgroundMedium: '#D8DDE6',
-  backgroundLight: '#F7F9FB',
+  backgroundDarkPrimary: '#0747A6',
+  backgroundMedium: '#dfe1e6',
+  backgroundLight: '#ebecf0',
+  backgroundLightest: '#F4F5F7',
 
-  borderLightest: '#E1E6F0',
-  borderLight: '#D8DDE6',
-  borderMedium: '#B9BDC4',
-  borderBlue: '#C5D3EB',
+  borderLightest: '#dfe1e6',
+  borderLight: '#C1C7D0',
+  borderInputFocus: '#4c9aff',
+};
+
+export const issueTypeColors = {
+  story: '#65BA43', // green
+  bug: '#E44D42', // red
+  task: '#4FADE6', // blue
+};
+
+export const issuePriorityColors = {
+  '5': '#CD1317', // red
+  '4': '#E9494A', // orange
+  '3': '#E97F33', // orange
+  '2': '#2D8738', // green
+  '1': '#57A55A', // green
 };
 
 export const sizes = {
-  appNavBarLeftWidth: 75,
+  appNavBarLeftWidth: 64,
+  secondarySideBarWidth: 240,
   minViewportWidth: 1000,
-  secondarySideBarWidth: 230,
 };
 
 export const zIndexValues = {
@@ -130,13 +143,14 @@ export const mixin = {
       background: ${background};
     }
   `,
-  backgroundImage: `
+  backgroundImage: imageURL => `
+    background-image: url("${imageURL}");
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
     background-color: ${color.backgroundLight};
   `,
-  link: (colorValue = color.primary) => `
+  link: (colorValue = color.textLink) => `
     cursor: pointer;
     color: ${colorValue};
     ${font.medium}
@@ -145,24 +159,6 @@ export const mixin = {
     }
     &:hover {
       text-decoration: underline;
-    }
-  `,
-  tag: `
-    display: inline-block;
-    height: 24px;
-    line-height: 22px;
-    padding: 0 6px 0 8px;
-    border: 1px solid ${color.borderLight};
-    border-radius: 4px;
-    cursor: pointer;
-    user-select: none;
-    background: ${color.backgroundLight};
-    ${font.medium}
-    ${font.size(12)}
-    i {
-      margin-left: 4px;
-      vertical-align: middle;
-      font-size: 14px;
     }
   `,
 };

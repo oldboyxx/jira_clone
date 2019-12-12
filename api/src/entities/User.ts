@@ -7,6 +7,8 @@ import {
   UpdateDateColumn,
   OneToMany,
   ManyToMany,
+  ManyToOne,
+  RelationId,
 } from 'typeorm';
 
 import is from 'utils/validation';
@@ -28,6 +30,9 @@ class User extends BaseEntity {
   @Column('varchar')
   email: string;
 
+  @Column('varchar', { length: 2000 })
+  avatarUrl: string;
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
@@ -46,11 +51,14 @@ class User extends BaseEntity {
   )
   issues: Issue[];
 
-  @ManyToMany(
+  @ManyToOne(
     () => Project,
     project => project.users,
   )
-  projects: Project[];
+  project: Project;
+
+  @RelationId((user: User) => user.project)
+  projectId: number;
 }
 
 export default User;
