@@ -41,6 +41,9 @@ class Issue extends BaseEntity {
   @Column('varchar')
   priority: IssuePriority;
 
+  @Column('double precision')
+  listPosition: number;
+
   @Column('text', { nullable: true })
   description: string | null;
 

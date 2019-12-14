@@ -7,16 +7,17 @@ import Board from './Board';
 import { ProjectPage } from './Styles';
 
 const Project = () => {
-  const [{ data, error, isLoading }] = useApi.get('/project');
+  const [{ data, error, setLocalData: setLocalProjectData }] = useApi.get('/project');
 
-  if (isLoading) return <PageLoader />;
+  if (!data) return <PageLoader />;
   if (error) return <PageError />;
 
   const { project } = data;
+
   return (
     <ProjectPage>
       <Sidebar projectName={project.name} />
-      <Board project={project} />
+      <Board project={project} setLocalProjectData={setLocalProjectData} />
     </ProjectPage>
   );
 };

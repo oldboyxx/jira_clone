@@ -24,10 +24,11 @@ const seedProjects = (users: User[]): Promise<Project[]> => {
 const seedIssues = (projects: Project[]): Promise<Issue[]> => {
   const issues = projects
     .map(project =>
-      times(10, () =>
+      times(10, i =>
         createEntity(
           Issue,
           generateIssue({
+            listPosition: i + 1,
             reporterId: (sample(project.users) as User).id,
             project,
             users: [sample(project.users) as User],

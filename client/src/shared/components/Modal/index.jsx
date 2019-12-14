@@ -40,7 +40,7 @@ const Modal = ({
   const modalIdRef = useRef(uniqueIncreasingIntegerId());
 
   const closeModal = useCallback(() => {
-    if (shouldNotCloseBecauseHasOpenChildModal(modalIdRef.current)) {
+    if (hasChildModal(modalIdRef.current)) {
       return;
     }
     if (!isControlled) {
@@ -80,8 +80,7 @@ const getIdsOfAllOpenModals = () => {
   return $modalNodes.map($node => parseInt($node.getAttribute('data-jira-modal-id')));
 };
 
-const shouldNotCloseBecauseHasOpenChildModal = modalId =>
-  getIdsOfAllOpenModals().some(id => id > modalId);
+const hasChildModal = modalId => getIdsOfAllOpenModals().some(id => id > modalId);
 
 const setBodyScrollLock = () => {
   const areAnyModalsOpen = getIdsOfAllOpenModals().length > 0;

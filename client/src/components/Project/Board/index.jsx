@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 
 import useApi from 'shared/hooks/api';
 import Header from './Header';
@@ -8,21 +9,31 @@ import Lists from './Lists';
 
 const propTypes = {
   project: PropTypes.object.isRequired,
+  setLocalProjectData: PropTypes.func.isRequired,
 };
 
-const ProjectBoard = ({ project }) => {
-  const [filteredIssues, setFilteredIssues] = useState([]);
+const defaultFilters = { searchQuery: '', userIds: [], myOnly: false, recent: false };
+
+const ProjectBoard = ({ project, setLocalProjectData }) => {
+  const [filters, setFilters] = useState(defaultFilters);
 
   const [{ data }] = useApi.get('/currentUser');
 
-  const { currentUser } = data || {};
   return (
     <>
       <Header projectName={project.name} />
-      {currentUser && (
-        <Filters project={project} currentUser={currentUser} onChange={setFilteredIssues} />
-      )}
-      <Lists project={project} filteredIssues={filteredIssues} />
+      <Filters
+        projectUsers={project.users}
+        defaultFilters={defaultFilters}
+        filters={filters}
+        setFilters={setFilters}
+      />
+      <Lists
+        project={project}
+        filters={filters}
+        currentUserId={get(data, 'currentUser.id')}
+        setLocalProjectData={setLocalProjectData}
+      />
     </>
   );
 };
