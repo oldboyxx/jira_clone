@@ -10,7 +10,7 @@ router.get(
   '/issues/:issueId',
   catchErrors(async (req, res) => {
     const issue = await findEntityOrThrow(Issue, req.params.issueId, {
-      relations: ['users', 'comments'],
+      relations: ['users', 'comments', 'comments.user'],
     });
     res.respond({ issue });
   }),

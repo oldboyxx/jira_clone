@@ -8,7 +8,7 @@ export default styled.div`
   textarea {
     overflow-y: hidden;
     width: 100%;
-    padding: 6px 7px 7px;
+    padding: 8px 12px 9px;
     border-radius: 3px;
     border: 1px solid ${color.borderLightest};
     background: ${color.backgroundLightest};

@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { isEqual } from 'lodash';
 
-function useDeepCompareMemoize(value) {
+const useDeepCompareMemoize = value => {
   const valueRef = useRef();
 
   if (!isEqual(value, valueRef.current)) {
@@ -9,6 +9,6 @@ function useDeepCompareMemoize(value) {
   }
 
   return valueRef.current;
-}
+};
 
 export default useDeepCompareMemoize;

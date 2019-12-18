@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { getTextContentsFromHtmlString } from 'shared/utils/html';
 import { TextEditor, TextEditedContent, Button } from 'shared/components';
-import { DescriptionLabel, EmptyLabel, Actions } from './Styles';
+import { Title, EmptyLabel, Actions } from './Styles';
 
 const propTypes = {
   issue: PropTypes.object.isRequired,
@@ -49,7 +49,7 @@ const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
   );
   return (
     <>
-      <DescriptionLabel>Description</DescriptionLabel>
+      <Title>Description</Title>
       {isPresenting ? renderPresentingMode() : renderEditingMode()}
     </>
   );

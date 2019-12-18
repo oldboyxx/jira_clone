@@ -78,9 +78,6 @@ const ConfirmModal = ({
             </>
           )}
           <Actions>
-            <StyledButton hollow onClick={modal.close}>
-              {cancelText}
-            </StyledButton>
             <StyledButton
               color={type}
               disabled={confirmInput && !isConfirmEnabled}
@@ -88,6 +85,9 @@ const ConfirmModal = ({
               onClick={() => handleConfirm(modal)}
             >
               {confirmText}
+            </StyledButton>
+            <StyledButton hollow onClick={modal.close}>
+              {cancelText}
             </StyledButton>
           </Actions>
         </>

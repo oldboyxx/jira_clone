@@ -8,7 +8,11 @@ import Loader from './Loader';
 import TopActions from './TopActions';
 import Title from './Title';
 import Description from './Description';
-import RightActions from './RightActions';
+import Comments from './Comments';
+import Status from './Status';
+import Users from './Users';
+import Priority from './Priority';
+import Tracking from './Tracking';
 import { Content, Left, Right } from './Styles';
 
 const propTypes = {
@@ -26,9 +30,9 @@ const ProjectBoardIssueDetails = ({
   updateLocalIssuesArray,
   modalClose,
 }) => {
-  const [{ data, error, isLoading, setLocalData }] = useApi.get(`/issues/${issueId}`);
+  const [{ data, error, setLocalData }, fetchIssue] = useApi.get(`/issues/${issueId}`);
 
-  if (isLoading) return <Loader />;
+  if (!data) return <Loader />;
   if (error) return <PageError />;
 
   const { issue } = data;
@@ -60,9 +64,13 @@ const ProjectBoardIssueDetails = ({
         <Left>
           <Title issue={issue} updateIssue={updateIssue} />
           <Description issue={issue} updateIssue={updateIssue} />
+          <Comments issue={issue} fetchIssue={fetchIssue} />
         </Left>
         <Right>
-          <RightActions issue={issue} updateIssue={updateIssue} projectUsers={projectUsers} />
+          <Status issue={issue} updateIssue={updateIssue} />
+          <Users issue={issue} updateIssue={updateIssue} projectUsers={projectUsers} />
+          <Priority issue={issue} updateIssue={updateIssue} />
+          <Tracking issue={issue} updateIssue={updateIssue} />
         </Right>
       </Content>
     </>

@@ -6,7 +6,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  RelationId,
 } from 'typeorm';
 
 import is from 'utils/validation';
@@ -36,7 +35,7 @@ class Comment extends BaseEntity {
   )
   user: User;
 
-  @RelationId((comment: Comment) => comment.user)
+  @Column('integer')
   userId: number;
 
   @ManyToOne(
@@ -45,6 +44,9 @@ class Comment extends BaseEntity {
     { onDelete: 'CASCADE' },
   )
   issue: Issue;
+
+  @Column('integer')
+  issueId: number;
 }
 
 export default Comment;

@@ -7,8 +7,9 @@ import cors from 'cors';
 import createDatabaseConnection from 'database/connection';
 import { authenticateUser } from 'middleware/authentication';
 import authenticationRoutes from 'controllers/authentication';
-import projectsRoutes from 'controllers/projects';
+import commentsRoutes from 'controllers/comments';
 import issuesRoutes from 'controllers/issues';
+import projectsRoutes from 'controllers/projects';
 import usersRoutes from 'controllers/users';
 import { RouteNotFoundError } from 'errors';
 import { errorHandler } from 'errors/errorHandler';
@@ -40,8 +41,9 @@ const initializeExpress = (): void => {
 
   app.use('/', authenticateUser);
 
-  app.use('/', projectsRoutes);
+  app.use('/', commentsRoutes);
   app.use('/', issuesRoutes);
+  app.use('/', projectsRoutes);
   app.use('/', usersRoutes);
 
   app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));

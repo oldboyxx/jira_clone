@@ -93,7 +93,7 @@ const ProjectBoardIssueDetailsTopActions = ({ issue, updateIssue, fetchProject, 
   const renderDeleteIcon = () => (
     <ConfirmModal
       title="Are you sure you want to delete this issue?"
-      message="This action is permanent and can not be reversed."
+      message="Once you delete, it's gone for good."
       confirmText="Delete issue"
       onConfirm={handleIssueDelete}
       renderLink={modal => <Button icon="trash" iconSize={19} color="empty" onClick={modal.open} />}

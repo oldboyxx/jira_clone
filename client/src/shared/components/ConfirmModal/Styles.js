@@ -38,5 +38,5 @@ export const Actions = styled.div`
 `;
 
 export const StyledButton = styled(Button)`
-  margin: 5px 20px 0 0;
+  margin: 6px 20px 0 0;
 `;
