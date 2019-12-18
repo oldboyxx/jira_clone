@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { Avatar, Icon } from 'shared/components';
-import { color, issueTypeColors, issuePriorityColors, font, mixin } from 'shared/utils/styles';
+import { Avatar } from 'shared/components';
+import { color, font, mixin } from 'shared/utils/styles';
 
-export const IssueWrapper = styled.div`
+export const IssueWrapper = styled(Link)`
+  display: block;
   margin-bottom: 5px;
 `;
 
@@ -34,19 +36,6 @@ export const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const TypeIcon = styled(Icon)`
-  font-size: 19px;
-  color: ${props => issueTypeColors[props.color]};
-`;
-
-export const PriorityIcon = styled(Icon)`
-  position: relative;
-  top: -1px;
-  margin-left: 4px;
-  font-size: 18px;
-  color: ${props => issuePriorityColors[props.color]};
 `;
 
 export const Assignees = styled.div`

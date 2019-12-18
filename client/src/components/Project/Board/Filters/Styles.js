@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Input, Avatar, Button } from 'shared/components';
+import { InputDebounced, Avatar, Button } from 'shared/components';
 import { color, font, mixin } from 'shared/utils/styles';
 
 export const Filters = styled.div`
@@ -9,7 +9,7 @@ export const Filters = styled.div`
   margin-top: 24px;
 `;
 
-export const SearchInput = styled(Input)`
+export const SearchInput = styled(InputDebounced)`
   margin-right: 18px;
   width: 160px;
 `;

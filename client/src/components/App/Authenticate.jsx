@@ -1,27 +1,28 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import useApi from 'shared/hooks/api';
+import toast from 'shared/utils/toast';
+import api from 'shared/utils/api';
 import { getStoredAuthToken, storeAuthToken } from 'shared/utils/authToken';
 import { PageLoader } from 'shared/components';
 
 const Authenticate = () => {
-  const [{ data }, createGuestAccount] = useApi.post('/authentication/guest');
-
   const history = useHistory();
 
   useEffect(() => {
-    if (!getStoredAuthToken()) {
-      createGuestAccount();
-    }
-  }, [createGuestAccount]);
-
-  useEffect(() => {
-    if (data && data.authToken) {
-      storeAuthToken(data.authToken);
-      history.push('/');
-    }
-  }, [data, history]);
+    const createGuestAccount = async () => {
+      if (!getStoredAuthToken()) {
+        try {
+          const { authToken } = await api.post('/authentication/guest');
+          storeAuthToken(authToken);
+          history.push('/');
+        } catch (error) {
+          toast.error(error);
+        }
+      }
+    };
+    createGuestAccount();
+  }, [history]);
 
   return <PageLoader />;
 };

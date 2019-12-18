@@ -18,3 +18,10 @@ export const IssuePriority = {
   LOW: '2',
   LOWEST: '1',
 };
+
+export const IssueStatusCopy = {
+  [IssueStatus.BACKLOG]: 'Backlog',
+  [IssueStatus.SELECTED]: 'Selected for development',
+  [IssueStatus.INPROGRESS]: 'In progress',
+  [IssueStatus.DONE]: 'Done',
+};

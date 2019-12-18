@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { xor, debounce } from 'lodash';
+import { xor } from 'lodash';
 
 import {
   Filters,
@@ -30,7 +30,8 @@ const ProjectBoardFilters = ({ projectUsers, defaultFilters, filters, setFilters
     <Filters>
       <SearchInput
         icon="search"
-        onChange={debounce(value => setFiltersMerge({ searchQuery: value }), 500)}
+        value={searchQuery}
+        onChange={value => setFiltersMerge({ searchQuery: value })}
       />
       <Avatars>
         {projectUsers.map(user => (

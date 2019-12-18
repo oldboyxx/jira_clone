@@ -23,7 +23,7 @@ class Issue extends BaseEntity {
     type: [is.required(), is.oneOf(Object.values(IssueType))],
     status: [is.required(), is.oneOf(Object.values(IssueStatus))],
     priority: [is.required(), is.oneOf(Object.values(IssuePriority))],
-    description: is.maxLength(100000),
+    reporterId: is.required(),
   };
 
   @PrimaryGeneratedColumn()

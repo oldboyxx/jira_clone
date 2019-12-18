@@ -16,12 +16,14 @@ const propTypes = {
   onChange: PropTypes.func.isRequired,
   onCreate: PropTypes.func,
   isMulti: PropTypes.bool,
+  propsRenderOption: PropTypes.func,
 };
 
 const defaultProps = {
   value: undefined,
   onCreate: undefined,
   isMulti: false,
+  propsRenderOption: undefined,
 };
 
 const SelectDropdown = ({
@@ -35,6 +37,7 @@ const SelectDropdown = ({
   onChange,
   onCreate,
   isMulti,
+  propsRenderOption,
 }) => {
   const [isCreatingOption, setCreatingOption] = useState(false);
 
@@ -143,27 +146,33 @@ const SelectDropdown = ({
       .includes(searchValue.toLowerCase()),
   );
 
-  const removeSelectedOptions = opts => opts.filter(option => !value.includes(option.value));
+  const removeSelectedOptionsMulti = opts => opts.filter(option => !value.includes(option.value));
+  const removeSelectedOptionsSingle = opts => opts.filter(option => value !== option.value);
 
   const filteredOptions = isMulti
-    ? removeSelectedOptions(optionsFilteredBySearchValue)
-    : optionsFilteredBySearchValue;
+    ? removeSelectedOptionsMulti(optionsFilteredBySearchValue)
+    : removeSelectedOptionsSingle(optionsFilteredBySearchValue);
 
   const searchValueNotInOptions = !options.map(option => option.label).includes(searchValue);
   const isOptionCreatable = onCreate && searchValue && searchValueNotInOptions;
 
-  const renderSelectableOption = (option, i) => (
-    <Option
-      key={option.value}
-      className={i === 0 ? activeOptionClass : undefined}
-      isSelected={option.value === value}
-      data-select-option-value={option.value}
-      onMouseEnter={handleOptionMouseEnter}
-      onClick={() => selectOptionValue(option.value)}
-    >
-      {option.label}
-    </Option>
-  );
+  const renderSelectableOption = (option, i) => {
+    const optionProps = {
+      key: option.value,
+      value: option.value,
+      label: option.label,
+      className: i === 0 ? activeOptionClass : undefined,
+      isSelected: option.value === value,
+      'data-select-option-value': option.value,
+      onMouseEnter: handleOptionMouseEnter,
+      onClick: () => selectOptionValue(option.value),
+    };
+    return propsRenderOption ? (
+      propsRenderOption(optionProps)
+    ) : (
+      <Option {...optionProps}>{option.label}</Option>
+    );
+  };
 
   const renderCreatableOption = () => (
     <Option

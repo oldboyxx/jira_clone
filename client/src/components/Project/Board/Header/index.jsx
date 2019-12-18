@@ -11,6 +11,12 @@ const propTypes = {
 
 const ProjectBoardHeader = ({ projectName }) => {
   const [isLinkCopied, setLinkCopied] = useState(false);
+
+  const handleLinkCopy = () => {
+    setLinkCopied(true);
+    setTimeout(() => setLinkCopied(false), 2000);
+    copyToClipboard(window.location.href);
+  };
   return (
     <>
       <Breadcrumbs>
@@ -22,14 +28,7 @@ const ProjectBoardHeader = ({ projectName }) => {
       </Breadcrumbs>
       <Header>
         <BoardName>Kanban board</BoardName>
-        <Button
-          icon="link"
-          onClick={() => {
-            setLinkCopied(true);
-            setTimeout(() => setLinkCopied(false), 2000);
-            copyToClipboard(window.location.href);
-          }}
-        >
+        <Button icon="link" onClick={handleLinkCopy}>
           {isLinkCopied ? 'Link Copied' : 'Copy link'}
         </Button>
       </Header>

@@ -11,26 +11,30 @@ export const StyledConfirmModal = styled(Modal)`
 
 export const Title = styled.div`
   padding-bottom: 25px;
-  ${font.bold}
-  ${font.size(24)}
+  ${font.medium}
+  ${font.size(22)}
   line-height: 1.5;
 `;
 
 export const Message = styled.p`
   padding-bottom: 25px;
   white-space: pre-wrap;
-  ${font.size(16)}
+  ${font.size(15)}
 `;
 
 export const InputLabel = styled.div`
   padding-bottom: 12px;
   ${font.bold}
-  ${font.size(16)}
+  ${font.size(15)}
 `;
 
 export const StyledInput = styled(Input)`
   margin-bottom: 25px;
   max-width: 220px;
+`;
+
+export const Actions = styled.div`
+  display: flex;
 `;
 
 export const StyledButton = styled(Button)`

@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { Route, useRouteMatch, useHistory } from 'react-router-dom';
 
-import useApi from 'shared/hooks/api';
+import { Modal } from 'shared/components';
 import Header from './Header';
 import Filters from './Filters';
 import Lists from './Lists';
+import IssueDetails from './IssueDetails';
 
 const propTypes = {
   project: PropTypes.object.isRequired,
-  setLocalProjectData: PropTypes.func.isRequired,
+  fetchProject: PropTypes.func.isRequired,
+  updateLocalIssuesArray: PropTypes.func.isRequired,
 };
 
-const defaultFilters = { searchQuery: '', userIds: [], myOnly: false, recent: false };
+const defaultFilters = {
+  searchQuery: '',
+  userIds: [],
+  myOnly: false,
+  recent: false,
+};
 
-const ProjectBoard = ({ project, setLocalProjectData }) => {
+const ProjectBoard = ({ project, fetchProject, updateLocalIssuesArray }) => {
+  const match = useRouteMatch();
+  const history = useHistory();
   const [filters, setFilters] = useState(defaultFilters);
-
-  const [{ data }] = useApi.get('/currentUser');
 
   return (
     <>
@@ -28,11 +35,26 @@ const ProjectBoard = ({ project, setLocalProjectData }) => {
         filters={filters}
         setFilters={setFilters}
       />
-      <Lists
-        project={project}
-        filters={filters}
-        currentUserId={get(data, 'currentUser.id')}
-        setLocalProjectData={setLocalProjectData}
+      <Lists project={project} filters={filters} updateLocalIssuesArray={updateLocalIssuesArray} />
+      <Route
+        path={`${match.path}/:issueId`}
+        render={({ match: { params } }) => (
+          <Modal
+            isOpen
+            width={1040}
+            withCloseIcon={false}
+            onClose={() => history.push(match.url)}
+            renderContent={modal => (
+              <IssueDetails
+                issueId={params.issueId}
+                projectUsers={project.users}
+                fetchProject={fetchProject}
+                updateLocalIssuesArray={updateLocalIssuesArray}
+                modalClose={modal.close}
+              />
+            )}
+          />
+        )}
       />
     </>
   );

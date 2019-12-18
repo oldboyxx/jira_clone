@@ -1,54 +1,49 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useState, useRef, useCallback, useEffect } from 'react';
 
 import api from 'shared/utils/api';
 import useDeepCompareMemoize from './deepCompareMemoize';
 
-const useApi = (method, url, paramsOrData = {}, { lazy = false } = {}) => {
+const useApi = (method, url, variables = {}, { lazy = false } = {}) => {
   const isCalledAutomatically = method === 'get' && !lazy;
 
   const [state, setState] = useState({
     data: null,
     error: null,
     isLoading: isCalledAutomatically,
-    variables: {},
+    additionalVariables: {},
   });
 
-  const setLocalData = useCallback(
-    set => setState(currentState => ({ ...currentState, data: set(currentState.data) })),
-    [],
-  );
-  const updateState = newState => setState(currentState => ({ ...currentState, ...newState }));
+  const setStateMerge = newState => setState(currentState => ({ ...currentState, ...newState }));
 
   const wasCalledRef = useRef(false);
+  const variablesMemoized = useDeepCompareMemoize(variables);
 
-  const paramsOrDataMemoized = useDeepCompareMemoize(paramsOrData);
   const stateRef = useRef();
   stateRef.current = state;
 
   const makeRequest = useCallback(
     (newVariables = {}) =>
       new Promise((resolve, reject) => {
-        const variables = { ...stateRef.current.variables, ...newVariables };
+        const additionalVariables = { ...stateRef.current.additionalVariables, ...newVariables };
 
         if (!isCalledAutomatically || wasCalledRef.current) {
-          updateState({ variables, isLoading: true });
+          setStateMerge({ additionalVariables, isLoading: true });
         }
 
-        api[method](url, { ...paramsOrDataMemoized, ...variables }).then(
+        api[method](url, { ...variablesMemoized, ...additionalVariables }).then(
           data => {
             resolve(data);
-            updateState({ data, error: null, isLoading: false });
+            setStateMerge({ data, error: null, isLoading: false });
           },
           error => {
             reject(error);
-            updateState({ error, data: null, isLoading: false });
+            setStateMerge({ error, data: null, isLoading: false });
           },
         );
 
         wasCalledRef.current = true;
       }),
-    [method, paramsOrDataMemoized, isCalledAutomatically, url],
+    [method, variablesMemoized, isCalledAutomatically, url],
   );
 
   useEffect(() => {
@@ -57,17 +52,26 @@ const useApi = (method, url, paramsOrData = {}, { lazy = false } = {}) => {
     }
   }, [makeRequest, isCalledAutomatically]);
 
-  return [
+  const setLocalData = useCallback(
+    getUpdatedData =>
+      setState(currentState => ({ ...currentState, data: getUpdatedData(currentState.data) })),
+    [],
+  );
+
+  const result = [
     {
       ...state,
       wasCalled: wasCalledRef.current,
-      variables: { ...paramsOrDataMemoized, ...state.variables },
+      variables: { ...variablesMemoized, ...state.additionalVariables },
       setLocalData,
     },
     makeRequest,
   ];
+
+  return result;
 };
 
+/* eslint-disable react-hooks/rules-of-hooks */
 export default {
   get: (...args) => useApi('get', ...args),
   post: (...args) => useApi('post', ...args),

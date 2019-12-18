@@ -6,63 +6,54 @@ import Icon from 'shared/components/Icon';
 export const StyledSelect = styled.div`
   position: relative;
   width: 100%;
-  border-radius: 3px;
-  border: 1px solid ${color.borderLight};
+  border-radius: 4px;
+  border: 1px solid ${color.borderLightest};
   background: #fff;
   ${font.size(14)}
   &:focus {
     outline: none;
-    border: 1px solid ${color.borderMedium};
+    background: #fff;
+    border: 1px solid ${color.borderInputFocus};
+    box-shadow: 0 0 0 1px ${color.borderInputFocus};
   }
-  ${props => (props.hasIcon ? 'padding-left: 25px;' : '')}
-  ${props => (props.invalid ? `&, &:focus { border: 1px solid ${color.danger}; }` : '')}
-`;
-
-export const StyledIcon = styled(Icon)`
-  position: absolute;
-  top: 12px;
-  left: 14px;
-  font-size: 16px;
-  color: ${color.textMedium};
+  ${props => props.invalid && `&, &:focus { border: 1px solid ${color.danger}; }`}
 `;
 
 export const ValueContainer = styled.div`
-  min-height: 38px;
+  display: flex;
+  align-items: center;
+  min-height: 32px;
   width: 100%;
+  padding: 8px 5px 8px 10px;
 `;
 
 export const ChevronIcon = styled(Icon)`
-  position: absolute;
-  top: 10px;
-  right: 11px;
+  margin-left: auto;
   font-size: 18px;
   color: ${color.textMedium};
 `;
 
 export const Placeholder = styled.div`
-  padding: 11px 0 0 15px;
   color: ${color.textLight};
 `;
 
-export const ValueSingle = styled.div`
-  padding: 11px 0 0 15px;
-`;
-
 export const ValueMulti = styled.div`
-  padding: 15px 5px 10px 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 5px;
 `;
 
 export const ValueMultiItem = styled.div`
   margin: 0 5px 5px 0;
-  ${mixin.tag}
+  ${mixin.tag()}
 `;
 
 export const AddMore = styled.div`
   display: inline-block;
-  height: 24px;
-  line-height: 22px;
-  padding-right: 5px;
-  ${font.size(12)}
+  margin-bottom: 3px;
+  padding: 3px 0;
+  ${font.size(12.5)}
   ${mixin.link()}
   i {
     margin-right: 3px;
@@ -77,12 +68,13 @@ export const Dropdown = styled.div`
   top: 100%;
   left: 0;
   width: 100%;
+  border-radius: 4px;
   background: #fff;
-  ${mixin.boxShadowBorderMedium}
+  ${mixin.boxShadowDropdown}
 `;
 
 export const DropdownInput = styled.input`
-  padding: 10px 15px 8px;
+  padding: 10px 12px 8px;
   width: 100%;
   border: none;
   color: ${color.textDarkest};
@@ -118,7 +110,7 @@ export const Option = styled.div`
     margin-bottom: 8px;
   }
   &.jira-select-option-is-active {
-    background: ${mixin.lighten(color.backgroundMedium, 0.05)};
+    background: ${color.backgroundLightPrimary};
   }
   ${props => (props.isSelected ? selectedOptionStyles : '')}
 `;

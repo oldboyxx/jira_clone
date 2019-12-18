@@ -19,7 +19,7 @@ export const is = {
     'Must be a valid URL',
 };
 
-const isNilOrEmptyString = value => value === undefined || value === null || value === '';
+export const isNilOrEmptyString = value => value === undefined || value === null || value === '';
 
 export const generateErrors = (fieldValues, fieldValidators) => {
   const errors = {};

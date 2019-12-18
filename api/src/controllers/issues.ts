@@ -9,7 +9,9 @@ const router = express.Router();
 router.get(
   '/issues/:issueId',
   catchErrors(async (req, res) => {
-    const issue = await findEntityOrThrow(Issue, req.params.issueId);
+    const issue = await findEntityOrThrow(Issue, req.params.issueId, {
+      relations: ['users', 'comments'],
+    });
     res.respond({ issue });
   }),
 );

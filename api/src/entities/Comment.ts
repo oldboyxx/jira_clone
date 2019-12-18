@@ -42,6 +42,7 @@ class Comment extends BaseEntity {
   @ManyToOne(
     () => Issue,
     issue => issue.comments,
+    { onDelete: 'CASCADE' },
   )
   issue: Issue;
 }

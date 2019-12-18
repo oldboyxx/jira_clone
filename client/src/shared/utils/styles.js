@@ -1,8 +1,9 @@
 import Color from 'color';
+import { IssueType, IssueStatus, IssuePriority } from 'shared/constants/issues';
 
 export const color = {
   primary: '#0052cc', // Blue
-  success: '#29A638', // green
+  success: '#0B875B', // green
   danger: '#E13C3C', // red
   warning: '#F89C1C', // orange
   secondary: '#F4F5F7', // light grey
@@ -17,6 +18,8 @@ export const color = {
   backgroundMedium: '#dfe1e6',
   backgroundLight: '#ebecf0',
   backgroundLightest: '#F4F5F7',
+  backgroundLightPrimary: '#D2E5FE',
+  backgroundLightSuccess: '#E4FCEF',
 
   borderLightest: '#dfe1e6',
   borderLight: '#C1C7D0',
@@ -24,17 +27,31 @@ export const color = {
 };
 
 export const issueTypeColors = {
-  story: '#65BA43', // green
-  bug: '#E44D42', // red
-  task: '#4FADE6', // blue
+  [IssueType.TASK]: '#4FADE6', // blue
+  [IssueType.BUG]: '#E44D42', // red
+  [IssueType.STORY]: '#65BA43', // green
 };
 
 export const issuePriorityColors = {
-  '5': '#CD1317', // red
-  '4': '#E9494A', // orange
-  '3': '#E97F33', // orange
-  '2': '#2D8738', // green
-  '1': '#57A55A', // green
+  [IssuePriority.HIGHEST]: '#CD1317', // red
+  [IssuePriority.HIGH]: '#E9494A', // orange
+  [IssuePriority.MEDIUM]: '#E97F33', // orange
+  [IssuePriority.LOW]: '#2D8738', // green
+  [IssuePriority.LOWEST]: '#57A55A', // green
+};
+
+export const issueStatusColors = {
+  [IssueStatus.BACKLOG]: color.textDark,
+  [IssueStatus.INPROGRESS]: '#fff',
+  [IssueStatus.SELECTED]: color.textDark,
+  [IssueStatus.DONE]: '#fff',
+};
+
+export const issueStatusBackgroundColors = {
+  [IssueStatus.BACKLOG]: color.backgroundMedium,
+  [IssueStatus.INPROGRESS]: color.primary,
+  [IssueStatus.SELECTED]: color.backgroundMedium,
+  [IssueStatus.DONE]: color.success,
 };
 
 export const sizes = {
@@ -73,10 +90,8 @@ export const mixin = {
   boxShadowMedium: `
     box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
   `,
-  boxShadowBorderMedium: `
-    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
-    border: 1px solid ${color.borderLight};
-    border-top: 1px solid ${color.borderLightest};
+  boxShadowDropdown: `
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.31) 0px 0px 1px;
   `,
   truncateText: `
     overflow: hidden;
@@ -159,6 +174,22 @@ export const mixin = {
     }
     &:hover {
       text-decoration: underline;
+    }
+  `,
+  tag: (background = color.backgroundLight, colorValue = color.textDarkest) => `
+    display: inline-block;
+    padding: 6px 8px 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    color: ${colorValue};
+    background: ${background};
+    ${font.bold}
+    ${font.size(11.5)}
+    i {
+      margin-left: 4px;
+      vertical-align: middle;
+      font-size: 14px;
     }
   `,
 };

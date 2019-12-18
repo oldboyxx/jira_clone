@@ -1,30 +1,40 @@
 import { useEffect, useRef } from 'react';
 
-const useOnOutsideClick = ($elementRef, isListening, onOutsideClick) => {
+import useDeepCompareMemoize from 'shared/hooks/deepCompareMemoize';
+
+const useOnOutsideClick = (
+  $ignoredElementRefs,
+  isListening,
+  onOutsideClick,
+  $listeningElementRef = {},
+) => {
   const $mouseDownTargetRef = useRef();
+  const $ignoredElementRefsMemoized = useDeepCompareMemoize([$ignoredElementRefs].flat());
 
   useEffect(() => {
     const handleMouseDown = event => {
       $mouseDownTargetRef.current = event.target;
     };
     const handleMouseUp = event => {
-      if (
-        event.button === 0 &&
-        !$elementRef.current.contains($mouseDownTargetRef.current) &&
-        !$elementRef.current.contains(event.target)
-      ) {
+      const noElementsContainTarget = $ignoredElementRefsMemoized.every(
+        $elementRef =>
+          !$elementRef.current.contains($mouseDownTargetRef.current) &&
+          !$elementRef.current.contains(event.target),
+      );
+      if (event.button === 0 && noElementsContainTarget) {
         onOutsideClick();
       }
     };
+    const $listeningElement = $listeningElementRef.current || document;
     if (isListening) {
-      document.addEventListener('mousedown', handleMouseDown);
-      document.addEventListener('mouseup', handleMouseUp);
+      $listeningElement.addEventListener('mousedown', handleMouseDown);
+      $listeningElement.addEventListener('mouseup', handleMouseUp);
     }
     return () => {
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
+      $listeningElement.removeEventListener('mousedown', handleMouseDown);
+      $listeningElement.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [$elementRef, isListening, onOutsideClick]);
+  }, [$ignoredElementRefsMemoized, $listeningElementRef, isListening, onOutsideClick]);
 };
 
 export default useOnOutsideClick;

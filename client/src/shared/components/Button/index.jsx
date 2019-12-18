@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { color } from 'shared/utils/styles';
@@ -8,8 +8,8 @@ import { StyledButton, StyledSpinner } from './Styles';
 const propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  color: PropTypes.oneOf(['primary', 'secondary', 'empty']),
-  icon: PropTypes.string,
+  color: PropTypes.oneOf(['primary', 'secondary', 'empty', 'success', 'danger']),
+  icon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   iconSize: PropTypes.number,
   disabled: PropTypes.bool,
   working: PropTypes.bool,
@@ -27,44 +27,55 @@ const defaultProps = {
   onClick: () => {},
 };
 
-const Button = ({
-  children,
-  color: propsColor,
-  icon,
-  iconSize,
-  disabled,
-  working,
-  onClick = () => {},
-  ...buttonProps
-}) => (
-  <StyledButton
-    {...buttonProps}
-    onClick={() => {
+const Button = forwardRef(
+  (
+    {
+      children,
+      color: propsColor,
+      icon,
+      iconSize,
+      disabled,
+      working,
+      onClick = () => {},
+      ...buttonProps
+    },
+    ref,
+  ) => {
+    const handleClick = () => {
       if (!disabled && !working) {
         onClick();
       }
-    }}
-    color={propsColor}
-    disabled={disabled || working}
-    working={working}
-    iconOnly={!children}
-  >
-    {working && (
+    };
+    const renderSpinner = () => (
       <StyledSpinner
         iconOnly={!children}
         size={26}
         color={propsColor === 'primary' ? '#fff' : color.textDark}
       />
-    )}
-    {!working && icon && (
+    );
+    const renderIcon = () => (
       <Icon
         type={icon}
         size={iconSize}
         color={propsColor === 'primary' ? '#fff' : color.textDark}
       />
-    )}
-    <div>{children}</div>
-  </StyledButton>
+    );
+    return (
+      <StyledButton
+        {...buttonProps}
+        onClick={handleClick}
+        color={propsColor}
+        disabled={disabled || working}
+        working={working}
+        iconOnly={!children}
+        ref={ref}
+      >
+        {working && renderSpinner()}
+        {!working && icon && (typeof icon !== 'string' ? icon : renderIcon())}
+        <div>{children}</div>
+      </StyledButton>
+    );
+  },
 );
 
 Button.propTypes = propTypes;

@@ -7,6 +7,7 @@ import {
   Message,
   InputLabel,
   StyledInput,
+  Actions,
   StyledButton,
 } from './Styles';
 
@@ -76,17 +77,19 @@ const ConfirmModal = ({
               <br />
             </>
           )}
-          <StyledButton hollow onClick={modal.close}>
-            {cancelText}
-          </StyledButton>
-          <StyledButton
-            color={type}
-            disabled={confirmInput && !isConfirmEnabled}
-            working={isWorking}
-            onClick={() => handleConfirm(modal)}
-          >
-            {confirmText}
-          </StyledButton>
+          <Actions>
+            <StyledButton hollow onClick={modal.close}>
+              {cancelText}
+            </StyledButton>
+            <StyledButton
+              color={type}
+              disabled={confirmInput && !isConfirmEnabled}
+              working={isWorking}
+              onClick={() => handleConfirm(modal)}
+            >
+              {confirmText}
+            </StyledButton>
+          </Actions>
         </>
       )}
     />

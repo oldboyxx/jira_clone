@@ -34,6 +34,7 @@ export default createGlobalStyle`
   }
 
   a, a:hover, a:visited, a:active {
+    color: inherit;
     text-decoration: none;
   }
 
@@ -92,7 +93,7 @@ export default createGlobalStyle`
   }
 
   textarea {
-    line-height: 1.6;
+    line-height: 1.4285;
   }
 
   body, select {

@@ -41,14 +41,14 @@ export const StyledModal = styled.div`
 
 const modalStyles = {
   center: css`
-    max-width: 600px;
+    max-width: ${props => props.width}px;
     vertical-align: middle;
     text-align: left;
     ${mixin.boxShadowMedium}
   `,
   aside: css`
     min-height: 100vh;
-    max-width: 500px;
+    max-width: ${props => props.width}px;
     text-align: left;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
   `,
@@ -57,7 +57,7 @@ const modalStyles = {
 export const CloseIcon = styled(Icon)`
   position: absolute;
   font-size: 25px;
-  color: ${color.textDark};
+  color: ${color.textMedium};
   ${mixin.clickable}
   ${props => closeIconStyles[props.variant]}
 `;

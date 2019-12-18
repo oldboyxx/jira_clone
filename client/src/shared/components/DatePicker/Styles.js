@@ -14,7 +14,7 @@ export const Dropdown = styled.div`
   width: 270px;
   border-radius: 3px;
   background: #fff;
-  ${mixin.boxShadowBorderMedium}
+  ${mixin.boxShadowDropdown}
   ${props => (props.withTime ? withTimeStyles : '')}
 `;
 

@@ -26,6 +26,21 @@ export const StyledButton = styled.button`
   }
 `;
 
+const colored = css`
+  color: #fff;
+  background: ${props => color[props.color]};
+  ${font.medium}
+  &:not(:disabled) {
+    &:hover {
+      background: ${props => mixin.lighten(color[props.color], 0.15)};
+    }
+    &:active {
+      background: ${props => mixin.darken(color[props.color], 0.1)};
+    }
+    ${props => props.isActive && `background: ${mixin.darken(color[props.color], 0.1)} !important;`}
+  }
+`;
+
 const secondaryAndEmptyShared = css`
   color: ${color.textDark};
   ${font.regular}
@@ -35,36 +50,21 @@ const secondaryAndEmptyShared = css`
     }
     &:active {
       color: ${color.primary};
-      background: ${mixin.rgba(color.primary, 0.15)};
+      background: ${color.backgroundLightPrimary};
     }
     ${props =>
       props.isActive &&
       `
       color: ${color.primary};
-      background: ${mixin.rgba(color.primary, 0.15)} !important;
+      background: ${color.backgroundLightPrimary} !important;
     `}
   }
 `;
 
 const buttonColors = {
-  primary: css`
-    color: #fff;
-    background: ${color.primary};
-    ${font.medium}
-    &:not(:disabled) {
-      &:hover {
-        background: ${mixin.lighten(color.primary, 0.15)};
-      }
-      &:active {
-        background: ${mixin.darken(color.primary, 0.1)};
-      }
-      ${props =>
-        props.isActive &&
-        `
-        background: ${mixin.darken(color.primary, 0.1)} !important;
-    `}
-    }
-  `,
+  primary: colored,
+  success: colored,
+  danger: colored,
   secondary: css`
     background: ${color.secondary};
     ${secondaryAndEmptyShared};

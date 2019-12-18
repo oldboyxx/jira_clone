@@ -26,8 +26,8 @@ const codes = {
   [`issues`]: '\\e908',
   [`settings`]: '\\e909',
   [`close`]: '\\e913',
-  [`help-filled`]: '\\e912',
-  [`feedback`]: '\\e915',
+  [`feedback`]: '\\e918',
+  [`trash`]: '\\e912',
 };
 
 const propTypes = {
