@@ -4,4 +4,5 @@ export const KeyCodes = {
   ENTER: 13,
   ARROW_UP: 38,
   ARROW_DOWN: 40,
+  M: 77,
 };

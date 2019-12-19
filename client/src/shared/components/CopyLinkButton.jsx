@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { copyToClipboard } from 'shared/utils/clipboard';
 import { Button } from 'shared/components';
 
-const CopyLinkButton = ({ ...otherProps }) => {
+const CopyLinkButton = ({ ...buttonProps }) => {
   const [isLinkCopied, setLinkCopied] = useState(false);
 
   const handleLinkCopy = () => {
@@ -12,7 +12,7 @@ const CopyLinkButton = ({ ...otherProps }) => {
     copyToClipboard(window.location.href);
   };
   return (
-    <Button icon="link" onClick={handleLinkCopy} {...otherProps}>
+    <Button icon="link" onClick={handleLinkCopy} {...buttonProps}>
       {isLinkCopied ? 'Link Copied' : 'Copy link'}
     </Button>
   );

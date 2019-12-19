@@ -9,7 +9,7 @@ const propTypes = {
 };
 
 const IssuePriorityIcon = ({ priority, ...otherProps }) => {
-  const iconType = [IssuePriority.LOW || IssuePriority.LOWEST].includes(priority)
+  const iconType = [IssuePriority.LOW, IssuePriority.LOWEST].includes(priority)
     ? 'arrow-down'
     : 'arrow-up';
 

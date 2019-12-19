@@ -39,8 +39,8 @@ const DatePickerTimeSection = ({ value, onChange, setDropdownOpen }) => {
     const existingDate = moment(value || undefined);
 
     const existingDateWithNewTime = existingDate.set({
-      hour: parseInt(newHour),
-      minute: parseInt(newMinute),
+      hour: Number(newHour),
+      minute: Number(newMinute),
     });
     onChange(formatDateTimeForAPI(existingDateWithNewTime));
     setDropdownOpen(false);

@@ -177,19 +177,19 @@ export const mixin = {
     }
   `,
   tag: (background = color.backgroundLight, colorValue = color.textDarkest) => `
-    display: inline-block;
-    padding: 6px 8px 5px;
+    display: inline-flex;
+    align-items: center;
+    height: 24px;
+    padding: 0 8px;
     border-radius: 4px;
     cursor: pointer;
     user-select: none;
     color: ${colorValue};
     background: ${background};
     ${font.bold}
-    ${font.size(11.5)}
+    ${font.size(12)}
     i {
       margin-left: 4px;
-      vertical-align: middle;
-      font-size: 14px;
     }
   `,
 };

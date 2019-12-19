@@ -28,6 +28,11 @@ const codes = {
   [`close`]: '\\e913',
   [`feedback`]: '\\e918',
   [`trash`]: '\\e912',
+  [`github`]: '\\e915',
+  [`shipping`]: '\\e91c',
+  [`component`]: '\\e91a',
+  [`reports`]: '\\e91b',
+  [`page`]: '\\e919',
 };
 
 const propTypes = {

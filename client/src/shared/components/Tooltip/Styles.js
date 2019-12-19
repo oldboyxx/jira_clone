@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { zIndexValues, mixin } from 'shared/utils/styles';
 
-export const Tooltip = styled.div`
+export const StyledTooltip = styled.div`
   z-index: ${zIndexValues.modal + 1};
   position: fixed;
   width: ${props => props.width}px;

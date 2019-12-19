@@ -17,6 +17,8 @@ import {
 
 const propTypes = {
   className: PropTypes.string,
+  variant: PropTypes.oneOf(['border', 'empty']),
+  dropdownWidth: PropTypes.number,
   value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number]),
   defaultValue: PropTypes.any,
   placeholder: PropTypes.string,
@@ -31,9 +33,11 @@ const propTypes = {
 
 const defaultProps = {
   className: undefined,
+  variant: 'empty',
+  dropdownWidth: undefined,
   value: undefined,
   defaultValue: undefined,
-  placeholder: '',
+  placeholder: 'Select',
   invalid: false,
   onCreate: undefined,
   isMulti: false,
@@ -43,6 +47,8 @@ const defaultProps = {
 
 const Select = ({
   className,
+  variant,
+  dropdownWidth,
   value: propsValue,
   defaultValue,
   placeholder,
@@ -80,18 +86,25 @@ const Select = ({
 
   useOnOutsideClick($selectRef, isDropdownOpen, deactivateDropdown);
 
-  const ensureValueType = newValue => {
-    if (typeof value === 'number') {
-      return isMulti ? newValue.map(parseInt) : parseInt(newValue);
+  const preserveValueType = newValue => {
+    const areOptionValuesNumbers = options.some(option => typeof option.value === 'number');
+
+    if (areOptionValuesNumbers) {
+      if (isMulti) {
+        return newValue.map(Number);
+      }
+      if (newValue) {
+        return Number(newValue);
+      }
     }
     return newValue;
   };
 
   const handleChange = newValue => {
     if (!isControlled) {
-      setStateValue(ensureValueType(newValue));
+      setStateValue(preserveValueType(newValue));
     }
-    onChange(ensureValueType(newValue));
+    onChange(preserveValueType(newValue));
   };
 
   const removeOptionValue = optionValue => {
@@ -118,14 +131,14 @@ const Select = ({
     propsRenderValue ? propsRenderValue({ value }) : getOptionLabel(value);
 
   const renderMultiValue = () => (
-    <ValueMulti>
+    <ValueMulti variant={variant}>
       {value.map(optionValue =>
         propsRenderValue ? (
           propsRenderValue({ value: optionValue, removeOptionValue })
         ) : (
           <ValueMultiItem key={optionValue} onClick={() => removeOptionValue(optionValue)}>
             {getOptionLabel(optionValue)}
-            <Icon type="close" />
+            <Icon type="close" size={14} />
           </ValueMultiItem>
         ),
       )}
@@ -139,19 +152,23 @@ const Select = ({
   return (
     <StyledSelect
       className={className}
+      variant={variant}
       ref={$selectRef}
       tabIndex="0"
       onKeyDown={handleFocusedSelectKeydown}
       invalid={invalid}
     >
-      <ValueContainer onClick={activateDropdown}>
+      <ValueContainer variant={variant} onClick={activateDropdown}>
         {isValueEmpty && <Placeholder>{placeholder}</Placeholder>}
         {!isValueEmpty && !isMulti && renderSingleValue()}
         {!isValueEmpty && isMulti && renderMultiValue()}
-        {(!isMulti || isValueEmpty) && <ChevronIcon type="chevron-down" top={1} />}
+        {(!isMulti || isValueEmpty) && variant !== 'empty' && (
+          <ChevronIcon type="chevron-down" top={1} />
+        )}
       </ValueContainer>
       {isDropdownOpen && (
         <Dropdown
+          dropdownWidth={dropdownWidth}
           value={value}
           isValueEmpty={isValueEmpty}
           searchValue={searchValue}

@@ -26,7 +26,7 @@ const TextEditor = ({ className, placeholder, defaultValue, getEditor, ...otherP
   useLayoutEffect(() => {
     let editor = null;
 
-    const setup = async () => {
+    const setup = () => {
       editor = new Quill($editorRef.current, { placeholder, ...editorConfig });
 
       editor.clipboard.dangerouslyPasteHTML(0, defaultValue);

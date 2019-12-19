@@ -35,8 +35,9 @@ export const StyledInput = styled(Input)`
 
 export const Actions = styled.div`
   display: flex;
+  padding-top: 6px;
 `;
 
 export const StyledButton = styled(Button)`
-  margin: 6px 20px 0 0;
+  margin-right: 10px;
 `;

@@ -9,7 +9,7 @@ const propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
-const InputDebounced = ({ onChange, value: propsValue, ...props }) => {
+const InputDebounced = ({ onChange, value: propsValue, ...inputProps }) => {
   const [value, setValue] = useState(propsValue);
 
   const handleChange = useCallback(
@@ -28,7 +28,7 @@ const InputDebounced = ({ onChange, value: propsValue, ...props }) => {
 
   return (
     <Input
-      {...props}
+      {...inputProps}
       value={value}
       onChange={newValue => {
         setValue(newValue);

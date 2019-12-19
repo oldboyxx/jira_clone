@@ -8,6 +8,7 @@ export const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   height: 32px;
+  vertical-align: middle;
   line-height: 1;
   padding: 0 ${props => (props.iconOnly ? 9 : 12)}px;
   white-space: nowrap;

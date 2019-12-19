@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import useOnOutsideClick from 'shared/hooks/onOutsideClick';
-import { Tooltip } from './Styles';
+import { StyledTooltip } from './Styles';
 
 const propTypes = {
   className: PropTypes.string,
@@ -26,7 +26,7 @@ const defaultProps = {
   },
 };
 
-const Modal = ({ className, placement, offset, width, renderLink, renderContent }) => {
+const Tooltip = ({ className, placement, offset, width, renderLink, renderContent }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const $linkRef = useRef();
@@ -55,9 +55,9 @@ const Modal = ({ className, placement, offset, width, renderLink, renderContent 
   }, [isOpen, offset, placement]);
 
   const renderTooltip = () => (
-    <Tooltip className={className} ref={$tooltipRef} width={width}>
+    <StyledTooltip className={className} ref={$tooltipRef} width={width}>
       {renderContent({ close: closeTooltip })}
-    </Tooltip>
+    </StyledTooltip>
   );
 
   return (
@@ -104,7 +104,7 @@ const calcPosition = (offset, placement, $tooltipRef, $linkRef) => {
 
 const $root = document.getElementById('root');
 
-Modal.propTypes = propTypes;
-Modal.defaultProps = defaultProps;
+Tooltip.propTypes = propTypes;
+Tooltip.defaultProps = defaultProps;
 
-export default Modal;
+export default Tooltip;
