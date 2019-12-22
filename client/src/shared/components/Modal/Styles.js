@@ -44,6 +44,7 @@ const modalStyles = {
     max-width: ${props => props.width}px;
     vertical-align: middle;
     text-align: left;
+    border-radius: 3px;
     ${mixin.boxShadowMedium}
   `,
   aside: css`

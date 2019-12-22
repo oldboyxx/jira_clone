@@ -6,7 +6,7 @@ import useApi from 'shared/hooks/api';
 import toast from 'shared/utils/toast';
 import BodyForm from '../BodyForm';
 import ProTip from './ProTip';
-import { Create, UserAvatar, Right, FakeTextarea } from './Style';
+import { Create, UserAvatar, Right, FakeTextarea } from './Styles';
 
 const propTypes = {
   issueId: PropTypes.number.isRequired,

@@ -79,7 +79,7 @@ export const NotImplemented = styled.div`
   display: none;
   position: absolute;
   top: 9px;
-  left: 104%;
+  left: 101%;
   width: 120px;
   padding: 3px 0 3px 8px;
   border-radius: 3px;

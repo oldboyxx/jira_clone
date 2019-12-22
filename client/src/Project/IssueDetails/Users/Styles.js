@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import { color, font, mixin } from 'shared/utils/styles';
 
 export const User = styled.div`
-  display: inline-flex;
+  display: flex;
   align-items: center;
   ${mixin.clickable}
   ${props =>

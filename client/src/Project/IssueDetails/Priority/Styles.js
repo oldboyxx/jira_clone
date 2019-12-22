@@ -18,7 +18,6 @@ export const Priority = styled.div`
 `;
 
 export const Label = styled.div`
-  text-transform: capitalize;
   padding: 0 3px 0 8px;
   ${font.size(14.5)}
 `;

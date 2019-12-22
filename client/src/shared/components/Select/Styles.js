@@ -7,27 +7,35 @@ export const StyledSelect = styled.div`
   position: relative;
   border-radius: 4px;
   cursor: pointer;
-  background: #fff;
   ${font.size(14)}
   ${props => props.variant === 'empty' && `display: inline-block;`}
   ${props =>
-    props.variant === 'border' &&
+    props.variant === 'normal' &&
     css`
       width: 100%;
       border: 1px solid ${color.borderLightest};
+      background: ${color.backgroundLightest};
     `}
   &:focus {
     outline: none;
     ${props =>
-      props.variant === 'border' &&
+      props.variant === 'normal' &&
       css`
-        background: #fff;
         border: 1px solid ${color.borderInputFocus};
         box-shadow: 0 0 0 1px ${color.borderInputFocus};
+        background: #fff;
       }
     `}
   }
-  ${props => props.invalid && `&, &:focus { border: 1px solid ${color.danger}; }`}
+  ${props =>
+    props.invalid &&
+    css`
+      &,
+      &:focus {
+        border: 1px solid ${color.danger};
+        box-shadow: none;
+      }
+    `}
 `;
 
 export const ValueContainer = styled.div`
@@ -35,10 +43,10 @@ export const ValueContainer = styled.div`
   align-items: center;
   width: 100%;
   ${props =>
-    props.variant === 'border' &&
+    props.variant === 'normal' &&
     css`
       min-height: 32px;
-      padding: 8px 5px 8px 10px;
+      padding: 5px 5px 5px 10px;
     `}
 `;
 
@@ -56,7 +64,7 @@ export const ValueMulti = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  ${props => props.variant === 'border' && `padding-top: 5px;`}
+  ${props => props.variant === 'normal' && `padding-top: 5px;`}
 `;
 
 export const ValueMultiItem = styled.div`

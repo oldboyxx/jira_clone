@@ -15,6 +15,7 @@ const ProjectBoardIssueDetailsStatus = ({ issue, updateIssue }) => (
   <>
     <SectionTitle>Status</SectionTitle>
     <Select
+      variant="empty"
       dropdownWidth={343}
       value={issue.status}
       options={Object.values(IssueStatus).map(status => ({

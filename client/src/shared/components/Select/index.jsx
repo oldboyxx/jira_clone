@@ -17,7 +17,7 @@ import {
 
 const propTypes = {
   className: PropTypes.string,
-  variant: PropTypes.oneOf(['border', 'empty']),
+  variant: PropTypes.oneOf(['normal', 'empty']),
   dropdownWidth: PropTypes.number,
   value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number]),
   defaultValue: PropTypes.any,
@@ -33,7 +33,7 @@ const propTypes = {
 
 const defaultProps = {
   className: undefined,
-  variant: 'empty',
+  variant: 'normal',
   dropdownWidth: undefined,
   value: undefined,
   defaultValue: undefined,
@@ -134,7 +134,10 @@ const Select = ({
     <ValueMulti variant={variant}>
       {value.map(optionValue =>
         propsRenderValue ? (
-          propsRenderValue({ value: optionValue, removeOptionValue })
+          propsRenderValue({
+            value: optionValue,
+            removeOptionValue: () => removeOptionValue(optionValue),
+          })
         ) : (
           <ValueMultiItem key={optionValue} onClick={() => removeOptionValue(optionValue)}>
             {getOptionLabel(optionValue)}

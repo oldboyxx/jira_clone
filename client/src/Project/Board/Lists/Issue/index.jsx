@@ -22,7 +22,7 @@ const ProjectBoardListsIssue = ({ projectUsers, issue, index }) => {
     <Draggable draggableId={issue.id.toString()} index={index}>
       {(provided, snapshot) => (
         <IssueLink
-          to={`${match.url}/${issue.id}`}
+          to={`${match.url}/issue/${issue.id}`}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}

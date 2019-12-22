@@ -16,23 +16,16 @@ const ProjectBoardIssueDetailsUsers = ({ issue, updateIssue, projectUsers }) => 
 
   const userOptions = projectUsers.map(user => ({ value: user.id, label: user.name }));
 
-  const renderUserValue = (user, withBottomMargin, removeOptionValue) => (
+  const renderUser = (user, isSelectValue, removeOptionValue) => (
     <User
       key={user.id}
-      isSelectValue
-      withBottomMargin={withBottomMargin}
-      onClick={() => removeOptionValue && removeOptionValue(user.id)}
+      isSelectValue={isSelectValue}
+      withBottomMargin={!!removeOptionValue}
+      onClick={() => removeOptionValue && removeOptionValue()}
     >
       <Avatar avatarUrl={user.avatarUrl} name={user.name} size={24} />
       <Username>{user.name}</Username>
       {removeOptionValue && <Icon type="close" top={1} />}
-    </User>
-  );
-
-  const renderUserOption = user => (
-    <User key={user.id}>
-      <Avatar avatarUrl={user.avatarUrl} name={user.name} size={32} />
-      <Username>{user.name}</Username>
     </User>
   );
 
@@ -41,6 +34,7 @@ const ProjectBoardIssueDetailsUsers = ({ issue, updateIssue, projectUsers }) => 
       <SectionTitle>Assignees</SectionTitle>
       <Select
         isMulti
+        variant="empty"
         dropdownWidth={343}
         placeholder="Unassigned"
         value={issue.userIds}
@@ -49,9 +43,9 @@ const ProjectBoardIssueDetailsUsers = ({ issue, updateIssue, projectUsers }) => 
           updateIssue({ userIds, users: userIds.map(getUserById) });
         }}
         renderValue={({ value, removeOptionValue }) =>
-          renderUserValue(getUserById(value), true, removeOptionValue)
+          renderUser(getUserById(value), true, removeOptionValue)
         }
-        renderOption={({ value }) => renderUserOption(getUserById(value))}
+        renderOption={({ value }) => renderUser(getUserById(value), false)}
       />
     </>
   );
@@ -60,12 +54,13 @@ const ProjectBoardIssueDetailsUsers = ({ issue, updateIssue, projectUsers }) => 
     <>
       <SectionTitle>Reporter</SectionTitle>
       <Select
+        variant="empty"
         dropdownWidth={343}
         value={issue.reporterId}
         options={userOptions}
         onChange={userId => updateIssue({ reporterId: userId })}
-        renderValue={({ value }) => renderUserValue(getUserById(value), false)}
-        renderOption={({ value }) => renderUserOption(getUserById(value))}
+        renderValue={({ value }) => renderUser(getUserById(value), true)}
+        renderOption={({ value }) => renderUser(getUserById(value))}
       />
     </>
   );

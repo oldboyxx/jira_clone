@@ -15,6 +15,7 @@ const defaults = {
     code: 'INTERNAL_ERROR',
     message: 'Something went wrong. Please check your internet connection or contact our support.',
     status: 503,
+    data: {},
   },
 };
 

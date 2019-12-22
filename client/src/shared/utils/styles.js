@@ -176,7 +176,7 @@ export const mixin = {
       text-decoration: underline;
     }
   `,
-  tag: (background = color.backgroundLight, colorValue = color.textDarkest) => `
+  tag: (background = color.backgroundMedium, colorValue = color.textDarkest) => `
     display: inline-flex;
     align-items: center;
     height: 24px;

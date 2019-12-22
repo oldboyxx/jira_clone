@@ -16,7 +16,7 @@ export const NavLeft = styled.aside`
   transition: all 0.1s;
   ${mixin.hardwareAccelerate}
   &:hover {
-    width: 180px;
+    width: 200px;
     box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.6);
   }
 `;
@@ -48,7 +48,7 @@ export const Item = styled.div`
   width: 100%;
   height: 42px;
   line-height: 42px;
-  padding-left: 67px;
+  padding-left: 64px;
   color: #deebff;
   transition: color 0.1s;
   ${mixin.clickable}

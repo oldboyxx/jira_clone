@@ -23,6 +23,7 @@ class Issue extends BaseEntity {
     type: [is.required(), is.oneOf(Object.values(IssueType))],
     status: [is.required(), is.oneOf(Object.values(IssueStatus))],
     priority: [is.required(), is.oneOf(Object.values(IssuePriority))],
+    listPosition: is.required(),
     reporterId: is.required(),
   };
 
@@ -70,6 +71,9 @@ class Issue extends BaseEntity {
     project => project.issues,
   )
   project: Project;
+
+  @Column('integer')
+  projectId: number;
 
   @OneToMany(
     () => Comment,

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getTextContentsFromHtmlString } from 'shared/utils/html';
@@ -11,34 +11,30 @@ const propTypes = {
 };
 
 const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
-  const $editorRef = useRef();
-  const [isPresenting, setPresenting] = useState(true);
+  const [value, setValue] = useState(issue.description);
+  const [isEditing, setEditing] = useState(false);
 
   const renderPresentingMode = () =>
     isDescriptionEmpty(issue.description) ? (
-      <EmptyLabel onClick={() => setPresenting(false)}>Add a description...</EmptyLabel>
+      <EmptyLabel onClick={() => setEditing(true)}>Add a description...</EmptyLabel>
     ) : (
-      <TextEditedContent content={issue.description} onClick={() => setPresenting(false)} />
+      <TextEditedContent content={issue.description} onClick={() => setEditing(true)} />
     );
 
   const renderEditingMode = () => (
     <>
-      <TextEditor
-        placeholder="Describe the issue"
-        defaultValue={issue.description}
-        getEditor={editor => ($editorRef.current = editor)}
-      />
+      <TextEditor placeholder="Describe the issue" defaultValue={value} onChange={setValue} />
       <Actions>
         <Button
           color="primary"
           onClick={() => {
-            setPresenting(true);
-            updateIssue({ description: $editorRef.current.getHTML() });
+            setEditing(false);
+            updateIssue({ description: value });
           }}
         >
           Save
         </Button>
-        <Button color="empty" onClick={() => setPresenting(true)}>
+        <Button color="empty" onClick={() => setEditing(false)}>
           Cancel
         </Button>
       </Actions>
@@ -47,7 +43,7 @@ const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
   return (
     <>
       <Title>Description</Title>
-      {isPresenting ? renderPresentingMode() : renderEditingMode()}
+      {isEditing ? renderEditingMode() : renderPresentingMode()}
     </>
   );
 };

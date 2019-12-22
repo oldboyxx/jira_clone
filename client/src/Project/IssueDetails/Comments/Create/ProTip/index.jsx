@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { KeyCodes } from 'shared/constants/keyCodes';
 import { isFocusedElementEditable } from 'shared/utils/dom';
-import { Tip, TipLetter } from './Style';
+import { Tip, TipLetter } from './Styles';
 
 const propTypes = {
   setFormOpen: PropTypes.func.isRequired,
