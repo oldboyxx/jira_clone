@@ -1,10 +1,9 @@
 /* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
+import 'quill/dist/quill.snow.css';
 
 import { Content } from './Styles';
-
-import('quill/dist/quill.snow.css');
 
 const propTypes = {
   content: PropTypes.string.isRequired,

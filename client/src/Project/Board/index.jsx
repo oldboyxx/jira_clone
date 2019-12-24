@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+
+import useMergeState from 'shared/hooks/mergeState';
 
 import Header from './Header';
 import Filters from './Filters';
@@ -18,7 +20,7 @@ const defaultFilters = {
 };
 
 const ProjectBoard = ({ project, updateLocalIssuesArray }) => {
-  const [filters, setFilters] = useState(defaultFilters);
+  const [filters, mergeFilters] = useMergeState(defaultFilters);
   return (
     <>
       <Header projectName={project.name} />
@@ -26,7 +28,7 @@ const ProjectBoard = ({ project, updateLocalIssuesArray }) => {
         projectUsers={project.users}
         defaultFilters={defaultFilters}
         filters={filters}
-        setFilters={setFilters}
+        mergeFilters={mergeFilters}
       />
       <Lists project={project} filters={filters} updateLocalIssuesArray={updateLocalIssuesArray} />
     </>

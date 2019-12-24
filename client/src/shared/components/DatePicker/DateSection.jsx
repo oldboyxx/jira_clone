@@ -5,6 +5,7 @@ import { times, range } from 'lodash';
 
 import { formatDate, formatDateTimeForAPI } from 'shared/utils/dateTime';
 import Icon from 'shared/components/Icon';
+
 import {
   DateSection,
   YearSelect,
@@ -24,11 +25,11 @@ const propTypes = {
 
 const defaultProps = {
   withTime: true,
-  value: null,
+  value: undefined,
 };
 
 const DatePickerDateSection = ({ withTime, value, onChange, setDropdownOpen }) => {
-  const [selectedMonth, setSelectedMonth] = useState(moment(value || undefined).startOf('month'));
+  const [selectedMonth, setSelectedMonth] = useState(moment(value).startOf('month'));
 
   const handleYearChange = year => {
     setSelectedMonth(moment(selectedMonth).set({ year: Number(year) }));
@@ -53,47 +54,31 @@ const DatePickerDateSection = ({ withTime, value, onChange, setDropdownOpen }) =
     }
   };
 
-  const generateYears = () => times(50, i => ({ label: `${i + 2010}`, value: `${i + 2010}` }));
-
-  const generateWeekDayNames = () => moment.weekdaysMin(true);
-
-  const generateFillerDaysBeforeMonthStart = () => {
-    const count = selectedMonth.diff(moment(selectedMonth).startOf('week'), 'days');
-    return range(count);
-  };
-
-  const generateMonthDays = () =>
-    times(selectedMonth.daysInMonth()).map(i => moment(selectedMonth).add(i, 'days'));
-
-  const generateFillerDaysAfterMonthEnd = () => {
-    const selectedMonthEnd = moment(selectedMonth).endOf('month');
-    const weekEnd = moment(selectedMonthEnd).endOf('week');
-    const count = weekEnd.diff(selectedMonthEnd, 'days');
-    return range(count);
-  };
-
   return (
     <DateSection>
       <SelectedMonthYear>{formatDate(selectedMonth, 'MMM YYYY')}</SelectedMonthYear>
+
       <YearSelect onChange={event => handleYearChange(event.target.value)}>
-        {[{ label: 'Year', value: '' }, ...generateYears()].map(option => (
+        {generateYearOptions().map(option => (
           <option key={option.label} value={option.value}>
             {option.label}
           </option>
         ))}
       </YearSelect>
+
       <PrevNextIcons>
         <Icon type="arrow-left" onClick={() => handleMonthChange('subtract')} />
         <Icon type="arrow-right" onClick={() => handleMonthChange('add')} />
       </PrevNextIcons>
+
       <Grid>
         {generateWeekDayNames().map(name => (
           <DayName key={name}>{name}</DayName>
         ))}
-        {generateFillerDaysBeforeMonthStart().map(i => (
+        {generateFillerDaysBeforeMonthStart(selectedMonth).map(i => (
           <Day key={`before-${i}`} isFiller />
         ))}
-        {generateMonthDays().map(date => (
+        {generateMonthDays(selectedMonth).map(date => (
           <Day
             key={date}
             isToday={moment().isSame(date, 'day')}
@@ -103,12 +88,36 @@ const DatePickerDateSection = ({ withTime, value, onChange, setDropdownOpen }) =
             {formatDate(date, 'D')}
           </Day>
         ))}
-        {generateFillerDaysAfterMonthEnd().map(i => (
+        {generateFillerDaysAfterMonthEnd(selectedMonth).map(i => (
           <Day key={`after-${i}`} isFiller />
         ))}
       </Grid>
     </DateSection>
   );
+};
+
+const currentYear = moment().year();
+
+const generateYearOptions = () => [
+  { label: 'Year', value: '' },
+  ...times(50, i => ({ label: `${i + currentYear - 10}`, value: `${i + currentYear - 10}` })),
+];
+
+const generateWeekDayNames = () => moment.weekdaysMin(true);
+
+const generateFillerDaysBeforeMonthStart = selectedMonth => {
+  const count = selectedMonth.diff(moment(selectedMonth).startOf('week'), 'days');
+  return range(count);
+};
+
+const generateMonthDays = selectedMonth =>
+  times(selectedMonth.daysInMonth()).map(i => moment(selectedMonth).add(i, 'days'));
+
+const generateFillerDaysAfterMonthEnd = selectedMonth => {
+  const selectedMonthEnd = moment(selectedMonth).endOf('month');
+  const weekEnd = moment(selectedMonthEnd).endOf('week');
+  const count = weekEnd.diff(selectedMonthEnd, 'days');
+  return range(count);
 };
 
 DatePickerDateSection.propTypes = propTypes;

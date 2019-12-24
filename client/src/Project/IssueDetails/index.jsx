@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import api from 'shared/utils/api';
 import useApi from 'shared/hooks/api';
 import { PageError, CopyLinkButton, Button } from 'shared/components';
+
 import Loader from './Loader';
 import Type from './Type';
 import Feedback from './Feedback';
@@ -61,9 +62,9 @@ const ProjectBoardIssueDetails = ({
         <Type issue={issue} updateIssue={updateIssue} />
         <TopActionsRight>
           <Feedback />
-          <CopyLinkButton color="empty" />
+          <CopyLinkButton variant="empty" />
           <Delete issue={issue} fetchProject={fetchProject} modalClose={modalClose} />
-          <Button icon="close" iconSize={24} color="empty" onClick={modalClose} />
+          <Button icon="close" iconSize={24} variant="empty" onClick={modalClose} />
         </TopActionsRight>
       </TopActions>
       <Content>

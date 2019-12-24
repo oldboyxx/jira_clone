@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import toast from 'shared/utils/toast';
 import api from 'shared/utils/api';
+import toast from 'shared/utils/toast';
 import { getStoredAuthToken, storeAuthToken } from 'shared/utils/authToken';
 import { PageLoader } from 'shared/components';
 
@@ -11,17 +11,18 @@ const Authenticate = () => {
 
   useEffect(() => {
     const createGuestAccount = async () => {
-      if (!getStoredAuthToken()) {
-        try {
-          const { authToken } = await api.post('/authentication/guest');
-          storeAuthToken(authToken);
-          history.push('/');
-        } catch (error) {
-          toast.error(error);
-        }
+      try {
+        const { authToken } = await api.post('/authentication/guest');
+        storeAuthToken(authToken);
+        history.push('/');
+      } catch (error) {
+        toast.error(error);
       }
     };
-    createGuestAccount();
+
+    if (!getStoredAuthToken()) {
+      createGuestAccount();
+    }
   }, [history]);
 
   return <PageLoader />;

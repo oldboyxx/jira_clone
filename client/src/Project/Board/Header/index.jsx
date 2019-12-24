@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { CopyLinkButton } from 'shared/components';
+
 import { Breadcrumbs, Divider, Header, BoardName } from './Styles';
 
 const propTypes = {
@@ -17,6 +18,7 @@ const ProjectBoardHeader = ({ projectName }) => (
       <Divider>/</Divider>
       Kanban Board
     </Breadcrumbs>
+
     <Header>
       <BoardName>Kanban board</BoardName>
       <CopyLinkButton />

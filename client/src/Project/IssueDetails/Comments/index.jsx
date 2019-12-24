@@ -14,13 +14,14 @@ const ProjectBoardIssueDetailsComments = ({ issue, fetchIssue }) => (
   <Comments>
     <Title>Comments</Title>
     <Create issueId={issue.id} fetchIssue={fetchIssue} />
-    {sortByNewestFirst(issue.comments).map(comment => (
+
+    {sortByNewest(issue.comments).map(comment => (
       <Comment key={comment.id} comment={comment} fetchIssue={fetchIssue} />
     ))}
   </Comments>
 );
 
-const sortByNewestFirst = items => items.sort((a, b) => -a.createdAt.localeCompare(b.createdAt));
+const sortByNewest = items => items.sort((a, b) => -a.createdAt.localeCompare(b.createdAt));
 
 ProjectBoardIssueDetailsComments.propTypes = propTypes;
 

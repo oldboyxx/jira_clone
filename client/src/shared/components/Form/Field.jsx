@@ -7,6 +7,7 @@ import Select from 'shared/components/Select';
 import Textarea from 'shared/components/Textarea';
 import TextEditor from 'shared/components/TextEditor';
 import DatePicker from 'shared/components/DatePicker';
+
 import { StyledField, FieldLabel, FieldTip, FieldError } from './Styles';
 
 const propTypes = {
@@ -24,12 +25,12 @@ const defaultProps = {
 };
 
 const generateField = FormComponent => {
-  const FieldComponent = ({ className, label, tip, error, ...props }) => {
+  const FieldComponent = ({ className, label, tip, error, ...otherProps }) => {
     const fieldId = uniqueId('form-field-');
     return (
       <StyledField className={className} hasLabel={!!label}>
         {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}
-        <FormComponent id={fieldId} invalid={!!error} {...props} />
+        <FormComponent id={fieldId} invalid={!!error} {...otherProps} />
         {tip && <FieldTip>{tip}</FieldTip>}
         {error && <FieldError>{error}</FieldError>}
       </StyledField>

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import Icon from 'shared/components/Icon';
 import { color, mixin, zIndexValues } from 'shared/utils/styles';
+import Icon from 'shared/components/Icon';
 
 export const ScrollOverlay = styled.div`
   z-index: ${zIndexValues.modal};

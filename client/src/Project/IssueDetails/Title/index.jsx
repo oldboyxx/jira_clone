@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { KeyCodes } from 'shared/constants/keyCodes';
 import { is, generateErrors } from 'shared/utils/validation';
+
 import { TitleTextarea, ErrorText } from './Styles';
 
 const propTypes = {

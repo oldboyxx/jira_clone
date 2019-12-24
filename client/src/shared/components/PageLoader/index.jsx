@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Spinner from 'shared/components/Spinner';
+
 import StyledPageLoader from './Styles';
 
 const PageLoader = () => (

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
 
 import { KeyCodes } from 'shared/constants/keyCodes';
+
 import { ClearIcon, Dropdown, DropdownInput, Options, Option, OptionsNoResults } from './Styles';
 
 const propTypes = {
@@ -86,6 +87,7 @@ const SelectDropdown = ({
 
   const handleInputEnterKeyDown = event => {
     event.preventDefault();
+
     const $active = getActiveOptionNode();
     if (!$active) return;
 
@@ -156,25 +158,20 @@ const SelectDropdown = ({
     ? removeSelectedOptionsMulti(optionsFilteredBySearchValue)
     : removeSelectedOptionsSingle(optionsFilteredBySearchValue);
 
-  const searchValueNotInOptions = !options.map(option => option.label).includes(searchValue);
-  const isOptionCreatable = onCreate && searchValue && searchValueNotInOptions;
+  const isSearchValueInOptions = options.map(option => option.label).includes(searchValue);
+  const isOptionCreatable = onCreate && searchValue && !isSearchValueInOptions;
 
-  const renderSelectableOption = (option, i) => {
-    const optionProps = {
-      key: option.value,
-      value: option.value,
-      label: option.label,
-      className: i === 0 ? activeOptionClass : undefined,
-      'data-select-option-value': option.value,
-      onMouseEnter: handleOptionMouseEnter,
-      onClick: () => selectOptionValue(option.value),
-    };
-    return (
-      <Option {...optionProps}>
-        {propsRenderOption ? propsRenderOption(option) : option.label}
-      </Option>
-    );
-  };
+  const renderSelectableOption = (option, i) => (
+    <Option
+      key={option.value}
+      className={i === 0 ? activeOptionClass : undefined}
+      data-select-option-value={option.value}
+      onMouseEnter={handleOptionMouseEnter}
+      onClick={() => selectOptionValue(option.value)}
+    >
+      {propsRenderOption ? propsRenderOption(option) : option.label}
+    </Option>
+  );
 
   const renderCreatableOption = () => (
     <Option

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import { color, sizes, font, mixin, zIndexValues } from 'shared/utils/styles';
@@ -51,11 +51,7 @@ export const LinkItem = styled(NavLink)`
   ${props =>
     !props.implemented
       ? `cursor: not-allowed;`
-      : css`
-          &:hover {
-            background: ${color.backgroundLight};
-          }
-        `}
+      : `&:hover { background: ${color.backgroundLight}; }`}
   i {
     margin-right: 15px;
     font-size: 20px;

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import useOnOutsideClick from 'shared/hooks/onOutsideClick';
+
 import { StyledTooltip } from './Styles';
 
 const propTypes = {

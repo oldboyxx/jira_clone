@@ -8,6 +8,7 @@ import api from 'shared/utils/api';
 import useApi from 'shared/hooks/api';
 import { moveItemWithinArray, insertItemIntoArray } from 'shared/utils/javascript';
 import { IssueStatus, IssueStatusCopy } from 'shared/constants/issues';
+
 import Issue from './Issue';
 import { Lists, List, Title, IssuesCount, Issues } from './Styles';
 
@@ -21,13 +22,8 @@ const ProjectBoardLists = ({ project, filters, updateLocalIssuesArray }) => {
   const [{ data: currentUserData }] = useApi.get('/currentUser');
   const currentUserId = get(currentUserData, 'currentUser.id');
 
-  const filteredIssues = filterIssues(project.issues, filters, currentUserId);
-
   const handleIssueDrop = async ({ draggableId, destination, source }) => {
-    if (!destination) return;
-    const isSameList = destination.droppableId === source.droppableId;
-    const isSamePosition = destination.index === source.index;
-    if (isSameList && isSamePosition) return;
+    if (!isPositionChanged(source, destination)) return;
 
     const issueId = Number(draggableId);
 
@@ -35,7 +31,7 @@ const ProjectBoardLists = ({ project, filters, updateLocalIssuesArray }) => {
       url: `/issues/${issueId}`,
       updatedFields: {
         status: destination.droppableId,
-        listPosition: calculateListPosition(project.issues, destination, isSameList, issueId),
+        listPosition: calculateListPosition(project.issues, destination, source, issueId),
       },
       currentFields: project.issues.find(({ id }) => id === issueId),
       setLocalData: fields => updateLocalIssuesArray(issueId, fields),
@@ -43,13 +39,9 @@ const ProjectBoardLists = ({ project, filters, updateLocalIssuesArray }) => {
   };
 
   const renderList = status => {
+    const filteredIssues = filterIssues(project.issues, filters, currentUserId);
     const filteredListIssues = getSortedListIssues(filteredIssues, status);
     const allListIssues = getSortedListIssues(project.issues, status);
-
-    const issuesCount =
-      allListIssues.length !== filteredListIssues.length
-        ? `${filteredListIssues.length} of ${allListIssues.length}`
-        : allListIssues.length;
 
     return (
       <Droppable key={status} droppableId={status}>
@@ -57,7 +49,7 @@ const ProjectBoardLists = ({ project, filters, updateLocalIssuesArray }) => {
           <List>
             <Title>
               {`${IssueStatusCopy[status]} `}
-              <IssuesCount>{issuesCount}</IssuesCount>
+              <IssuesCount>{formatIssuesCount(allListIssues, filteredListIssues)}</IssuesCount>
             </Title>
             <Issues {...provided.droppableProps} ref={provided.innerRef}>
               {filteredListIssues.map((issue, index) => (
@@ -102,6 +94,20 @@ const filterIssues = (projectIssues, filters, currentUserId) => {
 const getSortedListIssues = (issues, status) =>
   issues.filter(issue => issue.status === status).sort((a, b) => a.listPosition - b.listPosition);
 
+const formatIssuesCount = (allListIssues, filteredListIssues) => {
+  if (allListIssues.length !== filteredListIssues.length) {
+    return `${filteredListIssues.length} of ${allListIssues.length}`;
+  }
+  return allListIssues.length;
+};
+
+const isPositionChanged = (destination, source) => {
+  if (!destination) return false;
+  const isSameList = destination.droppableId === source.droppableId;
+  const isSamePosition = destination.index === source.index;
+  return !isSameList || !isSamePosition;
+};
+
 const calculateListPosition = (...args) => {
   const { prevIssue, nextIssue } = getAfterDropPrevNextIssue(...args);
   let position;
@@ -118,9 +124,10 @@ const calculateListPosition = (...args) => {
   return position;
 };
 
-const getAfterDropPrevNextIssue = (allIssues, destination, isSameList, droppedIssueId) => {
+const getAfterDropPrevNextIssue = (allIssues, destination, source, droppedIssueId) => {
   const destinationIssues = getSortedListIssues(allIssues, destination.droppableId);
   const droppedIssue = allIssues.find(issue => issue.id === droppedIssueId);
+  const isSameList = destination.droppableId === source.droppableId;
 
   const afterDropDestinationIssues = isSameList
     ? moveItemWithinArray(destinationIssues, droppedIssue, destination.index)

@@ -9,9 +9,11 @@ const useOnEscapeKeyDown = (isListening, onEscapeKeyDown) => {
         onEscapeKeyDown();
       }
     };
+
     if (isListening) {
       document.addEventListener('keydown', handleKeyDown);
     }
+
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };

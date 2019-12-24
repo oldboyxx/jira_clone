@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
-import Modal from 'shared/components/Modal';
-import Input from 'shared/components/Input';
-import Button from 'shared/components/Button';
 import { font } from 'shared/utils/styles';
+import Modal from 'shared/components/Modal';
+import Button from 'shared/components/Button';
 
 export const StyledConfirmModal = styled(Modal)`
-  padding: 45px 50px 50px;
+  padding: 35px 40px 40px;
 `;
 
 export const Title = styled.div`
@@ -20,17 +19,6 @@ export const Message = styled.p`
   padding-bottom: 25px;
   white-space: pre-wrap;
   ${font.size(15)}
-`;
-
-export const InputLabel = styled.div`
-  padding-bottom: 12px;
-  ${font.bold}
-  ${font.size(15)}
-`;
-
-export const StyledInput = styled(Input)`
-  margin-bottom: 25px;
-  max-width: 220px;
 `;
 
 export const Actions = styled.div`

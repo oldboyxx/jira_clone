@@ -1,4 +1,6 @@
+import { css } from 'styled-components';
 import Color from 'color';
+
 import { IssueType, IssueStatus, IssuePriority } from 'shared/constants/issues';
 
 export const color = {
@@ -87,43 +89,32 @@ export const mixin = {
     Color(colorValue)
       .alpha(opacity)
       .string(),
-  boxShadowMedium: `
-    box-shadow: 0 5px 10px 0 rgba(0,0,0,0.1);
+  boxShadowMedium: css`
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1);
   `,
-  boxShadowDropdown: `
+  boxShadowDropdown: css`
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.31) 0px 0px 1px;
   `,
-  truncateText: `
+  truncateText: css`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   `,
-  clickable: `
+  clickable: css`
     cursor: pointer;
     user-select: none;
   `,
-  hardwareAccelerate: `
+  hardwareAccelerate: css`
     transform: translateZ(0);
   `,
-  clearfix: `
-    *zoom: 1;
-    &:before,
-    &:after {
-      content: " ";
-      display: table;
-    }
-    &:after {
-      clear: both;
-    }
-  `,
-  cover: `
+  cover: css`
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
   `,
-  placeholderColor: colorValue => `
+  placeholderColor: colorValue => css`
     ::-webkit-input-placeholder {
       color: ${colorValue} !important;
       opacity: 1 !important;
@@ -141,12 +132,15 @@ export const mixin = {
       opacity: 1 !important;
     }
   `,
-  scrollableY: `
+  scrollableY: css`
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   `,
-  customScrollbar: ({ width = 8, background = mixin.darken(color.backgroundMedium, 0.2) } = {}) => `
+  customScrollbar: ({
+    width = 8,
+    background = mixin.darken(color.backgroundMedium, 0.2),
+  } = {}) => css`
     &::-webkit-scrollbar {
       width: ${width}px;
     }
@@ -158,14 +152,14 @@ export const mixin = {
       background: ${background};
     }
   `,
-  backgroundImage: imageURL => `
+  backgroundImage: imageURL => css`
     background-image: url("${imageURL}");
     background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: cover;
     background-color: ${color.backgroundLight};
   `,
-  link: (colorValue = color.textLink) => `
+  link: (colorValue = color.textLink) => css`
     cursor: pointer;
     color: ${colorValue};
     ${font.medium}
@@ -176,7 +170,7 @@ export const mixin = {
       text-decoration: underline;
     }
   `,
-  tag: (background = color.backgroundMedium, colorValue = color.textDarkest) => `
+  tag: (background = color.backgroundMedium, colorValue = color.textDarkest) => css`
     display: inline-flex;
     align-items: center;
     height: 24px;

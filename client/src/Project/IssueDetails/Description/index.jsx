@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getTextContentsFromHtmlString } from 'shared/utils/html';
+import { getTextContentsFromHtmlString } from 'shared/utils/browser';
 import { TextEditor, TextEditedContent, Button } from 'shared/components';
+
 import { Title, EmptyLabel, Actions } from './Styles';
 
 const propTypes = {
@@ -14,8 +15,15 @@ const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
   const [value, setValue] = useState(issue.description);
   const [isEditing, setEditing] = useState(false);
 
+  const handleUpdate = () => {
+    setEditing(false);
+    updateIssue({ description: value });
+  };
+
+  const isDescriptionEmpty = getTextContentsFromHtmlString(issue.description).trim().length === 0;
+
   const renderPresentingMode = () =>
-    isDescriptionEmpty(issue.description) ? (
+    isDescriptionEmpty ? (
       <EmptyLabel onClick={() => setEditing(true)}>Add a description...</EmptyLabel>
     ) : (
       <TextEditedContent content={issue.description} onClick={() => setEditing(true)} />
@@ -25,21 +33,16 @@ const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
     <>
       <TextEditor placeholder="Describe the issue" defaultValue={value} onChange={setValue} />
       <Actions>
-        <Button
-          color="primary"
-          onClick={() => {
-            setEditing(false);
-            updateIssue({ description: value });
-          }}
-        >
+        <Button variant="primary" onClick={handleUpdate}>
           Save
         </Button>
-        <Button color="empty" onClick={() => setEditing(false)}>
+        <Button variant="empty" onClick={() => setEditing(false)}>
           Cancel
         </Button>
       </Actions>
     </>
   );
+
   return (
     <>
       <Title>Description</Title>
@@ -47,9 +50,6 @@ const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
     </>
   );
 };
-
-const isDescriptionEmpty = description =>
-  getTextContentsFromHtmlString(description).trim().length === 0;
 
 ProjectBoardIssueDetailsDescription.propTypes = propTypes;
 

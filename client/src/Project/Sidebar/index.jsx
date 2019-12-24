@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useRouteMatch } from 'react-router-dom';
 
 import { Icon, ProjectAvatar } from 'shared/components';
+
 import {
   Sidebar,
   ProjectInfo,
@@ -16,17 +18,19 @@ import {
 
 const propTypes = {
   projectName: PropTypes.string.isRequired,
-  matchPath: PropTypes.string.isRequired,
 };
 
-const ProjectSidebar = ({ projectName, matchPath }) => {
+const ProjectSidebar = ({ projectName }) => {
+  const match = useRouteMatch();
+
   const renderLinkItem = (text, iconType, path = '') => (
-    <LinkItem exact to={`${matchPath}${path}`} implemented={path}>
+    <LinkItem exact to={`${match.path}${path}`} implemented={path}>
       <Icon type={iconType} />
       <LinkText>{text}</LinkText>
       {!path && <NotImplemented>Not implemented</NotImplemented>}
     </LinkItem>
   );
+
   return (
     <Sidebar>
       <ProjectInfo>
@@ -36,6 +40,7 @@ const ProjectSidebar = ({ projectName, matchPath }) => {
           <ProjectCategory>Software project</ProjectCategory>
         </ProjectTexts>
       </ProjectInfo>
+
       {renderLinkItem('Kanban Board', 'board', '/board')}
       {renderLinkItem('Reports', 'reports')}
       <Divider />

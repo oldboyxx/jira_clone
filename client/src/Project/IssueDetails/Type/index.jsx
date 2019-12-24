@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { IssueType, IssueTypeCopy } from 'shared/constants/issues';
 import { IssueTypeIcon, Select } from 'shared/components';
+
 import { TypeButton, Type, TypeLabel } from './Styles';
 
 const propTypes = {
@@ -21,7 +22,7 @@ const ProjectBoardIssueDetailsType = ({ issue, updateIssue }) => (
     }))}
     onChange={type => updateIssue({ type })}
     renderValue={({ value: type }) => (
-      <TypeButton color="empty" icon={<IssueTypeIcon type={type} />}>
+      <TypeButton variant="empty" icon={<IssueTypeIcon type={type} />}>
         {`${type}-${issue.id}`}
       </TypeButton>
     )}

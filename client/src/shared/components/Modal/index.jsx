@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import useOnOutsideClick from 'shared/hooks/onOutsideClick';
 import useOnEscapeKeyDown from 'shared/hooks/onEscapeKeyDown';
+
 import { ScrollOverlay, ClickableOverlay, StyledModal, CloseIcon } from './Styles';
 
 const propTypes = {

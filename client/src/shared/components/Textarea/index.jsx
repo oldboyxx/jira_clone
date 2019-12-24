@@ -2,7 +2,7 @@ import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import TextareaAutoSize from 'react-textarea-autosize';
 
-import StyledTextarea from './Styles';
+import { StyledTextarea } from './Styles';
 
 const propTypes = {
   className: PropTypes.string,

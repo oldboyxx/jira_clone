@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { formatDate, formatDateTime } from 'shared/utils/dateTime';
 import useOnOutsideClick from 'shared/hooks/onOutsideClick';
 import Input from 'shared/components/Input';
+
 import DateSection from './DateSection';
 import TimeSection from './TimeSection';
 import { StyledDatePicker, Dropdown } from './Styles';
@@ -18,7 +19,7 @@ const propTypes = {
 const defaultProps = {
   className: undefined,
   withTime: true,
-  value: null,
+  value: undefined,
 };
 
 const DatePicker = ({ className, withTime, value, onChange, ...inputProps }) => {
@@ -27,11 +28,6 @@ const DatePicker = ({ className, withTime, value, onChange, ...inputProps }) => 
 
   useOnOutsideClick($containerRef, isDropdownOpen, () => setDropdownOpen(false));
 
-  const formatValueForInput = () => {
-    if (!value) return '';
-    return withTime ? formatDateTime(value) : formatDate(value);
-  };
-
   return (
     <StyledDatePicker ref={$containerRef}>
       <Input
@@ -39,7 +35,7 @@ const DatePicker = ({ className, withTime, value, onChange, ...inputProps }) => 
         {...inputProps}
         className={className}
         autoComplete="off"
-        value={formatValueForInput()}
+        value={getFormattedInputValue(value, withTime)}
         onClick={() => setDropdownOpen(true)}
       />
       {isDropdownOpen && (
@@ -57,6 +53,11 @@ const DatePicker = ({ className, withTime, value, onChange, ...inputProps }) => 
       )}
     </StyledDatePicker>
   );
+};
+
+const getFormattedInputValue = (value, withTime) => {
+  if (!value) return '';
+  return withTime ? formatDateTime(value) : formatDate(value);
 };
 
 DatePicker.propTypes = propTypes;

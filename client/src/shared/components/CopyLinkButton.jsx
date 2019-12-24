@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { copyToClipboard } from 'shared/utils/clipboard';
+import { copyToClipboard } from 'shared/utils/browser';
 import { Button } from 'shared/components';
 
 const CopyLinkButton = ({ ...buttonProps }) => {
@@ -11,6 +11,7 @@ const CopyLinkButton = ({ ...buttonProps }) => {
     setTimeout(() => setLinkCopied(false), 2000);
     copyToClipboard(window.location.href);
   };
+
   return (
     <Button icon="link" onClick={handleLinkCopy} {...buttonProps}>
       {isLinkCopied ? 'Link Copied' : 'Copy link'}

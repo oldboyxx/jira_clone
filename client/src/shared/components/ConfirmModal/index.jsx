@@ -1,50 +1,38 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  StyledConfirmModal,
-  Title,
-  Message,
-  InputLabel,
-  StyledInput,
-  Actions,
-  StyledButton,
-} from './Styles';
+import { StyledConfirmModal, Title, Message, Actions, StyledButton } from './Styles';
 
 const propTypes = {
   className: PropTypes.string,
+  variant: PropTypes.oneOf(['primary', 'danger']),
   title: PropTypes.string,
   message: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   confirmText: PropTypes.string,
   cancelText: PropTypes.string,
-  confirmInput: PropTypes.string,
-  type: PropTypes.oneOf(['primary', 'danger']),
   onConfirm: PropTypes.func.isRequired,
   renderLink: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
   className: undefined,
+  variant: 'primary',
   title: 'Warning',
   message: 'Are you sure you want to continue with this action?',
   confirmText: 'Confirm',
   cancelText: 'Cancel',
-  confirmInput: null,
-  type: 'primary',
 };
 
 const ConfirmModal = ({
   className,
+  variant,
   title,
   message,
   confirmText,
   cancelText,
-  confirmInput,
-  type,
   onConfirm,
   renderLink,
 }) => {
-  const [isConfirmEnabled, setConfirmEnabled] = useState(false);
   const [isWorking, setWorking] = useState(false);
 
   const handleConfirm = modal => {
@@ -57,31 +45,18 @@ const ConfirmModal = ({
     });
   };
 
-  const handleConfirmInputChange = value =>
-    setConfirmEnabled(value.trim().toLowerCase() === confirmInput.toLowerCase());
-
   return (
     <StyledConfirmModal
-      suppressClassNameWarning
       className={className}
-      afterClose={() => setConfirmEnabled(false)}
       renderLink={renderLink}
       renderContent={modal => (
         <>
           <Title>{title}</Title>
           {message && <Message>{message}</Message>}
-          {confirmInput && (
-            <>
-              <InputLabel>{`Type ${confirmInput} below to confirm.`}</InputLabel>
-              <StyledInput onChange={handleConfirmInputChange} />
-              <br />
-            </>
-          )}
           <Actions>
             <StyledButton
-              color={type}
-              disabled={confirmInput && !isConfirmEnabled}
-              working={isWorking}
+              variant={variant}
+              isWorking={isWorking}
               onClick={() => handleConfirm(modal)}
             >
               {confirmText}

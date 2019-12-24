@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { IssuePriority } from 'shared/constants/issues';
+
 import { PriorityIcon } from './Styles';
 
 const propTypes = {

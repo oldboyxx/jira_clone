@@ -3,80 +3,64 @@ import PropTypes from 'prop-types';
 
 import { color } from 'shared/utils/styles';
 import Icon from 'shared/components/Icon';
-import { StyledButton, StyledSpinner } from './Styles';
+
+import { StyledButton, StyledSpinner, Text } from './Styles';
 
 const propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
-  color: PropTypes.oneOf(['primary', 'secondary', 'empty', 'success', 'danger']),
+  variant: PropTypes.oneOf(['primary', 'success', 'danger', 'secondary', 'empty']),
   icon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   iconSize: PropTypes.number,
   disabled: PropTypes.bool,
-  working: PropTypes.bool,
+  isWorking: PropTypes.bool,
   onClick: PropTypes.func,
 };
 
 const defaultProps = {
   className: undefined,
   children: undefined,
-  color: 'secondary',
+  variant: 'secondary',
   icon: undefined,
   iconSize: 18,
   disabled: false,
-  working: false,
+  isWorking: false,
   onClick: () => {},
 };
 
 const Button = forwardRef(
-  (
-    {
-      children,
-      color: propsColor,
-      icon,
-      iconSize,
-      disabled,
-      working,
-      onClick = () => {},
-      ...buttonProps
-    },
-    ref,
-  ) => {
+  ({ children, variant, icon, iconSize, disabled, isWorking, onClick, ...buttonProps }, ref) => {
     const handleClick = () => {
-      if (!disabled && !working) {
+      if (!disabled && !isWorking) {
         onClick();
       }
     };
-    const renderSpinner = () => (
-      <StyledSpinner
-        iconOnly={!children}
-        size={26}
-        color={propsColor === 'primary' ? '#fff' : color.textDark}
-      />
-    );
-    const renderIcon = () => (
-      <Icon
-        type={icon}
-        size={iconSize}
-        color={propsColor === 'primary' ? '#fff' : color.textDark}
-      />
-    );
+
     return (
       <StyledButton
         {...buttonProps}
         onClick={handleClick}
-        color={propsColor}
-        disabled={disabled || working}
-        working={working}
+        variant={variant}
+        disabled={disabled || isWorking}
+        isWorking={isWorking}
         iconOnly={!children}
         ref={ref}
       >
-        {working && renderSpinner()}
-        {!working && icon && (typeof icon !== 'string' ? icon : renderIcon())}
-        <div>{children}</div>
+        {isWorking && <StyledSpinner size={26} color={getIconColor(variant)} />}
+
+        {!isWorking && icon && typeof icon === 'string' ? (
+          <Icon type={icon} size={iconSize} color={getIconColor(variant)} />
+        ) : (
+          icon
+        )}
+        {children && <Text withPadding={isWorking || icon}>{children}</Text>}
       </StyledButton>
     );
   },
 );
+
+const getIconColor = variant =>
+  ['secondary', 'empty'].includes(variant) ? color.textDark : '#fff';
 
 Button.propTypes = propTypes;
 Button.defaultProps = defaultProps;

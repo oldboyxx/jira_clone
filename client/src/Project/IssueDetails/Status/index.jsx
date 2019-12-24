@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import { IssueStatus, IssueStatusCopy } from 'shared/constants/issues';
 import { Select, Icon } from 'shared/components';
-import { Status } from './Styles';
+
 import { SectionTitle } from '../Styles';
+import { Status } from './Styles';
 
 const propTypes = {
   issue: PropTypes.object.isRequired,

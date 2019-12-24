@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Textarea } from 'shared/components';
+
 import { Actions, FormButton } from './Styles';
 
 const propTypes = {
@@ -20,6 +21,7 @@ const ProjectBoardIssueDetailsCommentsBodyForm = ({
   onCancel,
 }) => {
   const $textareaRef = useRef();
+
   return (
     <>
       <Textarea
@@ -31,8 +33,8 @@ const ProjectBoardIssueDetailsCommentsBodyForm = ({
       />
       <Actions>
         <FormButton
-          color="primary"
-          working={isWorking}
+          variant="primary"
+          isWorking={isWorking}
           onClick={() => {
             if ($textareaRef.current.value.trim()) {
               onSubmit();
@@ -41,7 +43,7 @@ const ProjectBoardIssueDetailsCommentsBodyForm = ({
         >
           Save
         </FormButton>
-        <FormButton color="empty" onClick={onCancel}>
+        <FormButton variant="empty" onClick={onCancel}>
           Cancel
         </FormButton>
       </Actions>

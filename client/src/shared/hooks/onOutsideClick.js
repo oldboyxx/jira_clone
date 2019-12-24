@@ -6,7 +6,7 @@ const useOnOutsideClick = (
   $ignoredElementRefs,
   shouldListen,
   onOutsideClick,
-  $listeningElementRef = {},
+  $listeningElementRef,
 ) => {
   const $mouseDownTargetRef = useRef();
   const $ignoredElementRefsMemoized = useDeepCompareMemoize([$ignoredElementRefs].flat());
@@ -15,21 +15,25 @@ const useOnOutsideClick = (
     const handleMouseDown = event => {
       $mouseDownTargetRef.current = event.target;
     };
+
     const handleMouseUp = event => {
-      const noIgnoredElementsContainTarget = $ignoredElementRefsMemoized.every(
+      const isAnyIgnoredElementParentOfTarget = $ignoredElementRefsMemoized.some(
         $elementRef =>
-          !$elementRef.current.contains($mouseDownTargetRef.current) &&
-          !$elementRef.current.contains(event.target),
+          $elementRef.current.contains($mouseDownTargetRef.current) ||
+          $elementRef.current.contains(event.target),
       );
-      if (event.button === 0 && noIgnoredElementsContainTarget) {
+      if (event.button === 0 && !isAnyIgnoredElementParentOfTarget) {
         onOutsideClick();
       }
     };
-    const $listeningElement = $listeningElementRef.current || document;
+
+    const $listeningElement = ($listeningElementRef || {}).current || document;
+
     if (shouldListen) {
       $listeningElement.addEventListener('mousedown', handleMouseDown);
       $listeningElement.addEventListener('mouseup', handleMouseUp);
     }
+
     return () => {
       $listeningElement.removeEventListener('mousedown', handleMouseDown);
       $listeningElement.removeEventListener('mouseup', handleMouseUp);

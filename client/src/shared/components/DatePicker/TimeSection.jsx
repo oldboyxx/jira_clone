@@ -4,6 +4,7 @@ import moment from 'moment';
 import { range } from 'lodash';
 
 import { formatDate, formatDateTimeForAPI } from 'shared/utils/dateTime';
+
 import { TimeSection, Time } from './Styles';
 
 const propTypes = {
@@ -13,32 +14,20 @@ const propTypes = {
 };
 
 const defaultProps = {
-  value: null,
+  value: undefined,
 };
 
 const DatePickerTimeSection = ({ value, onChange, setDropdownOpen }) => {
   const $sectionRef = useRef();
-  const formattedTimeValue = formatDate(value, 'HH:mm');
 
   useLayoutEffect(() => {
-    const scrollToSelectedTime = () => {
-      if (!$sectionRef.current) return;
-
-      const $selectedTime = $sectionRef.current.querySelector(
-        `[data-time="${formattedTimeValue}"]`,
-      );
-      if (!$selectedTime) return;
-
-      $sectionRef.current.scrollTop = $selectedTime.offsetTop - 80;
-    };
-    scrollToSelectedTime();
-  }, [formattedTimeValue]);
+    scrollToSelectedTime($sectionRef.current, value);
+  }, [value]);
 
   const handleTimeChange = newTime => {
     const [newHour, newMinute] = newTime.split(':');
-    const existingDate = moment(value || undefined);
 
-    const existingDateWithNewTime = existingDate.set({
+    const existingDateWithNewTime = moment(value).set({
       hour: Number(newHour),
       minute: Number(newMinute),
     });
@@ -46,21 +35,13 @@ const DatePickerTimeSection = ({ value, onChange, setDropdownOpen }) => {
     setDropdownOpen(false);
   };
 
-  const generateTimes = () =>
-    range(48).map(i => {
-      const hour = `${Math.floor(i / 2)}`;
-      const paddedHour = hour.length < 2 ? `0${hour}` : hour;
-      const minute = i % 2 === 0 ? '00' : '30';
-      return `${paddedHour}:${minute}`;
-    });
-
   return (
     <TimeSection ref={$sectionRef}>
       {generateTimes().map(time => (
         <Time
           key={time}
           data-time={time}
-          isSelected={time === formattedTimeValue}
+          isSelected={time === formatTime(value)}
           onClick={() => handleTimeChange(time)}
         >
           {time}
@@ -69,6 +50,25 @@ const DatePickerTimeSection = ({ value, onChange, setDropdownOpen }) => {
     </TimeSection>
   );
 };
+
+const formatTime = value => formatDate(value, 'HH:mm');
+
+const scrollToSelectedTime = ($scrollCont, value) => {
+  if (!$scrollCont) return;
+
+  const $selectedTime = $scrollCont.querySelector(`[data-time="${formatTime(value)}"]`);
+  if (!$selectedTime) return;
+
+  $scrollCont.scrollTop = $selectedTime.offsetTop - 80;
+};
+
+const generateTimes = () =>
+  range(48).map(i => {
+    const hour = `${Math.floor(i / 2)}`;
+    const paddedHour = hour.length < 2 ? `0${hour}` : hour;
+    const minute = i % 2 === 0 ? '00' : '30';
+    return `${paddedHour}:${minute}`;
+  });
 
 DatePickerTimeSection.propTypes = propTypes;
 DatePickerTimeSection.defaultProps = defaultProps;

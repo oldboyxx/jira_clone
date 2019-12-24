@@ -21,13 +21,16 @@ const ProjectBoardIssueDetailsDelete = ({ issue, fetchProject, modalClose }) => 
       toast.error(error);
     }
   };
+
   return (
     <ConfirmModal
       title="Are you sure you want to delete this issue?"
       message="Once you delete, it's gone for good."
       confirmText="Delete issue"
       onConfirm={handleIssueDelete}
-      renderLink={modal => <Button icon="trash" iconSize={19} color="empty" onClick={modal.open} />}
+      renderLink={modal => (
+        <Button icon="trash" iconSize={19} variant="empty" onClick={modal.open} />
+      )}
     />
   );
 };

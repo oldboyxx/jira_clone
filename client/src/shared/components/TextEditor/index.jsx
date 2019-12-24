@@ -1,10 +1,9 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Quill from 'quill';
+import 'quill/dist/quill.snow.css';
 
 import { EditorCont } from './Styles';
-
-import('quill/dist/quill.snow.css');
 
 const propTypes = {
   className: PropTypes.string,
@@ -37,29 +36,26 @@ const TextEditor = ({
 }) => {
   const $editorContRef = useRef();
   const $editorRef = useRef();
-  const quillRef = useRef();
   const initialValueRef = useRef(defaultValue || alsoDefaultValue || '');
 
   useLayoutEffect(() => {
-    const setupQuill = () => {
-      quillRef.current = new Quill($editorRef.current, { placeholder, ...quillConfig });
-    };
+    let quill = new Quill($editorRef.current, { placeholder, ...quillConfig });
+
     const insertInitialValue = () => {
-      quillRef.current.clipboard.dangerouslyPasteHTML(0, initialValueRef.current);
+      quill.clipboard.dangerouslyPasteHTML(0, initialValueRef.current);
     };
     const handleContentsChange = () => {
       onChange(getHTMLValue());
     };
     const getHTMLValue = () => $editorContRef.current.querySelector('.ql-editor').innerHTML;
 
-    setupQuill();
     insertInitialValue();
     getEditor({ getValue: getHTMLValue });
 
-    quillRef.current.on('text-change', handleContentsChange);
+    quill.on('text-change', handleContentsChange);
     return () => {
-      quillRef.current.off('text-change', handleContentsChange);
-      quillRef.current = null;
+      quill.off('text-change', handleContentsChange);
+      quill = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

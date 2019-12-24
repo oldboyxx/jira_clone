@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import { IssuePriority, IssuePriorityCopy } from 'shared/constants/issues';
 import { Select, IssuePriorityIcon } from 'shared/components';
-import { Priority, Label } from './Styles';
+
 import { SectionTitle } from '../Styles';
+import { Priority, Label } from './Styles';
 
 const propTypes = {
   issue: PropTypes.object.isRequired,
@@ -18,6 +19,7 @@ const ProjectBoardIssueDetailsPriority = ({ issue, updateIssue }) => {
       <Label>{IssuePriorityCopy[priority]}</Label>
     </Priority>
   );
+
   return (
     <>
       <SectionTitle>Priority</SectionTitle>

@@ -11,6 +11,7 @@ import {
 import toast from 'shared/utils/toast';
 import useApi from 'shared/hooks/api';
 import { Form, IssueTypeIcon, Icon, Avatar, IssuePriorityIcon } from 'shared/components';
+
 import {
   FormHeading,
   FormElement,
@@ -152,10 +153,10 @@ const ProjectIssueCreateForm = ({ project, fetchProject, modalClose }) => {
           renderValue={renderPriority}
         />
         <Actions>
-          <ActionButton type="submit" color="primary" working={isCreating}>
+          <ActionButton type="submit" variant="primary" working={isCreating}>
             Create Issue
           </ActionButton>
-          <ActionButton color="empty" onClick={modalClose}>
+          <ActionButton variant="empty" onClick={modalClose}>
             Cancel
           </ActionButton>
         </Actions>

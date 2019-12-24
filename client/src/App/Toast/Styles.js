@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { color, font, mixin, zIndexValues } from 'shared/utils/styles';
+import { Icon } from 'shared/components';
 
 export const Container = styled.div`
   z-index: ${zIndexValues.modal + 1};
@@ -33,15 +34,15 @@ export const StyledToast = styled.div`
     opacity: 1;
     right: 0;
   }
+`;
 
-  i {
-    position: absolute;
-    top: 13px;
-    right: 14px;
-    font-size: 22px;
-    cursor: pointer;
-    color: #fff;
-  }
+export const CloseIcon = styled(Icon)`
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #fff;
 `;
 
 export const Title = styled.div`

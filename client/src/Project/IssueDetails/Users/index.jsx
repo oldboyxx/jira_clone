@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Avatar, Select, Icon } from 'shared/components';
-import { User, Username } from './Styles';
+
 import { SectionTitle } from '../Styles';
+import { User, Username } from './Styles';
 
 const propTypes = {
   issue: PropTypes.object.isRequired,

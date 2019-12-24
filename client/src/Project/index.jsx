@@ -4,6 +4,7 @@ import { Route, Redirect, useRouteMatch, useHistory } from 'react-router-dom';
 import useApi from 'shared/hooks/api';
 import { updateArrayItemById } from 'shared/utils/javascript';
 import { PageLoader, PageError, Modal } from 'shared/components';
+
 import NavbarLeft from './NavbarLeft';
 import Sidebar from './Sidebar';
 import Board from './Board';
@@ -38,12 +39,24 @@ const Project = () => {
       updateLocalIssuesArray={updateLocalIssuesArray}
     />
   );
+
+  const renderIssueCreateModal = () => (
+    <Modal
+      isOpen
+      width={800}
+      onClose={() => history.push(`${match.url}/board`)}
+      renderContent={modal => (
+        <IssueCreateForm project={project} fetchProject={fetchProject} modalClose={modal.close} />
+      )}
+    />
+  );
+
   const renderIssueDetailsModal = routeProps => (
     <Modal
       isOpen
       width={1040}
       withCloseIcon={false}
-      onClose={() => history.push(match.url)}
+      onClose={() => history.push(`${match.url}/board`)}
       renderContent={modal => (
         <IssueDetails
           issueId={routeProps.match.params.issueId}
@@ -55,20 +68,11 @@ const Project = () => {
       )}
     />
   );
-  const renderIssueCreateModal = () => (
-    <Modal
-      isOpen
-      width={800}
-      onClose={() => history.push(match.url)}
-      renderContent={modal => (
-        <IssueCreateForm project={project} fetchProject={fetchProject} modalClose={modal.close} />
-      )}
-    />
-  );
+
   return (
     <ProjectPage>
       <NavbarLeft />
-      <Sidebar projectName={project.name} matchPath={match.path} />
+      <Sidebar projectName={project.name} />
       <Route path={`${match.path}/board`} render={renderBoard} />
       <Route path={`${match.path}/board/create-issue`} render={renderIssueCreateModal} />
       <Route path={`${match.path}/board/issue/:issueId`} render={renderIssueDetailsModal} />

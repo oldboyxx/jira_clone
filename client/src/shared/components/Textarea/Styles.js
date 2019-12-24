@@ -1,8 +1,8 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { color, font } from 'shared/utils/styles';
 
-export default styled.div`
+export const StyledTextarea = styled.div`
   display: inline-block;
   width: 100%;
   textarea {
@@ -19,6 +19,13 @@ export default styled.div`
       border: 1px solid ${color.borderInputFocus};
       box-shadow: 0 0 0 1px ${color.borderInputFocus};
     }
-    ${props => (props.invalid ? `&, &:focus { border: 1px solid ${color.danger}; }` : '')}
+    ${props =>
+      props.invalid &&
+      css`
+        &,
+        &:focus {
+          border: 1px solid ${color.danger};
+        }
+      `}
   }
 `;

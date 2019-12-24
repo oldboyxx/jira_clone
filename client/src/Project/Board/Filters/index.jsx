@@ -16,13 +16,11 @@ const propTypes = {
   projectUsers: PropTypes.array.isRequired,
   defaultFilters: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
-  setFilters: PropTypes.func.isRequired,
+  mergeFilters: PropTypes.func.isRequired,
 };
 
-const ProjectBoardFilters = ({ projectUsers, defaultFilters, filters, setFilters }) => {
+const ProjectBoardFilters = ({ projectUsers, defaultFilters, filters, mergeFilters }) => {
   const { searchQuery, userIds, myOnly, recent } = filters;
-
-  const setFiltersMerge = newFilters => setFilters({ ...filters, ...newFilters });
 
   const areFiltersCleared = !searchQuery && userIds.length === 0 && !myOnly && !recent;
 
@@ -31,7 +29,7 @@ const ProjectBoardFilters = ({ projectUsers, defaultFilters, filters, setFilters
       <SearchInput
         icon="search"
         value={searchQuery}
-        onChange={value => setFiltersMerge({ searchQuery: value })}
+        onChange={value => mergeFilters({ searchQuery: value })}
       />
       <Avatars>
         {projectUsers.map(user => (
@@ -39,27 +37,27 @@ const ProjectBoardFilters = ({ projectUsers, defaultFilters, filters, setFilters
             <StyledAvatar
               avatarUrl={user.avatarUrl}
               name={user.name}
-              onClick={() => setFiltersMerge({ userIds: xor(userIds, [user.id]) })}
+              onClick={() => mergeFilters({ userIds: xor(userIds, [user.id]) })}
             />
           </AvatarIsActiveBorder>
         ))}
       </Avatars>
       <StyledButton
-        color="empty"
+        variant="empty"
         isActive={myOnly}
-        onClick={() => setFiltersMerge({ myOnly: !myOnly })}
+        onClick={() => mergeFilters({ myOnly: !myOnly })}
       >
         Only My Issues
       </StyledButton>
       <StyledButton
-        color="empty"
+        variant="empty"
         isActive={recent}
-        onClick={() => setFiltersMerge({ recent: !recent })}
+        onClick={() => mergeFilters({ recent: !recent })}
       >
         Recently Updated
       </StyledButton>
       {!areFiltersCleared && (
-        <ClearAll onClick={() => setFilters(defaultFilters)}>Clear all</ClearAll>
+        <ClearAll onClick={() => mergeFilters(defaultFilters)}>Clear all</ClearAll>
       )}
     </Filters>
   );

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export default styled.i`
+export const StyledIcon = styled.i`
   display: inline-block;
   font-size: ${props => `${props.size}px`};
   ${props =>

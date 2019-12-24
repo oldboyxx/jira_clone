@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 
 import { InputDebounced, Modal, Button } from 'shared/components';
+
+import { SectionTitle } from '../Styles';
 import {
   TrackingLink,
   Tracking,
@@ -18,7 +20,6 @@ import {
   InputLabel,
   Actions,
 } from './Styles';
-import { SectionTitle } from '../Styles';
 
 const propTypes = {
   issue: PropTypes.object.isRequired,
@@ -38,52 +39,6 @@ const ProjectBoardIssueDetailsTracking = ({ issue, updateIssue }) => {
     />
   );
 
-  const calculateTrackingBarWidth = () => {
-    const { timeSpent, timeRemaining, estimate } = issue;
-
-    if (!timeSpent) {
-      return 0;
-    }
-    if (isNil(timeRemaining) && isNil(estimate)) {
-      return 100;
-    }
-    if (!isNil(timeRemaining)) {
-      return (timeSpent / (timeSpent + timeRemaining)) * 100;
-    }
-    if (!isNil(estimate)) {
-      return Math.min((timeSpent / estimate) * 100, 100);
-    }
-  };
-
-  const renderRemainingOrEstimate = () => {
-    const { timeRemaining, estimate } = issue;
-
-    if (isNil(timeRemaining) && isNil(estimate)) {
-      return null;
-    }
-    if (!isNil(timeRemaining)) {
-      return <div>{`${timeRemaining}h remaining`}</div>;
-    }
-    if (!isNil(estimate)) {
-      return <div>{`${estimate}h estimated`}</div>;
-    }
-  };
-
-  const renderTrackingPreview = (onClick = () => {}) => (
-    <Tracking onClick={onClick}>
-      <WatchIcon type="stopwatch" size={26} top={-1} />
-      <Right>
-        <BarCont>
-          <Bar width={calculateTrackingBarWidth()} />
-        </BarCont>
-        <Values>
-          <div>{issue.timeSpent ? `${issue.timeSpent}h logged` : 'No time logged'}</div>
-          {renderRemainingOrEstimate()}
-        </Values>
-      </Right>
-    </Tracking>
-  );
-
   const renderEstimate = () => (
     <>
       <SectionTitle>Original Estimate (hours)</SectionTitle>
@@ -96,11 +51,11 @@ const ProjectBoardIssueDetailsTracking = ({ issue, updateIssue }) => {
       <SectionTitle>Time Tracking</SectionTitle>
       <Modal
         width={400}
-        renderLink={modal => <TrackingLink>{renderTrackingPreview(modal.open)}</TrackingLink>}
+        renderLink={modal => <TrackingLink>{renderTrackingWidget(modal.open)}</TrackingLink>}
         renderContent={modal => (
           <ModalContents>
             <ModalTitle>Time tracking</ModalTitle>
-            {renderTrackingPreview()}
+            {renderTrackingWidget()}
             <Inputs>
               <InputCont>
                 <InputLabel>Time spent (hours)</InputLabel>
@@ -112,7 +67,7 @@ const ProjectBoardIssueDetailsTracking = ({ issue, updateIssue }) => {
               </InputCont>
             </Inputs>
             <Actions>
-              <Button color="primary" onClick={modal.close}>
+              <Button variant="primary" onClick={modal.close}>
                 Done
               </Button>
             </Actions>
@@ -122,12 +77,54 @@ const ProjectBoardIssueDetailsTracking = ({ issue, updateIssue }) => {
     </>
   );
 
+  const renderTrackingWidget = (onClick = () => {}) => (
+    <Tracking onClick={onClick}>
+      <WatchIcon type="stopwatch" size={26} top={-1} />
+      <Right>
+        <BarCont>
+          <Bar width={calculateTrackingBarWidth(issue)} />
+        </BarCont>
+        <Values>
+          <div>{issue.timeSpent ? `${issue.timeSpent}h logged` : 'No time logged'}</div>
+          {renderRemainingOrEstimate(issue)}
+        </Values>
+      </Right>
+    </Tracking>
+  );
+
   return (
     <>
       {renderEstimate()}
       {renderTracking()}
     </>
   );
+};
+
+const calculateTrackingBarWidth = ({ timeSpent, timeRemaining, estimate }) => {
+  if (!timeSpent) {
+    return 0;
+  }
+  if (isNil(timeRemaining) && isNil(estimate)) {
+    return 100;
+  }
+  if (!isNil(timeRemaining)) {
+    return (timeSpent / (timeSpent + timeRemaining)) * 100;
+  }
+  if (!isNil(estimate)) {
+    return Math.min((timeSpent / estimate) * 100, 100);
+  }
+};
+
+const renderRemainingOrEstimate = ({ timeRemaining, estimate }) => {
+  if (isNil(timeRemaining) && isNil(estimate)) {
+    return null;
+  }
+  if (!isNil(timeRemaining)) {
+    return <div>{`${timeRemaining}h remaining`}</div>;
+  }
+  if (!isNil(estimate)) {
+    return <div>{`${estimate}h estimated`}</div>;
+  }
 };
 
 ProjectBoardIssueDetailsTracking.propTypes = propTypes;

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
-import Spinner from 'shared/components/Spinner';
 import { color, font, mixin } from 'shared/utils/styles';
+import Spinner from 'shared/components/Spinner';
 
 export const StyledButton = styled.button`
   display: inline-flex;
@@ -17,28 +17,29 @@ export const StyledButton = styled.button`
   appearance: none;
   ${mixin.clickable}
   ${font.size(14.5)}
-  ${props => buttonColors[props.color]}
+  ${props => buttonVariants[props.variant]}
   &:disabled {
     opacity: 0.6;
     cursor: default;
-  }
-  i {
-    margin-right: ${props => (props.iconOnly ? 0 : 7)}px;
   }
 `;
 
 const colored = css`
   color: #fff;
-  background: ${props => color[props.color]};
+  background: ${props => color[props.variant]};
   ${font.medium}
   &:not(:disabled) {
     &:hover {
-      background: ${props => mixin.lighten(color[props.color], 0.15)};
+      background: ${props => mixin.lighten(color[props.variant], 0.15)};
     }
     &:active {
-      background: ${props => mixin.darken(color[props.color], 0.1)};
+      background: ${props => mixin.darken(color[props.variant], 0.1)};
     }
-    ${props => props.isActive && `background: ${mixin.darken(color[props.color], 0.1)} !important;`}
+    ${props =>
+      props.isActive &&
+      css`
+        background: ${mixin.darken(color[props.variant], 0.1)} !important;
+      `}
   }
 `;
 
@@ -55,14 +56,14 @@ const secondaryAndEmptyShared = css`
     }
     ${props =>
       props.isActive &&
-      `
-      color: ${color.primary};
-      background: ${color.backgroundLightPrimary} !important;
-    `}
+      css`
+        color: ${color.primary};
+        background: ${color.backgroundLightPrimary} !important;
+      `}
   }
 `;
 
-const buttonColors = {
+const buttonVariants = {
   primary: colored,
   success: colored,
   danger: colored,
@@ -79,5 +80,8 @@ const buttonColors = {
 export const StyledSpinner = styled(Spinner)`
   position: relative;
   top: 1px;
-  margin-right: ${props => (props.iconOnly ? 0 : 7)}px;
+`;
+
+export const Text = styled.div`
+  padding-left: ${props => (props.withPadding ? 7 : 0)}px;
 `;

@@ -5,6 +5,7 @@ import api from 'shared/utils/api';
 import toast from 'shared/utils/toast';
 import { formatDateTimeConversational } from 'shared/utils/dateTime';
 import { ConfirmModal } from 'shared/components';
+
 import BodyForm from '../BodyForm';
 import {
   Comment,
@@ -35,6 +36,7 @@ const ProjectBoardIssueDetailsComment = ({ comment, fetchIssue }) => {
       toast.error(error);
     }
   };
+
   const handleCommentUpdate = async () => {
     try {
       setUpdating(true);
@@ -46,12 +48,14 @@ const ProjectBoardIssueDetailsComment = ({ comment, fetchIssue }) => {
       toast.error(error);
     }
   };
+
   return (
     <Comment>
       <UserAvatar name={comment.user.name} avatarUrl={comment.user.avatarUrl} />
       <Content>
         <Username>{comment.user.name}</Username>
         <CreatedAt>{formatDateTimeConversational(comment.createdAt)}</CreatedAt>
+
         {isFormOpen ? (
           <BodyForm
             value={body}

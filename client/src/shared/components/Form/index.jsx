@@ -4,6 +4,7 @@ import { Formik, Form as FormikForm, Field as FormikField } from 'formik';
 import { get, mapValues } from 'lodash';
 
 import { is, generateErrors } from 'shared/utils/validation';
+
 import Field from './Field';
 
 const propTypes = {
