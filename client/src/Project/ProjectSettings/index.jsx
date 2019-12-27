@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { ProjectCategory, ProjectCategoryCopy } from 'shared/constants/projects';
 import toast from 'shared/utils/toast';
 import useApi from 'shared/hooks/api';
-import { Form } from 'shared/components';
+import { Form, Breadcrumbs } from 'shared/components';
 
 import { FormCont, FormHeading, FormElement, ActionButton } from './Styles';
 
@@ -46,6 +46,7 @@ const ProjectSettings = ({ project, fetchProject }) => {
     >
       <FormCont>
         <FormElement>
+          <Breadcrumbs items={['Projects', project.name, 'Project Details']} />
           <FormHeading>Project Details</FormHeading>
           <Form.Field.Input name="name" label="Name" />
           <Form.Field.Input name="url" label="URL" />

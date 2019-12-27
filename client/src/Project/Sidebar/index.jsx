@@ -25,7 +25,9 @@ const ProjectSidebar = ({ project }) => {
   const match = useRouteMatch();
 
   const renderLinkItem = (text, iconType, path) => {
-    const linkItemProps = path
+    const isImplemented = !!path;
+
+    const linkItemProps = isImplemented
       ? { as: NavLink, exact: true, to: `${match.path}${path}` }
       : { as: 'div' };
 
@@ -33,7 +35,7 @@ const ProjectSidebar = ({ project }) => {
       <LinkItem {...linkItemProps}>
         <Icon type={iconType} />
         <LinkText>{text}</LinkText>
-        {!path && <NotImplemented>Not implemented</NotImplemented>}
+        {!isImplemented && <NotImplemented>Not implemented</NotImplemented>}
       </LinkItem>
     );
   };

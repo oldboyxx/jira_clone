@@ -10,11 +10,10 @@ export const FormCont = styled.div`
 
 export const FormElement = styled(Form.Element)`
   max-width: 640px;
-  padding: 20px 0;
 `;
 
 export const FormHeading = styled.div`
-  padding-bottom: 15px;
+  padding: 6px 0 15px;
   ${font.size(24)}
   ${font.medium}
 `;

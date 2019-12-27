@@ -1,4 +1,3 @@
-import faker from 'faker';
 import { sample } from 'lodash';
 
 import { Comment, Issue, Project, User } from 'entities';
@@ -9,14 +8,19 @@ import { createEntity } from 'utils/typeorm';
 const seedUsers = (): Promise<User[]> => {
   const users = [
     createEntity(User, {
-      email: 'greg@jira.guest',
-      name: 'Greg the Egg',
-      avatarUrl: faker.image.avatar(),
+      email: 'gaben@jira.guest',
+      name: 'Lord Gaben',
+      avatarUrl: 'https://i.ibb.co/6RJ5hq6/gaben.jpg',
     }),
     createEntity(User, {
       email: 'yoda@jira.guest',
       name: 'Baby Yoda',
-      avatarUrl: faker.image.avatar(),
+      avatarUrl: 'https://i.ibb.co/6n0hLML/baby-yoda.jpg',
+    }),
+    createEntity(User, {
+      email: 'rick@jira.guest',
+      name: 'Pickle Rick',
+      avatarUrl: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
     }),
   ];
   return Promise.all(users);
