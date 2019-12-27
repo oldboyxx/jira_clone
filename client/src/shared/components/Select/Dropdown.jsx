@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash';
 
@@ -46,6 +46,18 @@ const SelectDropdown = ({
   const [isCreatingOption, setCreatingOption] = useState(false);
 
   const $optionsRef = useRef();
+
+  useLayoutEffect(() => {
+    const setFirstOptionAsActive = () => {
+      const $active = getActiveOptionNode();
+      if ($active) $active.classList.remove(activeOptionClass);
+
+      if ($optionsRef.current.firstElementChild) {
+        $optionsRef.current.firstElementChild.classList.add(activeOptionClass);
+      }
+    };
+    setFirstOptionAsActive();
+  });
 
   const selectOptionValue = optionValue => {
     deactivateDropdown();
@@ -139,7 +151,7 @@ const SelectDropdown = ({
   const handleOptionMouseEnter = event => {
     const $active = getActiveOptionNode();
     if ($active) $active.classList.remove(activeOptionClass);
-    event.target.classList.add(activeOptionClass);
+    event.currentTarget.classList.add(activeOptionClass);
   };
 
   const getActiveOptionNode = () => $optionsRef.current.querySelector(`.${activeOptionClass}`);
@@ -161,10 +173,9 @@ const SelectDropdown = ({
   const isSearchValueInOptions = options.map(option => option.label).includes(searchValue);
   const isOptionCreatable = onCreate && searchValue && !isSearchValueInOptions;
 
-  const renderSelectableOption = (option, i) => (
+  const renderSelectableOption = option => (
     <Option
       key={option.value}
-      className={i === 0 ? activeOptionClass : undefined}
       data-select-option-value={option.value}
       onMouseEnter={handleOptionMouseEnter}
       onClick={() => selectOptionValue(option.value)}
@@ -175,7 +186,6 @@ const SelectDropdown = ({
 
   const renderCreatableOption = () => (
     <Option
-      className={filteredOptions.length === 0 ? activeOptionClass : undefined}
       data-create-option-label={searchValue}
       onMouseEnter={handleOptionMouseEnter}
       onClick={() => createOption(searchValue)}
