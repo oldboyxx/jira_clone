@@ -26,9 +26,7 @@ const clickOverlayStyles = {
     align-items: center;
     padding: 50px;
   `,
-  aside: css`
-    text-align: right;
-  `,
+  aside: '',
 };
 
 export const StyledModal = styled.div`
@@ -43,14 +41,12 @@ const modalStyles = {
   center: css`
     max-width: ${props => props.width}px;
     vertical-align: middle;
-    text-align: left;
     border-radius: 3px;
     ${mixin.boxShadowMedium}
   `,
   aside: css`
     min-height: 100vh;
     max-width: ${props => props.width}px;
-    text-align: left;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.15);
   `,
 };
@@ -59,25 +55,34 @@ export const CloseIcon = styled(Icon)`
   position: absolute;
   font-size: 25px;
   color: ${color.textMedium};
+  transition: all 0.1s;
   ${mixin.clickable}
   ${props => closeIconStyles[props.variant]}
 `;
 
 const closeIconStyles = {
   center: css`
-    top: 8px;
-    right: 10px;
-    padding: 7px 7px 0;
+    top: 10px;
+    right: 12px;
+    padding: 3px 5px 0px 5px;
+    border-radius: 4px;
+    &:hover {
+      background: ${color.backgroundLight};
+    }
   `,
   aside: css`
     top: 10px;
-    left: -50px;
-    width: 40px;
-    height: 40px;
-    padding-top: 8px;
-    border-radius: 40px;
+    right: -30px;
+    width: 50px;
+    height: 50px;
+    padding-top: 10px;
+    border-radius: 3px;
     text-align: center;
     background: #fff;
-    opacity: 0.5;
+    border: 1px solid ${color.borderLightest};
+    ${mixin.boxShadowMedium};
+    &:hover {
+      color: ${color.primary};
+    }
   `,
 };

@@ -5,12 +5,17 @@ import { debounce } from 'lodash';
 import { Input } from 'shared/components';
 
 const propTypes = {
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   onChange: PropTypes.func.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+};
+
+const defaultProps = {
+  value: undefined,
 };
 
 const InputDebounced = ({ onChange, value: propsValue, ...inputProps }) => {
   const [value, setValue] = useState(propsValue);
+  const isControlled = propsValue !== undefined;
 
   const handleChange = useCallback(
     debounce(newValue => onChange(newValue), 500),
@@ -29,7 +34,7 @@ const InputDebounced = ({ onChange, value: propsValue, ...inputProps }) => {
   return (
     <Input
       {...inputProps}
-      value={value}
+      value={isControlled ? value : undefined}
       onChange={newValue => {
         setValue(newValue);
         handleChange(newValue);
@@ -39,5 +44,6 @@ const InputDebounced = ({ onChange, value: propsValue, ...inputProps }) => {
 };
 
 InputDebounced.propTypes = propTypes;
+InputDebounced.defaultProps = defaultProps;
 
 export default InputDebounced;

@@ -12,6 +12,7 @@ export const EditorCont = styled.div`
     border-radius: 0 0 4px 4px;
     border: 1px solid ${color.borderLightest};
     border-top: none;
+    color: ${color.textDarkest};
     ${font.size(15)}
     ${font.regular}
   }

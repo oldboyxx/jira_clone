@@ -43,6 +43,7 @@ const TextEditor = ({
 
     const insertInitialValue = () => {
       quill.clipboard.dangerouslyPasteHTML(0, initialValueRef.current);
+      quill.blur();
     };
     const handleContentsChange = () => {
       onChange(getHTMLValue());

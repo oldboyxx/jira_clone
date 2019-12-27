@@ -5,11 +5,7 @@ import api from 'shared/utils/api';
 import useMergeState from 'shared/hooks/mergeState';
 import useDeepCompareMemoize from 'shared/hooks/deepCompareMemoize';
 
-const useQuery = (
-  url,
-  propsVariables = {},
-  { lazy = false, cachePolicy = CachePolicy.CACHE_FIRST } = {},
-) => {
+const useQuery = (url, propsVariables = {}, { lazy = false, cachePolicy = 'cache-first' } = {}) => {
   const [state, mergeState] = useMergeState({
     data: null,
     error: null,
@@ -25,17 +21,19 @@ const useQuery = (
   stateRef.current = state;
 
   const makeRequest = useCallback(
-    (newVariables = {}) => {
+    (newVariables = {}, isAutoCalled) => {
       const variables = { ...stateRef.current.variables, ...newVariables };
       const apiVariables = { ...propsVariablesMemoized, ...variables };
 
       const isCacheAvailable = cache[url] && isEqual(cache[url].apiVariables, apiVariables);
-      const isCacheAvailableAndPermitted = isCacheAvailable && cachePolicy !== CachePolicy.NO_CACHE;
+
+      const isCacheAvailableAndPermitted =
+        isCacheAvailable && isAutoCalled && cachePolicy !== 'no-cache';
 
       if (isCacheAvailableAndPermitted) {
         mergeState({ data: cache[url].data, error: null, isLoading: false, variables });
 
-        if (cachePolicy === CachePolicy.CACHE_ONLY) {
+        if (cachePolicy === 'cache-only') {
           return;
         }
       }
@@ -61,7 +59,7 @@ const useQuery = (
 
   useEffect(() => {
     if (!lazy || wasCalledRef.current) {
-      makeRequest();
+      makeRequest({}, true);
     }
   }, [lazy, makeRequest]);
 
@@ -82,11 +80,5 @@ const useQuery = (
 };
 
 const cache = {};
-
-const CachePolicy = {
-  CACHE_ONLY: 'cache-only',
-  CACHE_FIRST: 'cache-first',
-  NO_CACHE: 'no-cache',
-};
 
 export default useQuery;

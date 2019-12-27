@@ -4,12 +4,12 @@ import { color, font } from 'shared/utils/styles';
 import { Button, Form } from 'shared/components';
 
 export const FormElement = styled(Form.Element)`
-  padding: 20px 40px;
+  padding: 25px 40px 35px;
 `;
 
 export const FormHeading = styled.div`
   padding-bottom: 15px;
-  ${font.size(20)}
+  ${font.size(21)}
 `;
 
 export const SelectItem = styled.div`

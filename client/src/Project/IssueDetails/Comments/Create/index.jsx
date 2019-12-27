@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import api from 'shared/utils/api';
-import useApi from 'shared/hooks/api';
+import useCurrentUser from 'shared/hooks/currentUser';
 import toast from 'shared/utils/toast';
 
 import BodyForm from '../BodyForm';
@@ -19,8 +19,7 @@ const ProjectBoardIssueDetailsCommentsCreate = ({ issueId, fetchIssue }) => {
   const [isCreating, setCreating] = useState(false);
   const [body, setBody] = useState('');
 
-  const [{ data: currentUserData }] = useApi.get('/currentUser');
-  const currentUser = currentUserData && currentUserData.currentUser;
+  const { currentUser } = useCurrentUser();
 
   const handleCommentCreate = async () => {
     try {

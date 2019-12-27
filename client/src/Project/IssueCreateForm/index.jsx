@@ -10,6 +10,7 @@ import {
 } from 'shared/constants/issues';
 import toast from 'shared/utils/toast';
 import useApi from 'shared/hooks/api';
+import useCurrentUser from 'shared/hooks/currentUser';
 import { Form, IssueTypeIcon, Icon, Avatar, IssuePriorityIcon } from 'shared/components';
 
 import {
@@ -25,11 +26,14 @@ import {
 const propTypes = {
   project: PropTypes.object.isRequired,
   fetchProject: PropTypes.func.isRequired,
+  onCreate: PropTypes.func.isRequired,
   modalClose: PropTypes.func.isRequired,
 };
 
-const ProjectIssueCreateForm = ({ project, fetchProject, modalClose }) => {
+const ProjectIssueCreateForm = ({ project, fetchProject, onCreate, modalClose }) => {
   const [{ isCreating }, createIssue] = useApi.post('/issues');
+
+  const { currentUserId } = useCurrentUser();
 
   const typeOptions = Object.values(IssueType).map(type => ({
     value: type,
@@ -74,14 +78,15 @@ const ProjectIssueCreateForm = ({ project, fetchProject, modalClose }) => {
 
   return (
     <Form
+      enableReinitialize
       initialValues={{
         status: IssueStatus.BACKLOG,
         type: IssueType.TASK,
         title: '',
         description: '',
-        reporterId: null,
+        reporterId: currentUserId,
         userIds: [],
-        priority: null,
+        priority: IssuePriority.MEDIUM,
       }}
       validations={{
         type: Form.is.required(),
@@ -97,13 +102,10 @@ const ProjectIssueCreateForm = ({ project, fetchProject, modalClose }) => {
             users: values.userIds.map(id => ({ id })),
           });
           await fetchProject();
-          modalClose();
+          toast.success('Issue has been successfully created.');
+          onCreate();
         } catch (error) {
-          if (error.data.fields) {
-            form.setErrors(error.data.fields);
-          } else {
-            toast.error(error);
-          }
+          Form.handleAPIError(error, form);
         }
       }}
     >
@@ -153,10 +155,10 @@ const ProjectIssueCreateForm = ({ project, fetchProject, modalClose }) => {
           renderValue={renderPriority}
         />
         <Actions>
-          <ActionButton type="submit" variant="primary" working={isCreating}>
+          <ActionButton type="submit" variant="primary" isWorking={isCreating}>
             Create Issue
           </ActionButton>
-          <ActionButton variant="empty" onClick={modalClose}>
+          <ActionButton type="button" variant="empty" onClick={modalClose}>
             Cancel
           </ActionButton>
         </Actions>

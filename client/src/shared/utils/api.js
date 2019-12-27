@@ -47,7 +47,7 @@ const api = (method, url, variables) =>
     );
   });
 
-const optimisticUpdate = async ({ url, updatedFields, currentFields, setLocalData }) => {
+const optimisticUpdate = async (url, { updatedFields, currentFields, setLocalData }) => {
   try {
     setLocalData(updatedFields);
     await api('put', url, updatedFields);

@@ -9,18 +9,19 @@ import Lists from './Lists';
 
 const propTypes = {
   project: PropTypes.object.isRequired,
-  updateLocalIssuesArray: PropTypes.func.isRequired,
+  updateLocalProjectIssues: PropTypes.func.isRequired,
 };
 
 const defaultFilters = {
-  searchQuery: '',
+  searchTerm: '',
   userIds: [],
   myOnly: false,
   recent: false,
 };
 
-const ProjectBoard = ({ project, updateLocalIssuesArray }) => {
+const ProjectBoard = ({ project, updateLocalProjectIssues }) => {
   const [filters, mergeFilters] = useMergeState(defaultFilters);
+
   return (
     <>
       <Header projectName={project.name} />
@@ -30,7 +31,11 @@ const ProjectBoard = ({ project, updateLocalIssuesArray }) => {
         filters={filters}
         mergeFilters={mergeFilters}
       />
-      <Lists project={project} filters={filters} updateLocalIssuesArray={updateLocalIssuesArray} />
+      <Lists
+        project={project}
+        filters={filters}
+        updateLocalProjectIssues={updateLocalProjectIssues}
+      />
     </>
   );
 };

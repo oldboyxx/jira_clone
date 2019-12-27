@@ -19,6 +19,7 @@
     "module-alias": "^2.2.2",
     "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
+    "striptags": "^3.1.1",
     "typeorm": "^0.2.20"
   },
   "devDependencies": {

@@ -74,8 +74,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       status: IssueStatus.BACKLOG,
       priority: IssuePriority.HIGH,
       listPosition: 4,
-      description:
-        "#### Colons can be used to align columns.\n\n| Tables        | Are           | Cool  |\n| ------------- |:-------------:| -----:|\n| col 3 is      | right-aligned |  |\n| col 2 is      | centered      |    |\n| zebra stripes | are neat      |     |\n\nThe outer pipes (|) are optional, and you don't need to make the raw Markdown line up prettily. You can also use inline Markdown.\n\nMarkdown | Less | Pretty\n--- | --- | ---\n*Still* | `renders` | **nicely**\n1 | 2 | 3",
+      description: '#### Colons can be used to align columns.',
       estimate: 4,
       reporterId: getRandomUser().id,
       project,

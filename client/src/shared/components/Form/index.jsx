@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Formik, Form as FormikForm, Field as FormikField } from 'formik';
 import { get, mapValues } from 'lodash';
 
+import toast from 'shared/utils/toast';
 import { is, generateErrors } from 'shared/utils/validation';
 
 import Field from './Field';
@@ -49,6 +50,20 @@ Form.Field = mapValues(Field, FieldComponent => ({ name, validate, ...props }) =
     )}
   </FormikField>
 ));
+
+Form.initialValues = (data, getFieldValues) =>
+  getFieldValues((key, defaultValue = '') => {
+    const value = get(data, key);
+    return value === undefined || value === null ? defaultValue : value;
+  });
+
+Form.handleAPIError = (error, form) => {
+  if (error.data.fields) {
+    form.setErrors(error.data.fields);
+  } else {
+    toast.error(error);
+  }
+};
 
 Form.is = is;
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useRouteMatch } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 
+import { ProjectCategoryCopy } from 'shared/constants/projects';
 import { Icon, ProjectAvatar } from 'shared/components';
 
 import {
@@ -17,38 +18,44 @@ import {
 } from './Styles';
 
 const propTypes = {
-  projectName: PropTypes.string.isRequired,
+  project: PropTypes.object.isRequired,
 };
 
-const ProjectSidebar = ({ projectName }) => {
+const ProjectSidebar = ({ project }) => {
   const match = useRouteMatch();
 
-  const renderLinkItem = (text, iconType, path = '') => (
-    <LinkItem exact to={`${match.path}${path}`} implemented={path}>
-      <Icon type={iconType} />
-      <LinkText>{text}</LinkText>
-      {!path && <NotImplemented>Not implemented</NotImplemented>}
-    </LinkItem>
-  );
+  const renderLinkItem = (text, iconType, path) => {
+    const linkItemProps = path
+      ? { as: NavLink, exact: true, to: `${match.path}${path}` }
+      : { as: 'div' };
+
+    return (
+      <LinkItem {...linkItemProps}>
+        <Icon type={iconType} />
+        <LinkText>{text}</LinkText>
+        {!path && <NotImplemented>Not implemented</NotImplemented>}
+      </LinkItem>
+    );
+  };
 
   return (
     <Sidebar>
       <ProjectInfo>
         <ProjectAvatar />
         <ProjectTexts>
-          <ProjectName>{projectName}</ProjectName>
-          <ProjectCategory>Software project</ProjectCategory>
+          <ProjectName>{project.name}</ProjectName>
+          <ProjectCategory>{ProjectCategoryCopy[project.category]} project</ProjectCategory>
         </ProjectTexts>
       </ProjectInfo>
 
       {renderLinkItem('Kanban Board', 'board', '/board')}
-      {renderLinkItem('Reports', 'reports')}
+      {renderLinkItem('Project settings', 'settings', '/settings')}
       <Divider />
       {renderLinkItem('Releases', 'shipping')}
       {renderLinkItem('Issues and filters', 'issues')}
       {renderLinkItem('Pages', 'page')}
+      {renderLinkItem('Reports', 'reports')}
       {renderLinkItem('Components', 'component')}
-      {renderLinkItem('Project settings', 'settings')}
     </Sidebar>
   );
 };

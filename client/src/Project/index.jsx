@@ -3,40 +3,48 @@ import { Route, Redirect, useRouteMatch, useHistory } from 'react-router-dom';
 
 import useApi from 'shared/hooks/api';
 import { updateArrayItemById } from 'shared/utils/javascript';
+import { createQueryParamModalHelpers } from 'shared/utils/queryParamModal';
 import { PageLoader, PageError, Modal } from 'shared/components';
 
 import NavbarLeft from './NavbarLeft';
 import Sidebar from './Sidebar';
 import Board from './Board';
-import IssueDetails from './IssueDetails';
+import IssueSearch from './IssueSearch';
 import IssueCreateForm from './IssueCreateForm';
+import IssueDetails from './IssueDetails';
+import ProjectSettings from './ProjectSettings';
 import { ProjectPage } from './Styles';
 
 const Project = () => {
   const match = useRouteMatch();
   const history = useHistory();
 
-  const [{ data, error, setLocalData }, fetchProject] = useApi.get('/project');
+  const issueSearchModalHelpers = createQueryParamModalHelpers('issue-search');
+  const issueCreateModalHelpers = createQueryParamModalHelpers('issue-create');
 
-  const updateLocalIssuesArray = (issueId, updatedFields) => {
-    setLocalData(currentData => ({
-      project: {
-        ...currentData.project,
-        issues: updateArrayItemById(data.project.issues, issueId, updatedFields),
-      },
-    }));
-  };
+  const [{ data, error, setLocalData }, fetchProject] = useApi.get('/project');
 
   if (!data) return <PageLoader />;
   if (error) return <PageError />;
 
   const { project } = data;
 
-  const renderBoard = () => (
-    <Board
-      project={project}
-      fetchProject={fetchProject}
-      updateLocalIssuesArray={updateLocalIssuesArray}
+  const updateLocalProjectIssues = (issueId, updatedFields) => {
+    setLocalData(currentData => ({
+      project: {
+        ...currentData.project,
+        issues: updateArrayItemById(currentData.project.issues, issueId, updatedFields),
+      },
+    }));
+  };
+
+  const renderIssueSearchModal = () => (
+    <Modal
+      isOpen
+      variant="aside"
+      width={600}
+      onClose={issueSearchModalHelpers.close}
+      renderContent={() => <IssueSearch project={project} />}
     />
   );
 
@@ -44,10 +52,24 @@ const Project = () => {
     <Modal
       isOpen
       width={800}
-      onClose={() => history.push(`${match.url}/board`)}
+      withCloseIcon={false}
+      onClose={issueCreateModalHelpers.close}
       renderContent={modal => (
-        <IssueCreateForm project={project} fetchProject={fetchProject} modalClose={modal.close} />
+        <IssueCreateForm
+          project={project}
+          fetchProject={fetchProject}
+          onCreate={() => history.push(`${match.url}/board`)}
+          modalClose={modal.close}
+        />
       )}
+    />
+  );
+
+  const renderBoard = () => (
+    <Board
+      project={project}
+      fetchProject={fetchProject}
+      updateLocalProjectIssues={updateLocalProjectIssues}
     />
   );
 
@@ -62,20 +84,31 @@ const Project = () => {
           issueId={routeProps.match.params.issueId}
           projectUsers={project.users}
           fetchProject={fetchProject}
-          updateLocalIssuesArray={updateLocalIssuesArray}
+          updateLocalProjectIssues={updateLocalProjectIssues}
           modalClose={modal.close}
         />
       )}
     />
   );
 
+  const renderProjectSettings = () => (
+    <ProjectSettings project={project} fetchProject={fetchProject} />
+  );
+
   return (
     <ProjectPage>
-      <NavbarLeft />
-      <Sidebar projectName={project.name} />
+      <NavbarLeft
+        issueSearchModalOpen={issueSearchModalHelpers.open}
+        issueCreateModalOpen={issueCreateModalHelpers.open}
+      />
+      <Sidebar project={project} />
+
+      {issueSearchModalHelpers.isOpen() && renderIssueSearchModal()}
+      {issueCreateModalHelpers.isOpen() && renderIssueCreateModal()}
+
       <Route path={`${match.path}/board`} render={renderBoard} />
-      <Route path={`${match.path}/board/create-issue`} render={renderIssueCreateModal} />
-      <Route path={`${match.path}/board/issue/:issueId`} render={renderIssueDetailsModal} />
+      <Route path={`${match.path}/board/issues/:issueId`} render={renderIssueDetailsModal} />
+      <Route path={`${match.path}/settings`} render={renderProjectSettings} />
       {match.isExact && <Redirect to={`${match.url}/board`} />}
     </ProjectPage>
   );

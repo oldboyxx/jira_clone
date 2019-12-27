@@ -7,6 +7,27 @@ import { updateEntity, deleteEntity, createEntity, findEntityOrThrow } from 'uti
 const router = express.Router();
 
 router.get(
+  '/issues',
+  catchErrors(async (req, res) => {
+    const { projectId } = req.currentUser;
+    const { searchTerm } = req.query;
+
+    let whereSQL = 'issue.projectId = :projectId';
+
+    if (searchTerm) {
+      whereSQL += ' AND (issue.title ILIKE :searchTerm OR issue.descriptionText ILIKE :searchTerm)';
+    }
+
+    const issues = await Issue.createQueryBuilder('issue')
+      .select()
+      .where(whereSQL, { projectId, searchTerm: `%${searchTerm}%` })
+      .getMany();
+
+    res.respond({ issues });
+  }),
+);
+
+router.get(
   '/issues/:issueId',
   catchErrors(async (req, res) => {
     const issue = await findEntityOrThrow(Issue, req.params.issueId, {
@@ -41,11 +62,11 @@ router.delete(
   }),
 );
 
-const calculateListPosition = async (newIssue: Issue): Promise<number> => {
-  const issues = await Issue.find({
-    where: { projectId: newIssue.projectId, status: newIssue.status },
-  });
+const calculateListPosition = async ({ projectId, status }: Issue): Promise<number> => {
+  const issues = await Issue.find({ projectId, status });
+
   const listPositions = issues.map(({ listPosition }) => listPosition);
+
   if (listPositions.length > 0) {
     return Math.min(...listPositions) - 1;
   }

@@ -33,7 +33,7 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
-  a, a:hover, a:visited, a:active {
+  a {
     color: inherit;
     text-decoration: none;
   }

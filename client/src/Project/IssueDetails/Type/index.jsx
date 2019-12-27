@@ -23,7 +23,7 @@ const ProjectBoardIssueDetailsType = ({ issue, updateIssue }) => (
     onChange={type => updateIssue({ type })}
     renderValue={({ value: type }) => (
       <TypeButton variant="empty" icon={<IssueTypeIcon type={type} />}>
-        {`${type}-${issue.id}`}
+        {`${IssueTypeCopy[type]}-${issue.id}`}
       </TypeButton>
     )}
     renderOption={({ value: type }) => (

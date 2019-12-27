@@ -8,7 +8,7 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
 
   const isErrorSafeForClient = error instanceof CustomError;
 
-  const errorData = isErrorSafeForClient
+  const clientError = isErrorSafeForClient
     ? pick(error, ['message', 'code', 'status', 'data'])
     : {
         message: 'Something went wrong, please contact our support.',
@@ -17,5 +17,5 @@ export const errorHandler: ErrorRequestHandler = (error, _req, res, _next) => {
         data: {},
       };
 
-  res.status(errorData.status).send({ error: errorData });
+  res.status(clientError.status).send({ error: clientError });
 };

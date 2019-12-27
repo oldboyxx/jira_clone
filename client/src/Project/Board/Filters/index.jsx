@@ -20,16 +20,16 @@ const propTypes = {
 };
 
 const ProjectBoardFilters = ({ projectUsers, defaultFilters, filters, mergeFilters }) => {
-  const { searchQuery, userIds, myOnly, recent } = filters;
+  const { searchTerm, userIds, myOnly, recent } = filters;
 
-  const areFiltersCleared = !searchQuery && userIds.length === 0 && !myOnly && !recent;
+  const areFiltersCleared = !searchTerm && userIds.length === 0 && !myOnly && !recent;
 
   return (
     <Filters>
       <SearchInput
         icon="search"
-        value={searchQuery}
-        onChange={value => mergeFilters({ searchQuery: value })}
+        value={searchTerm}
+        onChange={value => mergeFilters({ searchTerm: value })}
       />
       <Avatars>
         {projectUsers.map(user => (

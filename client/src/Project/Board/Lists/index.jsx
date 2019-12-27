@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { get, intersection } from 'lodash';
+import { intersection } from 'lodash';
 
 import api from 'shared/utils/api';
-import useApi from 'shared/hooks/api';
+import useCurrentUser from 'shared/hooks/currentUser';
 import { moveItemWithinArray, insertItemIntoArray } from 'shared/utils/javascript';
 import { IssueStatus, IssueStatusCopy } from 'shared/constants/issues';
 
@@ -15,26 +15,24 @@ import { Lists, List, Title, IssuesCount, Issues } from './Styles';
 const propTypes = {
   project: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
-  updateLocalIssuesArray: PropTypes.func.isRequired,
+  updateLocalProjectIssues: PropTypes.func.isRequired,
 };
 
-const ProjectBoardLists = ({ project, filters, updateLocalIssuesArray }) => {
-  const [{ data: currentUserData }] = useApi.get('/currentUser');
-  const currentUserId = get(currentUserData, 'currentUser.id');
+const ProjectBoardLists = ({ project, filters, updateLocalProjectIssues }) => {
+  const { currentUserId } = useCurrentUser();
 
   const handleIssueDrop = async ({ draggableId, destination, source }) => {
     if (!isPositionChanged(source, destination)) return;
 
     const issueId = Number(draggableId);
 
-    api.optimisticUpdate({
-      url: `/issues/${issueId}`,
+    api.optimisticUpdate(`/issues/${issueId}`, {
       updatedFields: {
         status: destination.droppableId,
         listPosition: calculateListPosition(project.issues, destination, source, issueId),
       },
       currentFields: project.issues.find(({ id }) => id === issueId),
-      setLocalData: fields => updateLocalIssuesArray(issueId, fields),
+      setLocalData: fields => updateLocalProjectIssues(issueId, fields),
     });
   };
 
@@ -73,11 +71,11 @@ const ProjectBoardLists = ({ project, filters, updateLocalIssuesArray }) => {
 };
 
 const filterIssues = (projectIssues, filters, currentUserId) => {
+  const { searchTerm, userIds, myOnly, recent } = filters;
   let issues = projectIssues;
-  const { searchQuery, userIds, myOnly, recent } = filters;
 
-  if (searchQuery) {
-    issues = issues.filter(issue => issue.title.toLowerCase().includes(searchQuery.toLowerCase()));
+  if (searchTerm) {
+    issues = issues.filter(issue => issue.title.toLowerCase().includes(searchTerm.toLowerCase()));
   }
   if (userIds.length > 0) {
     issues = issues.filter(issue => intersection(issue.userIds, userIds).length > 0);

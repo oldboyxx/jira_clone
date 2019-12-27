@@ -11,6 +11,7 @@ export const StyledTextarea = styled.div`
     padding: 8px 12px 9px;
     border-radius: 3px;
     border: 1px solid ${color.borderLightest};
+    color: ${color.textDarkest};
     background: ${color.backgroundLightest};
     ${font.regular}
     ${font.size(15)}

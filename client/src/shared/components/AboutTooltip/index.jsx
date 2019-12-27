@@ -1,19 +1,15 @@
 import React from 'react';
 
-import { Button, Tooltip } from 'shared/components';
+import Button from 'shared/components/Button';
+import Tooltip from 'shared/components/Tooltip';
 
 import feedbackImage from './assets/feedback.png';
 import { FeedbackDropdown, FeedbackImageCont, FeedbackImage, FeedbackParagraph } from './Styles';
 
-const ProjectBoardIssueDetailsFeedback = () => (
+const AboutTooltip = tooltipProps => (
   <Tooltip
     width={300}
-    offset={{ top: -15 }}
-    renderLink={linkProps => (
-      <Button icon="feedback" variant="empty" {...linkProps}>
-        Give feedback
-      </Button>
-    )}
+    {...tooltipProps}
     renderContent={() => (
       <FeedbackDropdown>
         <FeedbackImageCont>
@@ -46,4 +42,4 @@ const ProjectBoardIssueDetailsFeedback = () => (
   />
 );
 
-export default ProjectBoardIssueDetailsFeedback;
+export default AboutTooltip;

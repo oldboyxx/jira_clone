@@ -1,3 +1,4 @@
+import striptags from 'striptags';
 import {
   BaseEntity,
   Entity,
@@ -10,6 +11,8 @@ import {
   ManyToMany,
   JoinTable,
   RelationId,
+  BeforeUpdate,
+  BeforeInsert,
 } from 'typeorm';
 
 import is from 'utils/validation';
@@ -47,6 +50,9 @@ class Issue extends BaseEntity {
 
   @Column('text', { nullable: true })
   description: string | null;
+
+  @Column('text', { nullable: true })
+  descriptionText: string | null;
 
   @Column('integer', { nullable: true })
   estimate: number | null;
@@ -90,6 +96,14 @@ class Issue extends BaseEntity {
 
   @RelationId((issue: Issue) => issue.users)
   userIds: number[];
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  setDescriptionText = (): void => {
+    if (this.description) {
+      this.descriptionText = striptags(this.description);
+    }
+  };
 }
 
 export default Issue;

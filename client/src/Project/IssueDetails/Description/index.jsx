@@ -12,26 +12,30 @@ const propTypes = {
 };
 
 const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
-  const [value, setValue] = useState(issue.description);
+  const [description, setDescription] = useState(issue.description);
   const [isEditing, setEditing] = useState(false);
+
+  const isDescriptionEmpty = getTextContentsFromHtmlString(description).trim().length === 0;
 
   const handleUpdate = () => {
     setEditing(false);
-    updateIssue({ description: value });
+    updateIssue({ description });
   };
-
-  const isDescriptionEmpty = getTextContentsFromHtmlString(issue.description).trim().length === 0;
 
   const renderPresentingMode = () =>
     isDescriptionEmpty ? (
       <EmptyLabel onClick={() => setEditing(true)}>Add a description...</EmptyLabel>
     ) : (
-      <TextEditedContent content={issue.description} onClick={() => setEditing(true)} />
+      <TextEditedContent content={description} onClick={() => setEditing(true)} />
     );
 
   const renderEditingMode = () => (
     <>
-      <TextEditor placeholder="Describe the issue" defaultValue={value} onChange={setValue} />
+      <TextEditor
+        placeholder="Describe the issue"
+        defaultValue={description}
+        onChange={setDescription}
+      />
       <Actions>
         <Button variant="primary" onClick={handleUpdate}>
           Save

@@ -70,7 +70,7 @@ const Tooltip = ({ className, placement, offset, width, renderLink, renderConten
 };
 
 const calcPosition = (offset, placement, $tooltipRef, $linkRef) => {
-  const margin = 20;
+  const margin = 10;
   const finalOffset = { ...defaultProps.offset, ...offset };
 
   const tooltipRect = $tooltipRef.current.getBoundingClientRect();
