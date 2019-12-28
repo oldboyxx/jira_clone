@@ -51,7 +51,9 @@ const ProjectBoardIssueDetailsTracking = ({ issue, updateIssue }) => {
       <SectionTitle>Time Tracking</SectionTitle>
       <Modal
         width={400}
-        renderLink={modal => <TrackingLink>{renderTrackingWidget(modal.open)}</TrackingLink>}
+        renderLink={modal => (
+          <TrackingLink onClick={modal.open}>{renderTrackingWidget()}</TrackingLink>
+        )}
         renderContent={modal => (
           <ModalContents>
             <ModalTitle>Time tracking</ModalTitle>
@@ -77,8 +79,8 @@ const ProjectBoardIssueDetailsTracking = ({ issue, updateIssue }) => {
     </>
   );
 
-  const renderTrackingWidget = (onClick = () => {}) => (
-    <Tracking onClick={onClick}>
+  const renderTrackingWidget = () => (
+    <Tracking>
       <WatchIcon type="stopwatch" size={26} top={-1} />
       <Right>
         <BarCont>

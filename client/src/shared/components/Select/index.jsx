@@ -28,6 +28,7 @@ const propTypes = {
   onChange: PropTypes.func.isRequired,
   onCreate: PropTypes.func,
   isMulti: PropTypes.bool,
+  withClearValue: PropTypes.bool,
   renderValue: PropTypes.func,
   renderOption: PropTypes.func,
 };
@@ -42,6 +43,7 @@ const defaultProps = {
   invalid: false,
   onCreate: undefined,
   isMulti: false,
+  withClearValue: true,
   renderValue: undefined,
   renderOption: undefined,
 };
@@ -58,6 +60,7 @@ const Select = ({
   onChange,
   onCreate,
   isMulti,
+  withClearValue,
   renderValue: propsRenderValue,
   renderOption: propsRenderOption,
 }) => {
@@ -184,6 +187,7 @@ const Select = ({
           onChange={handleChange}
           onCreate={onCreate}
           isMulti={isMulti}
+          withClearValue={withClearValue}
           propsRenderOption={propsRenderOption}
         />
       )}

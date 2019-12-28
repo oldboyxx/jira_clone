@@ -5,7 +5,9 @@ import api from 'shared/utils/api';
 import useMergeState from 'shared/hooks/mergeState';
 import useDeepCompareMemoize from 'shared/hooks/deepCompareMemoize';
 
-const useQuery = (url, propsVariables = {}, { lazy = false, cachePolicy = 'cache-first' } = {}) => {
+const useQuery = (url, propsVariables = {}, options = {}) => {
+  const { lazy = false, cachePolicy = 'cache-first' } = options;
+
   const [state, mergeState] = useMergeState({
     data: null,
     error: null,

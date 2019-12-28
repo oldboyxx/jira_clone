@@ -25,6 +25,7 @@ const ProjectBoardIssueDetailsPriority = ({ issue, updateIssue }) => {
       <SectionTitle>Priority</SectionTitle>
       <Select
         variant="empty"
+        withClearValue={false}
         dropdownWidth={343}
         value={issue.priority}
         options={Object.values(IssuePriority).map(priority => ({

@@ -57,6 +57,7 @@ const ProjectBoardIssueDetailsUsers = ({ issue, updateIssue, projectUsers }) => 
       <Select
         variant="empty"
         dropdownWidth={343}
+        withClearValue={false}
         value={issue.reporterId}
         options={userOptions}
         onChange={userId => updateIssue({ reporterId: userId })}

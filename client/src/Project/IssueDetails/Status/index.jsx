@@ -18,6 +18,7 @@ const ProjectBoardIssueDetailsStatus = ({ issue, updateIssue }) => (
     <Select
       variant="empty"
       dropdownWidth={343}
+      withClearValue={false}
       value={issue.status}
       options={Object.values(IssueStatus).map(status => ({
         value: status,

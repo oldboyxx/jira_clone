@@ -17,7 +17,8 @@ const propTypes = {
   options: PropTypes.array.isRequired,
   onChange: PropTypes.func.isRequired,
   onCreate: PropTypes.func,
-  isMulti: PropTypes.bool,
+  isMulti: PropTypes.bool.isRequired,
+  withClearValue: PropTypes.bool.isRequired,
   propsRenderOption: PropTypes.func,
 };
 
@@ -25,7 +26,6 @@ const defaultProps = {
   dropdownWidth: undefined,
   value: undefined,
   onCreate: undefined,
-  isMulti: false,
   propsRenderOption: undefined,
 };
 
@@ -41,6 +41,7 @@ const SelectDropdown = ({
   onChange,
   onCreate,
   isMulti,
+  withClearValue,
   propsRenderOption,
 }) => {
   const [isCreatingOption, setCreatingOption] = useState(false);
@@ -204,7 +205,7 @@ const SelectDropdown = ({
         onKeyDown={handleInputKeyDown}
         onChange={event => setSearchValue(event.target.value)}
       />
-      {!isValueEmpty && <ClearIcon type="close" onClick={clearOptionValues} />}
+      {!isValueEmpty && withClearValue && <ClearIcon type="close" onClick={clearOptionValues} />}
       <Options ref={$optionsRef}>
         {filteredOptions.map(renderSelectableOption)}
         {isOptionCreatable && renderCreatableOption()}
