@@ -15,42 +15,41 @@ const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
   const [description, setDescription] = useState(issue.description);
   const [isEditing, setEditing] = useState(false);
 
-  const isDescriptionEmpty = getTextContentsFromHtmlString(description).trim().length === 0;
-
   const handleUpdate = () => {
     setEditing(false);
     updateIssue({ description });
   };
 
-  const renderPresentingMode = () =>
-    isDescriptionEmpty ? (
-      <EmptyLabel onClick={() => setEditing(true)}>Add a description...</EmptyLabel>
-    ) : (
-      <TextEditedContent content={description} onClick={() => setEditing(true)} />
-    );
-
-  const renderEditingMode = () => (
-    <>
-      <TextEditor
-        placeholder="Describe the issue"
-        defaultValue={description}
-        onChange={setDescription}
-      />
-      <Actions>
-        <Button variant="primary" onClick={handleUpdate}>
-          Save
-        </Button>
-        <Button variant="empty" onClick={() => setEditing(false)}>
-          Cancel
-        </Button>
-      </Actions>
-    </>
-  );
+  const isDescriptionEmpty = getTextContentsFromHtmlString(description).trim().length === 0;
 
   return (
     <>
       <Title>Description</Title>
-      {isEditing ? renderEditingMode() : renderPresentingMode()}
+      {isEditing ? (
+        <>
+          <TextEditor
+            placeholder="Describe the issue"
+            defaultValue={description}
+            onChange={setDescription}
+          />
+          <Actions>
+            <Button variant="primary" onClick={handleUpdate}>
+              Save
+            </Button>
+            <Button variant="empty" onClick={() => setEditing(false)}>
+              Cancel
+            </Button>
+          </Actions>
+        </>
+      ) : (
+        <>
+          {isDescriptionEmpty ? (
+            <EmptyLabel onClick={() => setEditing(true)}>Add a description...</EmptyLabel>
+          ) : (
+            <TextEditedContent content={description} onClick={() => setEditing(true)} />
+          )}
+        </>
+      )}
     </>
   );
 };

@@ -44,27 +44,30 @@ const Tooltip = ({ className, placement, offset, width, renderLink, renderConten
       $tooltipRef.current.style.top = `${top}px`;
       $tooltipRef.current.style.left = `${left}px`;
     };
+
     if (isOpen) {
       setTooltipPosition();
       window.addEventListener('resize', setTooltipPosition);
       window.addEventListener('scroll', setTooltipPosition);
     }
+
     return () => {
       window.removeEventListener('resize', setTooltipPosition);
       window.removeEventListener('scroll', setTooltipPosition);
     };
   }, [isOpen, offset, placement]);
 
-  const renderTooltip = () => (
-    <StyledTooltip className={className} ref={$tooltipRef} width={width}>
-      {renderContent({ close: closeTooltip })}
-    </StyledTooltip>
-  );
-
   return (
     <>
       {renderLink({ ref: $linkRef, onClick: isOpen ? closeTooltip : openTooltip })}
-      {isOpen && ReactDOM.createPortal(renderTooltip(), $root)}
+
+      {isOpen &&
+        ReactDOM.createPortal(
+          <StyledTooltip className={className} ref={$tooltipRef} width={width}>
+            {renderContent({ close: closeTooltip })}
+          </StyledTooltip>,
+          $root,
+        )}
     </>
   );
 };

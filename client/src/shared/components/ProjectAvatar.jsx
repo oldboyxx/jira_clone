@@ -11,7 +11,7 @@ const defaultProps = {
   size: 40,
 };
 
-const Logo = ({ className, size }) => (
+const ProjectAvatar = ({ className, size }) => (
   <span className={className}>
     <svg
       width={size}
@@ -114,7 +114,7 @@ const Logo = ({ className, size }) => (
   </span>
 );
 
-Logo.propTypes = propTypes;
-Logo.defaultProps = defaultProps;
+ProjectAvatar.propTypes = propTypes;
+ProjectAvatar.defaultProps = defaultProps;
 
-export default Logo;
+export default ProjectAvatar;

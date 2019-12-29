@@ -24,22 +24,6 @@ const propTypes = {
 const ProjectSidebar = ({ project }) => {
   const match = useRouteMatch();
 
-  const renderLinkItem = (text, iconType, path) => {
-    const isImplemented = !!path;
-
-    const linkItemProps = isImplemented
-      ? { as: NavLink, exact: true, to: `${match.path}${path}` }
-      : { as: 'div' };
-
-    return (
-      <LinkItem {...linkItemProps}>
-        <Icon type={iconType} />
-        <LinkText>{text}</LinkText>
-        {!isImplemented && <NotImplemented>Not implemented</NotImplemented>}
-      </LinkItem>
-    );
-  };
-
   return (
     <Sidebar>
       <ProjectInfo>
@@ -50,15 +34,31 @@ const ProjectSidebar = ({ project }) => {
         </ProjectTexts>
       </ProjectInfo>
 
-      {renderLinkItem('Kanban Board', 'board', '/board')}
-      {renderLinkItem('Project settings', 'settings', '/settings')}
+      {renderLinkItem(match, 'Kanban Board', 'board', '/board')}
+      {renderLinkItem(match, 'Project settings', 'settings', '/settings')}
       <Divider />
-      {renderLinkItem('Releases', 'shipping')}
-      {renderLinkItem('Issues and filters', 'issues')}
-      {renderLinkItem('Pages', 'page')}
-      {renderLinkItem('Reports', 'reports')}
-      {renderLinkItem('Components', 'component')}
+      {renderLinkItem(match, 'Releases', 'shipping')}
+      {renderLinkItem(match, 'Issues and filters', 'issues')}
+      {renderLinkItem(match, 'Pages', 'page')}
+      {renderLinkItem(match, 'Reports', 'reports')}
+      {renderLinkItem(match, 'Components', 'component')}
     </Sidebar>
+  );
+};
+
+const renderLinkItem = (match, text, iconType, path) => {
+  const isImplemented = !!path;
+
+  const linkItemProps = isImplemented
+    ? { as: NavLink, exact: true, to: `${match.path}${path}` }
+    : { as: 'div' };
+
+  return (
+    <LinkItem {...linkItemProps}>
+      <Icon type={iconType} />
+      <LinkText>{text}</LinkText>
+      {!isImplemented && <NotImplemented>Not implemented</NotImplemented>}
+    </LinkItem>
   );
 };
 

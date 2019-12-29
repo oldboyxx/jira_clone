@@ -13,11 +13,10 @@ const propTypes = {
   index: PropTypes.number.isRequired,
 };
 
-const ProjectBoardListsIssue = ({ projectUsers, issue, index }) => {
+const ProjectBoardListIssue = ({ projectUsers, issue, index }) => {
   const match = useRouteMatch();
 
-  const getUserById = userId => projectUsers.find(user => user.id === userId);
-  const assignees = issue.userIds.map(getUserById);
+  const assignees = issue.userIds.map(userId => projectUsers.find(user => user.id === userId));
 
   return (
     <Draggable draggableId={issue.id.toString()} index={index}>
@@ -53,6 +52,6 @@ const ProjectBoardListsIssue = ({ projectUsers, issue, index }) => {
   );
 };
 
-ProjectBoardListsIssue.propTypes = propTypes;
+ProjectBoardListIssue.propTypes = propTypes;
 
-export default ProjectBoardListsIssue;
+export default ProjectBoardListIssue;

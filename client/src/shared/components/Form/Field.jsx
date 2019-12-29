@@ -27,6 +27,7 @@ const defaultProps = {
 const generateField = FormComponent => {
   const FieldComponent = ({ className, label, tip, error, ...otherProps }) => {
     const fieldId = uniqueId('form-field-');
+
     return (
       <StyledField className={className} hasLabel={!!label}>
         {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}

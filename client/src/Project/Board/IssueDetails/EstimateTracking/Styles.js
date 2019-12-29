@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import { color, font, mixin } from 'shared/utils/styles';
-import { Icon } from 'shared/components';
 
 export const TrackingLink = styled.div`
   padding: 4px 4px 2px 0;
@@ -11,41 +10,6 @@ export const TrackingLink = styled.div`
   &:hover {
     background: ${color.backgroundLight};
   }
-`;
-
-export const Tracking = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-export const WatchIcon = styled(Icon)`
-  color: ${color.textMedium};
-`;
-
-export const Right = styled.div`
-  width: 90%;
-`;
-
-export const BarCont = styled.div`
-  height: 5px;
-  border-radius: 4px;
-  background: ${color.backgroundMedium};
-`;
-
-export const Bar = styled.div`
-  height: 5px;
-  border-radius: 4px;
-  background: ${color.primary};
-  transition: all 0.1s;
-  width: ${props => props.width}%;
-`;
-
-export const Values = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-top: 3px;
-  ${font.size(14.5)};
 `;
 
 export const ModalContents = styled.div`

@@ -131,31 +131,6 @@ const Select = ({
 
   const isValueEmpty = isMulti ? !value.length : !getOption(value);
 
-  const renderSingleValue = () =>
-    propsRenderValue ? propsRenderValue({ value }) : getOptionLabel(value);
-
-  const renderMultiValue = () => (
-    <ValueMulti variant={variant}>
-      {value.map(optionValue =>
-        propsRenderValue ? (
-          propsRenderValue({
-            value: optionValue,
-            removeOptionValue: () => removeOptionValue(optionValue),
-          })
-        ) : (
-          <ValueMultiItem key={optionValue} onClick={() => removeOptionValue(optionValue)}>
-            {getOptionLabel(optionValue)}
-            <Icon type="close" size={14} />
-          </ValueMultiItem>
-        ),
-      )}
-      <AddMore>
-        <Icon type="plus" />
-        Add more
-      </AddMore>
-    </ValueMulti>
-  );
-
   return (
     <StyledSelect
       className={className}
@@ -167,12 +142,38 @@ const Select = ({
     >
       <ValueContainer variant={variant} onClick={activateDropdown}>
         {isValueEmpty && <Placeholder>{placeholder}</Placeholder>}
-        {!isValueEmpty && !isMulti && renderSingleValue()}
-        {!isValueEmpty && isMulti && renderMultiValue()}
+
+        {!isValueEmpty && !isMulti && propsRenderValue
+          ? propsRenderValue({ value })
+          : getOptionLabel(value)}
+
+        {!isValueEmpty && isMulti && (
+          <ValueMulti variant={variant}>
+            {value.map(optionValue =>
+              propsRenderValue ? (
+                propsRenderValue({
+                  value: optionValue,
+                  removeOptionValue: () => removeOptionValue(optionValue),
+                })
+              ) : (
+                <ValueMultiItem key={optionValue} onClick={() => removeOptionValue(optionValue)}>
+                  {getOptionLabel(optionValue)}
+                  <Icon type="close" size={14} />
+                </ValueMultiItem>
+              ),
+            )}
+            <AddMore>
+              <Icon type="plus" />
+              Add more
+            </AddMore>
+          </ValueMulti>
+        )}
+
         {(!isMulti || isValueEmpty) && variant !== 'empty' && (
           <ChevronIcon type="chevron-down" top={1} />
         )}
       </ValueContainer>
+
       {isDropdownOpen && (
         <Dropdown
           dropdownWidth={dropdownWidth}

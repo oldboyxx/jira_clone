@@ -16,11 +16,6 @@ const propTypes = {
 const ProjectSettings = ({ project, fetchProject }) => {
   const [{ isUpdating }, updateProject] = useApi.put('/project');
 
-  const categoryOptions = Object.values(ProjectCategory).map(category => ({
-    value: category,
-    label: ProjectCategoryCopy[category],
-  }));
-
   return (
     <Form
       initialValues={Form.initialValues(project, get => ({
@@ -38,7 +33,7 @@ const ProjectSettings = ({ project, fetchProject }) => {
         try {
           await updateProject(values);
           await fetchProject();
-          toast.success('Changes have been successfully saved.');
+          toast.success('Changes have been saved successfully.');
         } catch (error) {
           Form.handleAPIError(error, form);
         }
@@ -48,6 +43,7 @@ const ProjectSettings = ({ project, fetchProject }) => {
         <FormElement>
           <Breadcrumbs items={['Projects', project.name, 'Project Details']} />
           <FormHeading>Project Details</FormHeading>
+
           <Form.Field.Input name="name" label="Name" />
           <Form.Field.Input name="url" label="URL" />
           <Form.Field.TextEditor
@@ -56,6 +52,7 @@ const ProjectSettings = ({ project, fetchProject }) => {
             tip="Describe the project in as much detail as you'd like."
           />
           <Form.Field.Select name="category" label="Project Category" options={categoryOptions} />
+
           <ActionButton type="submit" variant="primary" isWorking={isUpdating}>
             Save changes
           </ActionButton>
@@ -64,6 +61,11 @@ const ProjectSettings = ({ project, fetchProject }) => {
     </Form>
   );
 };
+
+const categoryOptions = Object.values(ProjectCategory).map(category => ({
+  value: category,
+  label: ProjectCategoryCopy[category],
+}));
 
 ProjectSettings.propTypes = propTypes;
 

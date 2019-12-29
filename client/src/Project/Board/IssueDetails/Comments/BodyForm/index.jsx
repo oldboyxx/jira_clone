@@ -22,6 +22,12 @@ const ProjectBoardIssueDetailsCommentsBodyForm = ({
 }) => {
   const $textareaRef = useRef();
 
+  const handleSubmit = () => {
+    if ($textareaRef.current.value.trim()) {
+      onSubmit();
+    }
+  };
+
   return (
     <>
       <Textarea
@@ -32,15 +38,7 @@ const ProjectBoardIssueDetailsCommentsBodyForm = ({
         ref={$textareaRef}
       />
       <Actions>
-        <FormButton
-          variant="primary"
-          isWorking={isWorking}
-          onClick={() => {
-            if ($textareaRef.current.value.trim()) {
-              onSubmit();
-            }
-          }}
-        >
+        <FormButton variant="primary" isWorking={isWorking} onClick={handleSubmit}>
           Save
         </FormButton>
         <FormButton variant="empty" onClick={onCancel}>

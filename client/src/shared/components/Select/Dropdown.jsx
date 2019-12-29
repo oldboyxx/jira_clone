@@ -174,27 +174,6 @@ const SelectDropdown = ({
   const isSearchValueInOptions = options.map(option => option.label).includes(searchValue);
   const isOptionCreatable = onCreate && searchValue && !isSearchValueInOptions;
 
-  const renderSelectableOption = option => (
-    <Option
-      key={option.value}
-      data-select-option-value={option.value}
-      onMouseEnter={handleOptionMouseEnter}
-      onClick={() => selectOptionValue(option.value)}
-    >
-      {propsRenderOption ? propsRenderOption(option) : option.label}
-    </Option>
-  );
-
-  const renderCreatableOption = () => (
-    <Option
-      data-create-option-label={searchValue}
-      onMouseEnter={handleOptionMouseEnter}
-      onClick={() => createOption(searchValue)}
-    >
-      {isCreatingOption ? `Creating "${searchValue}"...` : `Create "${searchValue}"`}
-    </Option>
-  );
-
   return (
     <Dropdown width={dropdownWidth}>
       <DropdownInput
@@ -205,12 +184,33 @@ const SelectDropdown = ({
         onKeyDown={handleInputKeyDown}
         onChange={event => setSearchValue(event.target.value)}
       />
+
       {!isValueEmpty && withClearValue && <ClearIcon type="close" onClick={clearOptionValues} />}
+
       <Options ref={$optionsRef}>
-        {filteredOptions.map(renderSelectableOption)}
-        {isOptionCreatable && renderCreatableOption()}
-        {filteredOptions.length === 0 && <OptionsNoResults>No results</OptionsNoResults>}
+        {filteredOptions.map(option => (
+          <Option
+            key={option.value}
+            data-select-option-value={option.value}
+            onMouseEnter={handleOptionMouseEnter}
+            onClick={() => selectOptionValue(option.value)}
+          >
+            {propsRenderOption ? propsRenderOption(option) : option.label}
+          </Option>
+        ))}
+
+        {isOptionCreatable && (
+          <Option
+            data-create-option-label={searchValue}
+            onMouseEnter={handleOptionMouseEnter}
+            onClick={() => createOption(searchValue)}
+          >
+            {isCreatingOption ? `Creating "${searchValue}"...` : `Create "${searchValue}"`}
+          </Option>
+        )}
       </Options>
+
+      {filteredOptions.length === 0 && <OptionsNoResults>No results</OptionsNoResults>}
     </Dropdown>
   );
 };

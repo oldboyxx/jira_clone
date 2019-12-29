@@ -12,25 +12,12 @@ const propTypes = {
   projectUsers: PropTypes.array.isRequired,
 };
 
-const ProjectBoardIssueDetailsUsers = ({ issue, updateIssue, projectUsers }) => {
+const ProjectBoardIssueDetailsAssigneesReporter = ({ issue, updateIssue, projectUsers }) => {
   const getUserById = userId => projectUsers.find(user => user.id === userId);
 
   const userOptions = projectUsers.map(user => ({ value: user.id, label: user.name }));
 
-  const renderUser = (user, isSelectValue, removeOptionValue) => (
-    <User
-      key={user.id}
-      isSelectValue={isSelectValue}
-      withBottomMargin={!!removeOptionValue}
-      onClick={() => removeOptionValue && removeOptionValue()}
-    >
-      <Avatar avatarUrl={user.avatarUrl} name={user.name} size={24} />
-      <Username>{user.name}</Username>
-      {removeOptionValue && <Icon type="close" top={1} />}
-    </User>
-  );
-
-  const renderAssignees = () => (
+  return (
     <>
       <SectionTitle>Assignees</SectionTitle>
       <Select
@@ -43,16 +30,12 @@ const ProjectBoardIssueDetailsUsers = ({ issue, updateIssue, projectUsers }) => 
         onChange={userIds => {
           updateIssue({ userIds, users: userIds.map(getUserById) });
         }}
-        renderValue={({ value, removeOptionValue }) =>
-          renderUser(getUserById(value), true, removeOptionValue)
+        renderValue={({ value: userId, removeOptionValue }) =>
+          renderUser(getUserById(userId), true, removeOptionValue)
         }
-        renderOption={({ value }) => renderUser(getUserById(value), false)}
+        renderOption={({ value: userId }) => renderUser(getUserById(userId), false)}
       />
-    </>
-  );
 
-  const renderReporter = () => (
-    <>
       <SectionTitle>Reporter</SectionTitle>
       <Select
         variant="empty"
@@ -61,20 +44,26 @@ const ProjectBoardIssueDetailsUsers = ({ issue, updateIssue, projectUsers }) => 
         value={issue.reporterId}
         options={userOptions}
         onChange={userId => updateIssue({ reporterId: userId })}
-        renderValue={({ value }) => renderUser(getUserById(value), true)}
-        renderOption={({ value }) => renderUser(getUserById(value))}
+        renderValue={({ value: userId }) => renderUser(getUserById(userId), true)}
+        renderOption={({ value: userId }) => renderUser(getUserById(userId))}
       />
-    </>
-  );
-
-  return (
-    <>
-      {renderAssignees()}
-      {renderReporter()}
     </>
   );
 };
 
-ProjectBoardIssueDetailsUsers.propTypes = propTypes;
+const renderUser = (user, isSelectValue, removeOptionValue) => (
+  <User
+    key={user.id}
+    isSelectValue={isSelectValue}
+    withBottomMargin={!!removeOptionValue}
+    onClick={() => removeOptionValue && removeOptionValue()}
+  >
+    <Avatar avatarUrl={user.avatarUrl} name={user.name} size={24} />
+    <Username>{user.name}</Username>
+    {removeOptionValue && <Icon type="close" top={1} />}
+  </User>
+);
 
-export default ProjectBoardIssueDetailsUsers;
+ProjectBoardIssueDetailsAssigneesReporter.propTypes = propTypes;
+
+export default ProjectBoardIssueDetailsAssigneesReporter;

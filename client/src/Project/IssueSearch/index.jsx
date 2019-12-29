@@ -47,18 +47,6 @@ const ProjectIssueSearch = ({ project }) => {
     }
   };
 
-  const renderIssue = issue => (
-    <Link key={issue.id} to={`/project/board/issues/${issue.id}`}>
-      <Issue>
-        <IssueTypeIcon type={issue.type} size={25} />
-        <IssueData>
-          <IssueTitle>{issue.title}</IssueTitle>
-          <IssueTypeId>{`${issue.type}-${issue.id}`}</IssueTypeId>
-        </IssueData>
-      </Issue>
-    </Link>
-  );
-
   return (
     <IssueSearch>
       <SearchInputCont>
@@ -95,6 +83,18 @@ const ProjectIssueSearch = ({ project }) => {
     </IssueSearch>
   );
 };
+
+const renderIssue = issue => (
+  <Link key={issue.id} to={`/project/board/issues/${issue.id}`}>
+    <Issue>
+      <IssueTypeIcon type={issue.type} size={25} />
+      <IssueData>
+        <IssueTitle>{issue.title}</IssueTitle>
+        <IssueTypeId>{`${issue.type}-${issue.id}`}</IssueTypeId>
+      </IssueData>
+    </Issue>
+  </Link>
+);
 
 ProjectIssueSearch.propTypes = propTypes;
 

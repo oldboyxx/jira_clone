@@ -57,21 +57,22 @@ const Modal = ({
   useOnEscapeKeyDown(isOpen, closeModal);
   useEffect(setBodyScrollLock, [isOpen]);
 
-  const renderModal = () => (
-    <ScrollOverlay data-jira-modal="true">
-      <ClickableOverlay variant={variant} ref={$clickableOverlayRef}>
-        <StyledModal className={className} variant={variant} width={width} ref={$modalRef}>
-          {withCloseIcon && <CloseIcon type="close" variant={variant} onClick={closeModal} />}
-          {renderContent({ close: closeModal })}
-        </StyledModal>
-      </ClickableOverlay>
-    </ScrollOverlay>
-  );
-
   return (
     <>
       {!isControlled && renderLink({ open: () => setStateOpen(true) })}
-      {isOpen && ReactDOM.createPortal(renderModal(), $root)}
+
+      {isOpen &&
+        ReactDOM.createPortal(
+          <ScrollOverlay data-jira-modal="true">
+            <ClickableOverlay variant={variant} ref={$clickableOverlayRef}>
+              <StyledModal className={className} variant={variant} width={width} ref={$modalRef}>
+                {withCloseIcon && <CloseIcon type="close" variant={variant} onClick={closeModal} />}
+                {renderContent({ close: closeModal })}
+              </StyledModal>
+            </ClickableOverlay>
+          </ScrollOverlay>,
+          $root,
+        )}
     </>
   );
 };

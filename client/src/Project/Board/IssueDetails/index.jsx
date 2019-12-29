@@ -12,9 +12,9 @@ import Title from './Title';
 import Description from './Description';
 import Comments from './Comments';
 import Status from './Status';
-import Users from './Users';
+import AssigneesReporter from './AssigneesReporter';
 import Priority from './Priority';
-import Tracking from './Tracking';
+import EstimateTracking from './EstimateTracking';
 import Dates from './Dates';
 import { TopActions, TopActionsRight, Content, Left, Right } from './Styles';
 
@@ -79,9 +79,9 @@ const ProjectBoardIssueDetails = ({
         </Left>
         <Right>
           <Status issue={issue} updateIssue={updateIssue} />
-          <Users issue={issue} updateIssue={updateIssue} projectUsers={projectUsers} />
+          <AssigneesReporter issue={issue} updateIssue={updateIssue} projectUsers={projectUsers} />
           <Priority issue={issue} updateIssue={updateIssue} />
-          <Tracking issue={issue} updateIssue={updateIssue} />
+          <EstimateTracking issue={issue} updateIssue={updateIssue} />
           <Dates issue={issue} />
         </Right>
       </Content>

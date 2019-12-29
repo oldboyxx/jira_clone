@@ -35,52 +35,10 @@ const ProjectIssueCreateForm = ({ project, fetchProject, onCreate, modalClose })
 
   const { currentUserId } = useCurrentUser();
 
-  const typeOptions = Object.values(IssueType).map(type => ({
-    value: type,
-    label: IssueTypeCopy[type],
-  }));
-
-  const priorityOptions = Object.values(IssuePriority).map(priority => ({
-    value: priority,
-    label: IssuePriorityCopy[priority],
-  }));
-
-  const userOptions = project.users.map(user => ({ value: user.id, label: user.name }));
-
-  const renderType = ({ value: type }) => (
-    <SelectItem>
-      <IssueTypeIcon type={type} top={1} />
-      <SelectItemLabel>{IssueTypeCopy[type]}</SelectItemLabel>
-    </SelectItem>
-  );
-
-  const renderPriority = ({ value: priority }) => (
-    <SelectItem>
-      <IssuePriorityIcon priority={priority} top={1} />
-      <SelectItemLabel>{IssuePriorityCopy[priority]}</SelectItemLabel>
-    </SelectItem>
-  );
-
-  const renderUser = ({ value: userId, removeOptionValue }) => {
-    const user = project.users.find(({ id }) => id === userId);
-    return (
-      <SelectItem
-        key={user.id}
-        withBottomMargin={!!removeOptionValue}
-        onClick={() => removeOptionValue && removeOptionValue()}
-      >
-        <Avatar size={20} avatarUrl={user.avatarUrl} name={user.name} />
-        <SelectItemLabel>{user.name}</SelectItemLabel>
-        {removeOptionValue && <Icon type="close" top={2} />}
-      </SelectItem>
-    );
-  };
-
   return (
     <Form
       enableReinitialize
       initialValues={{
-        status: IssueStatus.BACKLOG,
         type: IssueType.TASK,
         title: '',
         description: '',
@@ -98,6 +56,7 @@ const ProjectIssueCreateForm = ({ project, fetchProject, onCreate, modalClose })
         try {
           await createIssue({
             ...values,
+            status: IssueStatus.BACKLOG,
             projectId: project.id,
             users: values.userIds.map(id => ({ id })),
           });
@@ -133,18 +92,18 @@ const ProjectIssueCreateForm = ({ project, fetchProject, onCreate, modalClose })
         <Form.Field.Select
           name="reporterId"
           label="Reporter"
-          options={userOptions}
-          renderOption={renderUser}
-          renderValue={renderUser}
+          options={userOptions(project)}
+          renderOption={renderUser(project)}
+          renderValue={renderUser(project)}
         />
         <Form.Field.Select
           isMulti
           name="userIds"
           label="Assignees"
           tio="People who are responsible for dealing with this issue."
-          options={userOptions}
-          renderOption={renderUser}
-          renderValue={renderUser}
+          options={userOptions(project)}
+          renderOption={renderUser(project)}
+          renderValue={renderUser(project)}
         />
         <Form.Field.Select
           name="priority"
@@ -164,6 +123,48 @@ const ProjectIssueCreateForm = ({ project, fetchProject, onCreate, modalClose })
         </Actions>
       </FormElement>
     </Form>
+  );
+};
+
+const typeOptions = Object.values(IssueType).map(type => ({
+  value: type,
+  label: IssueTypeCopy[type],
+}));
+
+const priorityOptions = Object.values(IssuePriority).map(priority => ({
+  value: priority,
+  label: IssuePriorityCopy[priority],
+}));
+
+const userOptions = project => project.users.map(user => ({ value: user.id, label: user.name }));
+
+const renderType = ({ value: type }) => (
+  <SelectItem>
+    <IssueTypeIcon type={type} top={1} />
+    <SelectItemLabel>{IssueTypeCopy[type]}</SelectItemLabel>
+  </SelectItem>
+);
+
+const renderPriority = ({ value: priority }) => (
+  <SelectItem>
+    <IssuePriorityIcon priority={priority} top={1} />
+    <SelectItemLabel>{IssuePriorityCopy[priority]}</SelectItemLabel>
+  </SelectItem>
+);
+
+const renderUser = project => ({ value: userId, removeOptionValue }) => {
+  const user = project.users.find(({ id }) => id === userId);
+
+  return (
+    <SelectItem
+      key={user.id}
+      withBottomMargin={!!removeOptionValue}
+      onClick={() => removeOptionValue && removeOptionValue()}
+    >
+      <Avatar size={20} avatarUrl={user.avatarUrl} name={user.name} />
+      <SelectItemLabel>{user.name}</SelectItemLabel>
+      {removeOptionValue && <Icon type="close" top={2} />}
+    </SelectItem>
   );
 };
 

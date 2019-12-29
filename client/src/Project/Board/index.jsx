@@ -1,15 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route, useRouteMatch, useHistory } from 'react-router-dom';
 
 import useMergeState from 'shared/hooks/mergeState';
-import { Breadcrumbs } from 'shared/components';
+import { Breadcrumbs, Modal } from 'shared/components';
 
 import Header from './Header';
 import Filters from './Filters';
 import Lists from './Lists';
+import IssueDetails from './IssueDetails';
 
 const propTypes = {
   project: PropTypes.object.isRequired,
+  fetchProject: PropTypes.func.isRequired,
   updateLocalProjectIssues: PropTypes.func.isRequired,
 };
 
@@ -20,7 +23,10 @@ const defaultFilters = {
   recent: false,
 };
 
-const ProjectBoard = ({ project, updateLocalProjectIssues }) => {
+const ProjectBoard = ({ project, fetchProject, updateLocalProjectIssues }) => {
+  const match = useRouteMatch();
+  const history = useHistory();
+
   const [filters, mergeFilters] = useMergeState(defaultFilters);
 
   return (
@@ -37,6 +43,26 @@ const ProjectBoard = ({ project, updateLocalProjectIssues }) => {
         project={project}
         filters={filters}
         updateLocalProjectIssues={updateLocalProjectIssues}
+      />
+      <Route
+        path={`${match.path}/issues/:issueId`}
+        render={routeProps => (
+          <Modal
+            isOpen
+            width={1040}
+            withCloseIcon={false}
+            onClose={() => history.push(match.url)}
+            renderContent={modal => (
+              <IssueDetails
+                issueId={routeProps.match.params.issueId}
+                projectUsers={project.users}
+                fetchProject={fetchProject}
+                updateLocalProjectIssues={updateLocalProjectIssues}
+                modalClose={modal.close}
+              />
+            )}
+          />
+        )}
       />
     </>
   );
