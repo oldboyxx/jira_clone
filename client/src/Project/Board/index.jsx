@@ -49,6 +49,7 @@ const ProjectBoard = ({ project, fetchProject, updateLocalProjectIssues }) => {
         render={routeProps => (
           <Modal
             isOpen
+            testid="modal:issue-details"
             width={1040}
             withCloseIcon={false}
             onClose={() => history.push(match.url)}

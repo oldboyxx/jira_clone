@@ -53,7 +53,9 @@ const defaultProps = {
   top: 0,
 };
 
-const Icon = ({ type, ...iconProps }) => <StyledIcon {...iconProps} code={fontIconCodes[type]} />;
+const Icon = ({ type, ...iconProps }) => (
+  <StyledIcon {...iconProps} data-testid={`icon:${type}`} code={fontIconCodes[type]} />
+);
 
 Icon.propTypes = propTypes;
 Icon.defaultProps = defaultProps;

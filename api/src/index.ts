@@ -4,12 +4,13 @@ import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
 
-import createDatabaseConnection from 'database/connection';
+import createDatabaseConnection from 'database/createConnection';
 import { authenticateUser } from 'middleware/authentication';
 import authenticationRoutes from 'controllers/authentication';
 import commentsRoutes from 'controllers/comments';
 import issuesRoutes from 'controllers/issues';
 import projectsRoutes from 'controllers/projects';
+import testRoutes from 'controllers/test';
 import usersRoutes from 'controllers/users';
 import { RouteNotFoundError } from 'errors';
 import { errorHandler } from 'errors/errorHandler';
@@ -36,6 +37,10 @@ const initializeExpress = (): void => {
     };
     next();
   });
+
+  if (process.env.NODE_ENV === 'test') {
+    app.use('/', testRoutes);
+  }
 
   app.use('/', authenticationRoutes);
 

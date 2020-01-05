@@ -10,7 +10,7 @@ import NavbarLeft from './NavbarLeft';
 import Sidebar from './Sidebar';
 import Board from './Board';
 import IssueSearch from './IssueSearch';
-import IssueCreateForm from './IssueCreateForm';
+import IssueCreate from './IssueCreate';
 import ProjectSettings from './ProjectSettings';
 import { ProjectPage } from './Styles';
 
@@ -49,6 +49,7 @@ const Project = () => {
       {issueSearchModalHelpers.isOpen() && (
         <Modal
           isOpen
+          testid="modal:issue-search"
           variant="aside"
           width={600}
           onClose={issueSearchModalHelpers.close}
@@ -59,11 +60,12 @@ const Project = () => {
       {issueCreateModalHelpers.isOpen() && (
         <Modal
           isOpen
+          testid="modal:issue-create"
           width={800}
           withCloseIcon={false}
           onClose={issueCreateModalHelpers.close}
           renderContent={modal => (
-            <IssueCreateForm
+            <IssueCreate
               project={project}
               fetchProject={fetchProject}
               onCreate={() => history.push(`${match.url}/board`)}

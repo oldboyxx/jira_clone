@@ -50,7 +50,7 @@ const ProjectBoardIssueDetailsComment = ({ comment, fetchIssue }) => {
   };
 
   return (
-    <Comment>
+    <Comment data-testid="issue-comment">
       <UserAvatar name={comment.user.name} avatarUrl={comment.user.avatarUrl} />
       <Content>
         <Username>{comment.user.name}</Username>
@@ -71,7 +71,7 @@ const ProjectBoardIssueDetailsComment = ({ comment, fetchIssue }) => {
             <ConfirmModal
               title="Are you sure you want to delete this comment?"
               message="Once you delete, it's gone for good."
-              confirmText="Delete Comment"
+              confirmText="Delete comment"
               onConfirm={handleCommentDelete}
               renderLink={modal => <DeleteLink onClick={modal.open}>Delete</DeleteLink>}
             />

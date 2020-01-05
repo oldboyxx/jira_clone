@@ -1,5 +1,3 @@
-import { sample } from 'lodash';
-
 import { Comment, Issue, Project, User } from 'entities';
 import { ProjectCategory } from 'constants/projects';
 import { IssueType, IssueStatus, IssuePriority } from 'constants/issues';
@@ -37,7 +35,8 @@ const seedProject = (users: User[]): Promise<Project> =>
   });
 
 const seedIssues = (project: Project): Promise<Issue[]> => {
-  const getRandomUser = (): User => sample(project.users) as User;
+  const { users } = project;
+
   const issues = [
     createEntity(Issue, {
       title: 'This is an issue of type: Task.',
@@ -46,9 +45,9 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       priority: IssuePriority.LOWEST,
       listPosition: 1,
       estimate: 8,
-      reporterId: getRandomUser().id,
+      reporterId: users[1].id,
       project,
-      users: [getRandomUser()],
+      users: [users[0]],
     }),
     createEntity(Issue, {
       title: "Click on an issue to see what's behind it.",
@@ -58,7 +57,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       listPosition: 2,
       description: 'Nothing in particular.',
       estimate: 40,
-      reporterId: getRandomUser().id,
+      reporterId: users[2].id,
       project,
     }),
     createEntity(Issue, {
@@ -68,9 +67,9 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       priority: IssuePriority.MEDIUM,
       listPosition: 3,
       estimate: 15,
-      reporterId: getRandomUser().id,
+      reporterId: users[1].id,
       project,
-      users: [getRandomUser()],
+      users: [users[2]],
     }),
     createEntity(Issue, {
       title: 'You can use markdown for issue descriptions.',
@@ -80,9 +79,9 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       listPosition: 4,
       description: '#### Colons can be used to align columns.',
       estimate: 4,
-      reporterId: getRandomUser().id,
+      reporterId: users[0].id,
       project,
-      users: [getRandomUser()],
+      users: [users[2]],
     }),
     createEntity(Issue, {
       title: 'You must assign priority from lowest to highest to all issues.',
@@ -91,7 +90,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       priority: IssuePriority.HIGHEST,
       listPosition: 5,
       estimate: 15,
-      reporterId: getRandomUser().id,
+      reporterId: users[2].id,
       project,
     }),
     createEntity(Issue, {
@@ -101,9 +100,9 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       priority: IssuePriority.MEDIUM,
       listPosition: 6,
       estimate: 55,
-      reporterId: getRandomUser().id,
+      reporterId: users[1].id,
       project,
-      users: [getRandomUser()],
+      users: [users[0]],
     }),
     createEntity(Issue, {
       title: 'Try leaving a comment on this issue.',
@@ -112,7 +111,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       priority: IssuePriority.MEDIUM,
       listPosition: 7,
       estimate: 12,
-      reporterId: getRandomUser().id,
+      reporterId: users[0].id,
       project,
     }),
   ];
@@ -122,16 +121,16 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
 const seedComments = (issue: Issue, user: User): Promise<Comment> =>
   createEntity(Comment, {
     body: "Be nice to each other! Don't be mean to each other!",
-    issue,
-    user,
+    issueId: issue.id,
+    userId: user.id,
   });
 
-const seedGuestUserEntities = async (): Promise<User> => {
+const createGuestAccount = async (): Promise<User> => {
   const users = await seedUsers();
   const project = await seedProject(users);
   const issues = await seedIssues(project);
-  await seedComments(issues[issues.length - 1], project.users[0]);
+  await seedComments(issues[0], project.users[0]);
   return users[0];
 };
 
-export default seedGuestUserEntities;
+export default createGuestAccount;

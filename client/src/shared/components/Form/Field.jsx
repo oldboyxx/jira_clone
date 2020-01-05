@@ -15,23 +15,29 @@ const propTypes = {
   label: PropTypes.string,
   tip: PropTypes.string,
   error: PropTypes.string,
+  name: PropTypes.string,
 };
 
 const defaultProps = {
   className: undefined,
-  label: null,
-  tip: null,
-  error: null,
+  label: undefined,
+  tip: undefined,
+  error: undefined,
+  name: undefined,
 };
 
 const generateField = FormComponent => {
-  const FieldComponent = ({ className, label, tip, error, ...otherProps }) => {
+  const FieldComponent = ({ className, label, tip, error, name, ...otherProps }) => {
     const fieldId = uniqueId('form-field-');
 
     return (
-      <StyledField className={className} hasLabel={!!label}>
+      <StyledField
+        className={className}
+        hasLabel={!!label}
+        data-testid={name ? `form-field:${name}` : 'form-field'}
+      >
         {label && <FieldLabel htmlFor={fieldId}>{label}</FieldLabel>}
-        <FormComponent id={fieldId} invalid={!!error} {...otherProps} />
+        <FormComponent id={fieldId} invalid={!!error} name={name} {...otherProps} />
         {tip && <FieldTip>{tip}</FieldTip>}
         {error && <FieldError>{error}</FieldError>}
       </StyledField>

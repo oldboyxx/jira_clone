@@ -192,6 +192,7 @@ const SelectDropdown = ({
           <Option
             key={option.value}
             data-select-option-value={option.value}
+            data-testid={`select-option:${option.label}`}
             onMouseEnter={handleOptionMouseEnter}
             onClick={() => selectOptionValue(option.value)}
           >

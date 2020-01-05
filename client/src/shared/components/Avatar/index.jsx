@@ -18,12 +18,19 @@ const defaultProps = {
 };
 
 const Avatar = ({ className, avatarUrl, name, size, ...otherProps }) => {
+  const sharedProps = {
+    className,
+    size,
+    'data-testid': name ? `avatar:${name}` : 'avatar',
+    ...otherProps,
+  };
+
   if (avatarUrl) {
-    return <Image className={className} size={size} avatarUrl={avatarUrl} {...otherProps} />;
+    return <Image avatarUrl={avatarUrl} {...sharedProps} />;
   }
 
   return (
-    <Letter className={className} size={size} color={getColorFromName(name)} {...otherProps}>
+    <Letter color={getColorFromName(name)} {...sharedProps}>
       <span>{name.charAt(0)}</span>
     </Letter>
   );

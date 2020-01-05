@@ -15,6 +15,10 @@ export const StyledSelect = styled.div`
       width: 100%;
       border: 1px solid ${color.borderLightest};
       background: ${color.backgroundLightest};
+      transition: background 0.1s;
+      &:hover {
+        background: ${color.backgroundLight};
+      }
     `}
   &:focus {
     outline: none;

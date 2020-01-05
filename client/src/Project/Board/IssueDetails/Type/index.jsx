@@ -16,6 +16,7 @@ const ProjectBoardIssueDetailsType = ({ issue, updateIssue }) => (
     variant="empty"
     dropdownWidth={150}
     withClearValue={false}
+    name="type"
     value={issue.type}
     options={Object.values(IssueType).map(type => ({
       value: type,

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --exec ts-node --files src/index.ts",
-    "db-seed": "nodemon --exec ts-node --files src/database/seeds/development/index.ts",
+    "test:start": "cross-env NODE_ENV='test' DB_DATABASE='jira_test' nodemon --exec ts-node --files src/index.ts",
     "pre-commit": "lint-staged"
   },
   "dependencies": {
@@ -32,6 +32,7 @@
     "@types/node": "^12.12.11",
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
+    "cross-env": "^6.0.3",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "^6.7.0",

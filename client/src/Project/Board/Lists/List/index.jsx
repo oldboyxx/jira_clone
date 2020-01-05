@@ -31,7 +31,11 @@ const ProjectBoardList = ({ status, project, filters }) => {
             {`${IssueStatusCopy[status]} `}
             <IssuesCount>{formatIssuesCount(allListIssues, filteredListIssues)}</IssuesCount>
           </Title>
-          <Issues {...provided.droppableProps} ref={provided.innerRef}>
+          <Issues
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            data-testid={`board-list:${status}`}
+          >
             {filteredListIssues.map((issue, index) => (
               <Issue key={issue.id} projectUsers={project.users} issue={issue} index={index} />
             ))}

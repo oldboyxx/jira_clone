@@ -4,5 +4,5 @@
     "baseUrl": "./src",
     "jsx": "react"
   },
-  "exclude": ["node_modules", "dist", "dev"]
+  "include": ["src/**/*", "cypress/**/*.js", "./node_modules/cypress"]
 }

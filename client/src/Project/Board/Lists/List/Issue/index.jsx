@@ -24,6 +24,7 @@ const ProjectBoardListIssue = ({ projectUsers, issue, index }) => {
         <IssueLink
           to={`${match.url}/issues/${issue.id}`}
           ref={provided.innerRef}
+          data-testid="list-issue"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >

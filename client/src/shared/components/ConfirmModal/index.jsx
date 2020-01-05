@@ -47,8 +47,9 @@ const ConfirmModal = ({
 
   return (
     <StyledConfirmModal
-      withCloseIcon={false}
       className={className}
+      testid="modal:confirm"
+      withCloseIcon={false}
       renderLink={renderLink}
       renderContent={modal => (
         <>

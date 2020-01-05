@@ -30,7 +30,7 @@ const propTypes = {
   modalClose: PropTypes.func.isRequired,
 };
 
-const ProjectIssueCreateForm = ({ project, fetchProject, onCreate, modalClose }) => {
+const ProjectIssueCreate = ({ project, fetchProject, onCreate, modalClose }) => {
   const [{ isCreating }, createIssue] = useApi.post('/issues');
 
   const { currentUserId } = useCurrentUser();
@@ -168,6 +168,6 @@ const renderUser = project => ({ value: userId, removeOptionValue }) => {
   );
 };
 
-ProjectIssueCreateForm.propTypes = propTypes;
+ProjectIssueCreate.propTypes = propTypes;
 
-export default ProjectIssueCreateForm;
+export default ProjectIssueCreate;

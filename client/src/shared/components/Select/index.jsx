@@ -20,6 +20,7 @@ const propTypes = {
   className: PropTypes.string,
   variant: PropTypes.oneOf(['normal', 'empty']),
   dropdownWidth: PropTypes.number,
+  name: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number]),
   defaultValue: PropTypes.any,
   placeholder: PropTypes.string,
@@ -37,6 +38,7 @@ const defaultProps = {
   className: undefined,
   variant: 'normal',
   dropdownWidth: undefined,
+  name: undefined,
   value: undefined,
   defaultValue: undefined,
   placeholder: 'Select',
@@ -52,6 +54,7 @@ const Select = ({
   className,
   variant,
   dropdownWidth,
+  name,
   value: propsValue,
   defaultValue,
   placeholder,
@@ -140,7 +143,11 @@ const Select = ({
       onKeyDown={handleFocusedSelectKeydown}
       invalid={invalid}
     >
-      <ValueContainer variant={variant} onClick={activateDropdown}>
+      <ValueContainer
+        variant={variant}
+        data-testid={name ? `select:${name}` : 'select'}
+        onClick={activateDropdown}
+      >
         {isValueEmpty && <Placeholder>{placeholder}</Placeholder>}
 
         {!isValueEmpty && !isMulti && propsRenderValue

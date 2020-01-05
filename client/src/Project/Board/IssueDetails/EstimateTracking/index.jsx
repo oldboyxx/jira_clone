@@ -28,6 +28,7 @@ const ProjectBoardIssueDetailsEstimateTracking = ({ issue, updateIssue }) => (
 
     <SectionTitle>Time Tracking</SectionTitle>
     <Modal
+      testid="modal:tracking"
       width={400}
       renderLink={modal => (
         <TrackingLink onClick={modal.open}>

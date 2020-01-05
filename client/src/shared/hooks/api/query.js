@@ -12,7 +12,6 @@ const useQuery = (url, propsVariables = {}, options = {}) => {
     data: null,
     error: null,
     isLoading: !lazy,
-    wasCalled: !lazy,
     variables: {},
   });
 

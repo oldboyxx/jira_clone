@@ -25,7 +25,7 @@ const ProjectBoardFilters = ({ projectUsers, defaultFilters, filters, mergeFilte
   const areFiltersCleared = !searchTerm && userIds.length === 0 && !myOnly && !recent;
 
   return (
-    <Filters>
+    <Filters data-testid="board-filters">
       <SearchInput
         icon="search"
         value={searchTerm}
