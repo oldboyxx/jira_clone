@@ -8,44 +8,34 @@ import useDeepCompareMemoize from 'shared/hooks/deepCompareMemoize';
 const useQuery = (url, propsVariables = {}, options = {}) => {
   const { lazy = false, cachePolicy = 'cache-first' } = options;
 
+  const wasCalled = useRef(false);
+  const propsVariablesMemoized = useDeepCompareMemoize(propsVariables);
+
+  const isSleeping = lazy && !wasCalled.current;
+  const isCacheAvailable = cache[url] && isEqual(cache[url].apiVariables, propsVariables);
+  const canUseCache = isCacheAvailable && cachePolicy !== 'no-cache' && !wasCalled.current;
+
   const [state, mergeState] = useMergeState({
-    data: null,
+    data: canUseCache ? cache[url].data : null,
     error: null,
-    isLoading: !lazy,
+    isLoading: !lazy && !canUseCache,
     variables: {},
   });
 
-  const wasCalledRef = useRef(false);
-  const propsVariablesMemoized = useDeepCompareMemoize(propsVariables);
-
-  const stateRef = useRef();
-  stateRef.current = state;
-
   const makeRequest = useCallback(
-    (newVariables = {}, isAutoCalled) => {
-      const variables = { ...stateRef.current.variables, ...newVariables };
+    (newVariables, { skipLoading } = {}) => {
+      const variables = { ...state.variables, ...(newVariables || {}) };
       const apiVariables = { ...propsVariablesMemoized, ...variables };
 
-      const isCacheAvailable = cache[url] && isEqual(cache[url].apiVariables, apiVariables);
-
-      const isCacheAvailableAndPermitted =
-        isCacheAvailable && isAutoCalled && cachePolicy !== 'no-cache';
-
-      if (isCacheAvailableAndPermitted) {
-        mergeState({ data: cache[url].data, error: null, isLoading: false, variables });
-
-        if (cachePolicy === 'cache-only') {
-          return;
-        }
-      }
-
-      if (!isCacheAvailableAndPermitted && (lazy || wasCalledRef.current)) {
+      if (!skipLoading) {
         mergeState({ isLoading: true, variables });
+      } else if (newVariables) {
+        mergeState({ variables });
       }
 
       api.get(url, apiVariables).then(
         data => {
-          cache[url] = { apiVariables, data };
+          cache[url] = { data, apiVariables };
           mergeState({ data, error: null, isLoading: false });
         },
         error => {
@@ -53,26 +43,37 @@ const useQuery = (url, propsVariables = {}, options = {}) => {
         },
       );
 
-      wasCalledRef.current = true;
+      wasCalled.current = true;
     },
-    [propsVariablesMemoized, cachePolicy, url, lazy, mergeState],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [propsVariablesMemoized],
   );
 
   useEffect(() => {
-    if (!lazy || wasCalledRef.current) {
-      makeRequest({}, true);
-    }
-  }, [lazy, makeRequest]);
+    if (isSleeping) return;
+    if (canUseCache && cachePolicy === 'cache-only') return;
+
+    makeRequest(
+      {},
+      {
+        skipLoading: canUseCache && cachePolicy === 'cache-first',
+      },
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [makeRequest]);
 
   const setLocalData = useCallback(
-    getUpdatedData => mergeState(({ data }) => ({ data: getUpdatedData(data) })),
-    [mergeState],
+    getUpdatedData =>
+      mergeState(({ data }) => {
+        cache[url] = { ...(cache[url] || {}), data: getUpdatedData(data) };
+        return { data: getUpdatedData(data) };
+      }),
+    [mergeState, url],
   );
 
   return [
     {
       ...state,
-      wasCalled: wasCalledRef.current,
       variables: { ...propsVariablesMemoized, ...state.variables },
       setLocalData,
     },

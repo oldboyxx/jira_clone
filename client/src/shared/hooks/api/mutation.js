@@ -29,7 +29,13 @@ const useMutation = (method, url) => {
     [method, url, mergeState],
   );
 
-  return [{ ...state, [isWorkingAlias[method]]: state.isWorking }, makeRequest];
+  return [
+    {
+      ...state,
+      [isWorkingAlias[method]]: state.isWorking,
+    },
+    makeRequest,
+  ];
 };
 
 const isWorkingAlias = {

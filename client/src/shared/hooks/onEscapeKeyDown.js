@@ -13,7 +13,6 @@ const useOnEscapeKeyDown = (isListening, onEscapeKeyDown) => {
     if (isListening) {
       document.addEventListener('keydown', handleKeyDown);
     }
-
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };

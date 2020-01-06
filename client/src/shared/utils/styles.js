@@ -58,7 +58,7 @@ export const issueStatusBackgroundColors = {
 
 export const sizes = {
   appNavBarLeftWidth: 64,
-  secondarySideBarWidth: 240,
+  secondarySideBarWidth: 230,
   minViewportWidth: 1000,
 };
 
@@ -137,10 +137,7 @@ export const mixin = {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   `,
-  customScrollbar: ({
-    width = 8,
-    background = mixin.darken(color.backgroundMedium, 0.2),
-  } = {}) => css`
+  customScrollbar: ({ width = 8, background = color.backgroundMedium } = {}) => css`
     &::-webkit-scrollbar {
       width: ${width}px;
     }

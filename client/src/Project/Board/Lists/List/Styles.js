@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { color, font } from 'shared/utils/styles';
+import { color, font, mixin } from 'shared/utils/styles';
 
 export const List = styled.div`
   display: flex;
@@ -17,6 +17,7 @@ export const Title = styled.div`
   text-transform: uppercase;
   color: ${color.textMedium};
   ${font.size(12.5)};
+  ${mixin.truncateText}
 `;
 
 export const IssuesCount = styled.span`

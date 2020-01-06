@@ -4,7 +4,6 @@ import moment from 'moment';
 import { Droppable } from 'react-beautiful-dnd';
 import { intersection } from 'lodash';
 
-import useCurrentUser from 'shared/hooks/currentUser';
 import { IssueStatusCopy } from 'shared/constants/issues';
 
 import Issue from './Issue';
@@ -14,11 +13,14 @@ const propTypes = {
   status: PropTypes.string.isRequired,
   project: PropTypes.object.isRequired,
   filters: PropTypes.object.isRequired,
+  currentUserId: PropTypes.number,
 };
 
-const ProjectBoardList = ({ status, project, filters }) => {
-  const { currentUserId } = useCurrentUser();
+const defaultProps = {
+  currentUserId: null,
+};
 
+const ProjectBoardList = ({ status, project, filters, currentUserId }) => {
   const filteredIssues = filterIssues(project.issues, filters, currentUserId);
   const filteredListIssues = getSortedListIssues(filteredIssues, status);
   const allListIssues = getSortedListIssues(project.issues, status);
@@ -77,5 +79,6 @@ const formatIssuesCount = (allListIssues, filteredListIssues) => {
 };
 
 ProjectBoardList.propTypes = propTypes;
+ProjectBoardList.defaultProps = defaultProps;
 
 export default ProjectBoardList;

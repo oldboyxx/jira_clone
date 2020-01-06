@@ -3,15 +3,20 @@ import styled from 'styled-components';
 import { color, sizes, font, mixin, zIndexValues } from 'shared/utils/styles';
 
 export const Sidebar = styled.div`
-  position: absolute;
+  position: fixed;
   z-index: ${zIndexValues.navLeft - 1};
   top: 0;
   left: ${sizes.appNavBarLeftWidth}px;
   height: 100vh;
-  width: 240px;
-  padding: 0 16px;
+  width: ${sizes.secondarySideBarWidth}px;
+  padding: 0 16px 24px;
   background: ${color.backgroundLightest};
   border-right: 1px solid ${color.borderLightest};
+  ${mixin.scrollableY}
+  ${mixin.customScrollbar()}
+  @media (max-width: 1100px) {
+    width: ${sizes.secondarySideBarWidth - 10}px;
+  }
 `;
 
 export const ProjectInfo = styled.div`
@@ -67,18 +72,20 @@ export const LinkText = styled.div`
 `;
 
 export const NotImplemented = styled.div`
-  display: none;
+  display: inline-block;
   position: absolute;
-  top: 9px;
-  left: 101%;
-  width: 120px;
-  padding: 3px 0 3px 8px;
+  top: 7px;
+  left: 40px;
+  width: 140px;
+  padding: 5px 0 5px 8px;
   border-radius: 3px;
-  color: #fff;
-  background: #000;
-  ${font.size(12.5)};
-  ${font.medium}
+  text-transform: uppercase;
+  color: ${color.textDark};
+  background: ${color.backgroundMedium};
+  opacity: 0;
+  ${font.size(11.5)};
+  ${font.bold}
   ${LinkItem}:hover & {
-    display: inline-block;
+    opacity: 1;
   }
 `;

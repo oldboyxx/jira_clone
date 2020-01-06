@@ -33,7 +33,6 @@ const useOnOutsideClick = (
       $listeningElement.addEventListener('mousedown', handleMouseDown);
       $listeningElement.addEventListener('mouseup', handleMouseUp);
     }
-
     return () => {
       $listeningElement.removeEventListener('mousedown', handleMouseDown);
       $listeningElement.removeEventListener('mouseup', handleMouseUp);

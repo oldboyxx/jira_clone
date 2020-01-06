@@ -7,7 +7,6 @@ const useDeepCompareMemoize = value => {
   if (!isEqual(value, valueRef.current)) {
     valueRef.current = value;
   }
-
   return valueRef.current;
 };
 

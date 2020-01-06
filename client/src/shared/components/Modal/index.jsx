@@ -58,7 +58,14 @@ const Modal = ({
 
   useOnOutsideClick($modalRef, isOpen, closeModal, $clickableOverlayRef);
   useOnEscapeKeyDown(isOpen, closeModal);
-  useEffect(setBodyScrollLock, [isOpen]);
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = 'visible';
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -72,7 +79,6 @@ const Modal = ({
                 className={className}
                 variant={variant}
                 width={width}
-                data-jira-modal="true"
                 data-testid={testid}
                 ref={$modalRef}
               >
@@ -88,11 +94,6 @@ const Modal = ({
 };
 
 const $root = document.getElementById('root');
-
-const setBodyScrollLock = () => {
-  const areAnyModalsOpen = !!document.querySelector('[data-jira-modal]');
-  document.body.style.overflow = areAnyModalsOpen ? 'hidden' : 'visible';
-};
 
 Modal.propTypes = propTypes;
 Modal.defaultProps = defaultProps;

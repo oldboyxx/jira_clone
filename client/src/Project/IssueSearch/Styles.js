@@ -4,7 +4,7 @@ import { color, font, mixin } from 'shared/utils/styles';
 import { InputDebounced, Spinner, Icon } from 'shared/components';
 
 export const IssueSearch = styled.div`
-  padding: 25px 35px;
+  padding: 25px 35px 60px;
 `;
 
 export const SearchInputCont = styled.div`

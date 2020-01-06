@@ -69,9 +69,10 @@ describe('Issue details', () => {
 
     cy.get(testid`modal:tracking`).within(() => {
       cy.contains('No time logged').should('exist');
-      getNumberInputAtIndex(0).debounced('type', 1);
 
+      getNumberInputAtIndex(0).debounced('type', 1);
       cy.get('div[width="10"]').should('exist'); // tracking bar
+
       getNumberInputAtIndex(1).debounced('type', 2);
 
       cy.contains('button', 'Done')
@@ -124,7 +125,6 @@ describe('Issue details', () => {
   it('edits a comment successfully', () => {
     getIssueDetailsModal().within(() => {
       cy.get(testid`issue-comment`)
-        .first()
         .contains('Edit')
         .click()
         .should('not.exist');
@@ -139,7 +139,6 @@ describe('Issue details', () => {
         .should('not.exist');
 
       cy.get(testid`issue-comment`)
-        .first()
         .should('contain', 'Edit')
         .and('contain', 'TEST_COMMENT_EDITED');
     });
@@ -148,7 +147,6 @@ describe('Issue details', () => {
   it('deletes a comment successfully', () => {
     getIssueDetailsModal()
       .find(testid`issue-comment`)
-      .first()
       .contains('Delete')
       .click();
 
