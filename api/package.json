@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --exec ts-node --files src/index.ts",
-    "test:start": "cross-env NODE_ENV='test' DB_DATABASE='jira_test' nodemon --exec ts-node --files src/index.ts",
+    "start:test": "cross-env NODE_ENV='test' DB_DATABASE='jira_test' && npm start",
+    "start:production": "cross-env NODE_ENV=production pm2 start node -- -r ./tsconfig-paths.js build/index.js",
+    "build": "cd src && tsc",
     "pre-commit": "lint-staged"
   },
   "dependencies": {
@@ -42,6 +44,7 @@
     "nodemon": "^2.0.0",
     "prettier": "^1.19.1",
     "ts-node": "^8.5.2",
+    "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.2"
   },
   "_moduleDirectories": [

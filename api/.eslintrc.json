@@ -30,7 +30,7 @@
     "import/no-cycle": 0
   },
   "settings": {
-    // Allows us to use absolute imports within codebase
+    // Allows us to lint absolute imports within codebase
     "import/resolver": {
       "node": {
         "moduleDirectory": ["node_modules", "src/"]

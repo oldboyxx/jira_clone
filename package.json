@@ -4,10 +4,10 @@
   "author": "Ivor Reic",
   "license": "MIT",
   "scripts": {
-    "pre-commit:api": "cd api && npm run pre-commit",
-    "pre-commit:client": "cd client && npm run pre-commit",
-    "pre-commit": "npm run pre-commit:api && npm run pre-commit:client",
-    "install-deps": "npm install && cd api && npm install && cd ../client && npm install"
+    "pre-commit": "cd api && npm run pre-commit && cd ../client && npm run pre-commit",
+    "install-dependencies": "npm install && cd api && npm install && cd ../client && npm install",
+    "build": "cd api && npm run build && cd ../client && npm run build",
+    "start:production": "cd api && npm run start:production && cd ../client && npm run start:production"
   },
   "devDependencies": {
     "husky": "^4.0.0-beta.5"
