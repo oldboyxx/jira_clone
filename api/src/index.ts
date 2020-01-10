@@ -5,15 +5,12 @@ import express from 'express';
 import cors from 'cors';
 
 import createDatabaseConnection from 'database/createConnection';
+import { addRespondToResponse } from 'middleware/response';
 import { authenticateUser } from 'middleware/authentication';
-import authenticationRoutes from 'controllers/authentication';
-import commentsRoutes from 'controllers/comments';
-import issuesRoutes from 'controllers/issues';
-import projectsRoutes from 'controllers/projects';
-import testRoutes from 'controllers/test';
-import usersRoutes from 'controllers/users';
+import { handleError } from 'middleware/errors';
 import { RouteNotFoundError } from 'errors';
-import { errorHandler } from 'errors/errorHandler';
+
+import { attachPublicRoutes, attachPrivateRoutes } from './routes';
 
 const establishDatabaseConnection = async (): Promise<void> => {
   try {
@@ -31,28 +28,16 @@ const initializeExpress = (): void => {
   app.use(express.json());
   app.use(express.urlencoded());
 
-  app.use((_req, res, next) => {
-    res.respond = (data): void => {
-      res.status(200).send(data);
-    };
-    next();
-  });
+  app.use(addRespondToResponse);
 
-  if (process.env.NODE_ENV === 'test') {
-    app.use('/', testRoutes);
-  }
-
-  app.use('/', authenticationRoutes);
+  attachPublicRoutes(app);
 
   app.use('/', authenticateUser);
 
-  app.use('/', commentsRoutes);
-  app.use('/', issuesRoutes);
-  app.use('/', projectsRoutes);
-  app.use('/', usersRoutes);
+  attachPrivateRoutes(app);
 
   app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));
-  app.use(errorHandler);
+  app.use(handleError);
 
   app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
 };

@@ -16,6 +16,6 @@ describe('Authentication', () => {
       .should('be.a', 'string')
       .and('not.be.empty');
 
-    cy.get(testid`list-issue`).should('have.length', 7);
+    cy.get(testid`list-issue`).should('have.length', 8);
   });
 });
