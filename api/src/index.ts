@@ -22,7 +22,6 @@ const establishDatabaseConnection = async (): Promise<void> => {
 
 const initializeExpress = (): void => {
   const app = express();
-  const PORT = 3000;
 
   app.use(cors());
   app.use(express.json());
@@ -39,7 +38,7 @@ const initializeExpress = (): void => {
   app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));
   app.use(handleError);
 
-  app.listen(PORT, () => console.log(`App listening on port ${PORT}`));
+  app.listen(process.env.PORT || 3000);
 };
 
 const initializeApp = async (): Promise<void> => {

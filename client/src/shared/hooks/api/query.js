@@ -23,9 +23,11 @@ const useQuery = (url, propsVariables = {}, options = {}) => {
   });
 
   const makeRequest = useCallback(
-    (newVariables, { skipLoading } = {}) => {
+    newVariables => {
       const variables = { ...state.variables, ...(newVariables || {}) };
       const apiVariables = { ...propsVariablesMemoized, ...variables };
+
+      const skipLoading = canUseCache && cachePolicy === 'cache-first';
 
       if (!skipLoading) {
         mergeState({ isLoading: true, variables });
@@ -53,20 +55,16 @@ const useQuery = (url, propsVariables = {}, options = {}) => {
     if (isSleeping) return;
     if (canUseCache && cachePolicy === 'cache-only') return;
 
-    makeRequest(
-      {},
-      {
-        skipLoading: canUseCache && cachePolicy === 'cache-first',
-      },
-    );
+    makeRequest();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [makeRequest]);
 
   const setLocalData = useCallback(
     getUpdatedData =>
       mergeState(({ data }) => {
-        cache[url] = { ...(cache[url] || {}), data: getUpdatedData(data) };
-        return { data: getUpdatedData(data) };
+        const updatedData = getUpdatedData(data);
+        cache[url] = { ...(cache[url] || {}), data: updatedData };
+        return { data: updatedData };
       }),
     [mergeState, url],
   );
