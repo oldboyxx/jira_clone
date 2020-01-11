@@ -58,6 +58,12 @@ module.exports = {
       template: path.join(__dirname, 'src/index.html'),
       favicon: path.join(__dirname, 'src/favicon.png'),
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+        API_PORT: JSON.stringify('3001'),
+      },
+    }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
 };

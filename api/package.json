@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon --exec ts-node --files src/index.ts",
     "start:test": "cross-env NODE_ENV='test' DB_DATABASE='jira_test' npm start",
-    "start:production": "cross-env NODE_ENV=production pm2 start node -- -r ./tsconfig-paths.js build/index.js",
+    "start:production": "pm2 start node -- -r ./tsconfig-paths.js build/index.js",
     "build": "cd src && tsc",
     "pre-commit": "lint-staged"
   },
