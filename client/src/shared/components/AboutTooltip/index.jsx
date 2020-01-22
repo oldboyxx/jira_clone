@@ -22,13 +22,13 @@ const AboutTooltip = tooltipProps => (
         </FeedbackParagraph>
 
         <FeedbackParagraph>
-          {'Read more on our website or reach out via '}
+          {'Read more on my website or reach out via '}
           <a href="mailto:ivor@codetree.co">
             <strong>ivor@codetree.co</strong>
           </a>
         </FeedbackParagraph>
 
-        <a href="https://codetree.co/" target="_blank" rel="noreferrer noopener">
+        <a href="https://getivor.com/" target="_blank" rel="noreferrer noopener">
           <Button variant="primary">Visit Website</Button>
         </a>
 

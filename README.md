@@ -30,7 +30,7 @@
 
 ## What's missing?
 
-There are features missing from this showcase API which should exist in a real product:
+There are features missing from this showcase product which should exist in a real product:
 
 ### Migrations 🗄
 
@@ -40,13 +40,17 @@ We're currently using TypeORM's `synchronize` feature which auto creates the dat
 
 We currently auto create an auth token and seed a project with issues and users for anyone who visits the API without valid credentials. In a real product we'd want to implement a proper [email and password authentication system](https://www.google.com/search?q=email+and+password+authentication+node+js&oq=email+and+password+authentication+node+js).
 
+### Accessibility ♿
+
+Not all components have properly defined [aria attributes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA), visual focus indicators etc. Most early stage companies tend to ignore this aspect of their product but in many cases they shouldn't, especially once their userbase starts growing.
+
 ### Unit/Integration tests 🧪
 
 Both Client and API are currently tested by through [end-to-end Cypress tests](https://github.com/oldboyxx/jira_clone/tree/master/client/cypress/integration). That's good enough for a relatively simple application such as this, even if it was a real product. However, as the app grows in complexity, it might be wise to start writing additional unit/integration tests.
 
 ### Author: Ivor Reic ✍️
 
-- Website: https://codetree.co/
+- Website: https://getivor.com/
 - Skype handle: ivor.reic 💬
 
 <hr>
