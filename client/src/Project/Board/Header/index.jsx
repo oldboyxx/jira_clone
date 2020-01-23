@@ -1,13 +1,15 @@
 import React from 'react';
 
-import { CopyLinkButton } from 'shared/components';
+import { Button } from 'shared/components';
 
 import { Header, BoardName } from './Styles';
 
 const ProjectBoardHeader = () => (
   <Header>
     <BoardName>Kanban board</BoardName>
-    <CopyLinkButton />
+    <a href="https://github.com/oldboyxx/jira_clone" target="_blank" rel="noreferrer noopener">
+      <Button icon="github">Github Repo</Button>
+    </a>
   </Header>
 );
 

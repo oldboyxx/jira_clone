@@ -17,6 +17,9 @@ export const Sidebar = styled.div`
   @media (max-width: 1100px) {
     width: ${sizes.secondarySideBarWidth - 10}px;
   }
+  @media (max-width: 999px) {
+    display: none;
+  }
 `;
 
 export const ProjectInfo = styled.div`

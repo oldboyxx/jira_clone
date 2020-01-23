@@ -112,7 +112,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       timeSpent: 3,
       reporterId: users[1].id,
       project,
-      users: [users[0], users[1]],
+      users: [users[1], users[2]],
     }),
     createEntity(Issue, {
       title:
