@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import api from 'shared/utils/api';
@@ -55,7 +55,7 @@ const ProjectBoardIssueDetails = ({
   };
 
   return (
-    <>
+    <Fragment>
       <TopActions>
         <Type issue={issue} updateIssue={updateIssue} />
         <TopActionsRight>
@@ -85,7 +85,7 @@ const ProjectBoardIssueDetails = ({
           <Dates issue={issue} />
         </Right>
       </Content>
-    </>
+    </Fragment>
   );
 };
 

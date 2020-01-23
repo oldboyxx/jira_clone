@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Route, useRouteMatch, useHistory } from 'react-router-dom';
 
@@ -30,7 +30,7 @@ const ProjectBoard = ({ project, fetchProject, updateLocalProjectIssues }) => {
   const [filters, mergeFilters] = useMergeState(defaultFilters);
 
   return (
-    <>
+    <Fragment>
       <Breadcrumbs items={['Projects', project.name, 'Kanban Board']} />
       <Header />
       <Filters
@@ -65,7 +65,7 @@ const ProjectBoard = ({ project, fetchProject, updateLocalProjectIssues }) => {
           />
         )}
       />
-    </>
+    </Fragment>
   );
 };
 

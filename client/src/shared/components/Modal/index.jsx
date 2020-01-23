@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { Fragment, useState, useRef, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
@@ -68,7 +68,7 @@ const Modal = ({
   }, [isOpen]);
 
   return (
-    <>
+    <Fragment>
       {!isControlled && renderLink({ open: () => setStateOpen(true) })}
 
       {isOpen &&
@@ -89,7 +89,7 @@ const Modal = ({
           </ScrollOverlay>,
           $root,
         )}
-    </>
+    </Fragment>
   );
 };
 

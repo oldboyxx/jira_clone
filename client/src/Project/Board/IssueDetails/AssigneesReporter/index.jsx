@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { Avatar, Select, Icon } from 'shared/components';
@@ -18,7 +18,7 @@ const ProjectBoardIssueDetailsAssigneesReporter = ({ issue, updateIssue, project
   const userOptions = projectUsers.map(user => ({ value: user.id, label: user.name }));
 
   return (
-    <>
+    <Fragment>
       <SectionTitle>Assignees</SectionTitle>
       <Select
         isMulti
@@ -49,7 +49,7 @@ const ProjectBoardIssueDetailsAssigneesReporter = ({ issue, updateIssue, project
         renderValue={({ value: userId }) => renderUser(getUserById(userId), true)}
         renderOption={({ value: userId }) => renderUser(getUserById(userId))}
       />
-    </>
+    </Fragment>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
@@ -60,17 +60,17 @@ const ProjectIssueSearch = ({ project }) => {
       </SearchInputCont>
 
       {isSearchTermEmpty && recentIssues.length > 0 && (
-        <>
+        <Fragment>
           <SectionTitle>Recent Issues</SectionTitle>
           {recentIssues.map(renderIssue)}
-        </>
+        </Fragment>
       )}
 
       {!isSearchTermEmpty && matchingIssues.length > 0 && (
-        <>
+        <Fragment>
           <SectionTitle>Matching Issues</SectionTitle>
           {matchingIssues.map(renderIssue)}
-        </>
+        </Fragment>
       )}
 
       {!isSearchTermEmpty && !isLoading && matchingIssues.length === 0 && (

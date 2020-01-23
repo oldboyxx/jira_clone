@@ -29,6 +29,7 @@
     "react/no-array-index-key": 0,
     "react/forbid-prop-types": 0,
     "react/prop-types": [2, { "skipUndeclared": true }],
+    "react/jsx-fragments": [2, "element"],
     "react/state-in-constructor": 0,
     "react/jsx-props-no-spreading": 0,
     "jsx-a11y/click-events-have-key-events": 0

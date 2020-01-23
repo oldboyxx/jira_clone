@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import api from 'shared/utils/api';
@@ -65,7 +65,7 @@ const ProjectBoardIssueDetailsComment = ({ comment, fetchIssue }) => {
             onCancel={() => setFormOpen(false)}
           />
         ) : (
-          <>
+          <Fragment>
             <Body>{comment.body}</Body>
             <EditLink onClick={() => setFormOpen(true)}>Edit</EditLink>
             <ConfirmModal
@@ -75,7 +75,7 @@ const ProjectBoardIssueDetailsComment = ({ comment, fetchIssue }) => {
               onConfirm={handleCommentDelete}
               renderLink={modal => <DeleteLink onClick={modal.open}>Delete</DeleteLink>}
             />
-          </>
+          </Fragment>
         )}
       </Content>
     </Comment>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import { IssueStatus, IssueStatusCopy } from 'shared/constants/issues';
@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const ProjectBoardIssueDetailsStatus = ({ issue, updateIssue }) => (
-  <>
+  <Fragment>
     <SectionTitle>Status</SectionTitle>
     <Select
       variant="empty"
@@ -36,7 +36,7 @@ const ProjectBoardIssueDetailsStatus = ({ issue, updateIssue }) => (
         <Status color={status}>{IssueStatusCopy[status]}</Status>
       )}
     />
-  </>
+  </Fragment>
 );
 
 ProjectBoardIssueDetailsStatus.propTypes = propTypes;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getTextContentsFromHtmlString } from 'shared/utils/browser';
@@ -23,10 +23,10 @@ const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
   const isDescriptionEmpty = getTextContentsFromHtmlString(description).trim().length === 0;
 
   return (
-    <>
+    <Fragment>
       <Title>Description</Title>
       {isEditing ? (
-        <>
+        <Fragment>
           <TextEditor
             placeholder="Describe the issue"
             defaultValue={description}
@@ -40,17 +40,17 @@ const ProjectBoardIssueDetailsDescription = ({ issue, updateIssue }) => {
               Cancel
             </Button>
           </Actions>
-        </>
+        </Fragment>
       ) : (
-        <>
+        <Fragment>
           {isDescriptionEmpty ? (
             <EmptyLabel onClick={() => setEditing(true)}>Add a description...</EmptyLabel>
           ) : (
             <TextEditedContent content={description} onClick={() => setEditing(true)} />
           )}
-        </>
+        </Fragment>
       )}
-    </>
+    </Fragment>
   );
 };
 

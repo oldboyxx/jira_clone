@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { Fragment, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { Textarea } from 'shared/components';
@@ -29,7 +29,7 @@ const ProjectBoardIssueDetailsCommentsBodyForm = ({
   };
 
   return (
-    <>
+    <Fragment>
       <Textarea
         autoFocus
         placeholder="Add a comment..."
@@ -45,7 +45,7 @@ const ProjectBoardIssueDetailsCommentsBodyForm = ({
           Cancel
         </FormButton>
       </Actions>
-    </>
+    </Fragment>
   );
 };
 

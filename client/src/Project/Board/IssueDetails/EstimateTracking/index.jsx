@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 
@@ -22,7 +22,7 @@ const propTypes = {
 };
 
 const ProjectBoardIssueDetailsEstimateTracking = ({ issue, updateIssue }) => (
-  <>
+  <Fragment>
     <SectionTitle>Original Estimate (hours)</SectionTitle>
     {renderHourInput('estimate', issue, updateIssue)}
 
@@ -57,7 +57,7 @@ const ProjectBoardIssueDetailsEstimateTracking = ({ issue, updateIssue }) => (
         </ModalContents>
       )}
     />
-  </>
+  </Fragment>
 );
 
 const renderHourInput = (fieldName, issue, updateIssue) => (

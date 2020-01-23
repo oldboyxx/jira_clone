@@ -1,4 +1,4 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, { Fragment, useState, useRef, useLayoutEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
@@ -58,7 +58,7 @@ const Tooltip = ({ className, placement, offset, width, renderLink, renderConten
   }, [isOpen, offset, placement]);
 
   return (
-    <>
+    <Fragment>
       {renderLink({ ref: $linkRef, onClick: isOpen ? closeTooltip : openTooltip })}
 
       {isOpen &&
@@ -68,7 +68,7 @@ const Tooltip = ({ className, placement, offset, width, renderLink, renderConten
           </StyledTooltip>,
           $root,
         )}
-    </>
+    </Fragment>
   );
 };
 

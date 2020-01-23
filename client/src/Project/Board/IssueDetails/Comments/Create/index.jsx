@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import api from 'shared/utils/api';
@@ -47,10 +47,10 @@ const ProjectBoardIssueDetailsCommentsCreate = ({ issueId, fetchIssue }) => {
             onCancel={() => setFormOpen(false)}
           />
         ) : (
-          <>
+          <Fragment>
             <FakeTextarea onClick={() => setFormOpen(true)}>Add a comment...</FakeTextarea>
             <ProTip setFormOpen={setFormOpen} />
-          </>
+          </Fragment>
         )}
       </Right>
     </Create>
