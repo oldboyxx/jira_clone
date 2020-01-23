@@ -8,15 +8,15 @@
   <a href="https://github.com/oldboyxx/jira_clone/tree/master/api">View API</a>
 </h3>
 
-![Tech logos](https://i.ibb.co/0BgNRKC/logos.jpg)
+![Tech logos](https://i.ibb.co/DVFj8PL/tech-icons.jpg)
 
 ![App screenshot](https://i.ibb.co/W3qVvCn/jira-optimized.jpg)
 
 ## What is this and who is it for 🤷‍♀️
 
-I do web development and UX design consulting and this is a showcase product I've built in my spare time. It's a very good example of what a modern real-world React codebase looks like.
+I do web development and UX design consulting and this is a showcase product I've built in my spare time. It is a very good example of what a modern real-world React codebase could look like.
 
-There are many public React projects out there but most of them are either way too simple or [way too complex](https://github.com/Automattic/wp-calypso). I like to think that this project contains enough complexity to offer valuable insights to React developers of all skill levels while still being relatively easy to understand.
+There are many showcase/example React projects out there but most of them are way too simple. I like to think that this project contains enough complexity to offer valuable insights to React developers of all skill levels while still being relatively easy to understand.
 
 ## Features
 
@@ -26,7 +26,8 @@ There are many public React projects out there but most of them are either way t
 - Written in modern React, only functional components with hooks
 - A variety of custom light-weight UI components such as datepicker, modal, various form elements etc
 - Simple local React state management, without redux, mobx, or similar
-- Custom webpack/babel setup, without create-react-app or similar
+- Custom webpack setup, without create-react-app or similar
+- Written in Babel powered JavaScript
 
 ### API
 
