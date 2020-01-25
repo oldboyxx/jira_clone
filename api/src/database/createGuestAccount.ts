@@ -195,7 +195,7 @@ const createGuestAccount = async (): Promise<User> => {
   const project = await seedProject(users);
   const issues = await seedIssues(project);
   await seedComments(issues, project.users);
-  return users[0];
+  return users[2];
 };
 
 export default createGuestAccount;
