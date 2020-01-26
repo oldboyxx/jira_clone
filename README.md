@@ -14,25 +14,19 @@
 
 ## What is this and who is it for 🤷‍♀️
 
-I do web development and UX design consulting and this is a showcase product I've built in my spare time. It is a very good example of what a modern real-world React codebase could look like.
+I do React consulting and this is a showcase product I've built in my spare time. It's a very good example of modern, real-world React codebase.
 
-There are many showcase/example React projects out there but most of them are way too simple. I like to think that this project contains enough complexity to offer valuable insights to React developers of all skill levels while still being relatively easy to understand.
+There are many showcase/example React projects out there but most of them are way too simple. I like to think that this codebase contains enough complexity to offer valuable insights to React developers of all skill levels while still being _relatively_ easy to understand.
 
 ## Features
-
-### Client
 
 - Proven, scalable, and easy to understand project structure
 - Written in modern React, only functional components with hooks
 - A variety of custom light-weight UI components such as datepicker, modal, various form elements etc
 - Simple local React state management, without redux, mobx, or similar
 - Custom webpack setup, without create-react-app or similar
-- Written in Babel powered JavaScript
-
-### API
-
-- Simple, scalable, and easy to understand project structure
-- Written in TypeScript and using TypeORM
+- Client written in Babel powered JavaScript
+- API written in TypeScript and using TypeORM
 
 ## Setting up development environment 🛠
 
