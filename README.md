@@ -69,6 +69,10 @@ Both Client and API are currently tested through [end-to-end Cypress tests](http
 - Website: https://getivor.com/
 - Skype handle: ivor.reic 💬
 
+### License
+
+[MIT](https://opensource.org/licenses/MIT)
+
 <hr>
 
 <h4>
