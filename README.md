@@ -64,23 +64,23 @@ Not all components have properly defined [aria attributes](https://developer.moz
 
 Both Client and API are currently tested through [end-to-end Cypress tests](https://github.com/oldboyxx/jira_clone/tree/master/client/cypress/integration). That's good enough for a relatively simple application such as this, even if it was a real product. However, as the app grows in complexity, it might be wise to start writing additional unit/integration tests.
 
-### Author: Ivor Reic ✍️
+## Author: Ivor Reic ✍️
 
 - Website: https://getivor.com/
 - Skype handle: ivor.reic 💬
 
-### Contributing
+## Contributing
 
 I will not be accepting PR's on this repository. Feel free to fork and maintain your own version.
 
-### License
+## License
 
 [MIT](https://opensource.org/licenses/MIT)
 
 <hr>
 
-<h4>
+<h3>
   <a href="https://jira.ivorreic.com/">Visit the live app</a> |
   <a href="https://github.com/oldboyxx/jira_clone/tree/master/client">View client</a> |
   <a href="https://github.com/oldboyxx/jira_clone/tree/master/api">View API</a>
-</h4>
+</h3>
