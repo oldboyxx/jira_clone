@@ -10,3 +10,6 @@
 # production
 **/build
 **/npm-debug.log*
+
+# Persistence Directory for Docker
+**/persist
