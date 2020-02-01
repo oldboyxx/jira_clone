@@ -10,7 +10,8 @@ const Authenticate = () => {
   const history = useHistory();
 
   useEffect(() => {
-    const createGuestAccount = async () => {
+    if (!getStoredAuthToken()) {
+       const createGuestAccount = async () => {
       try {
         const { authToken } = await api.post('/authentication/guest');
         storeAuthToken(authToken);
@@ -19,8 +20,6 @@ const Authenticate = () => {
         toast.error(error);
       }
     };
-
-    if (!getStoredAuthToken()) {
       createGuestAccount();
     }
   }, [history]);
