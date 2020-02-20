@@ -46,13 +46,21 @@ export const generateErrors = (
   const fieldErrors: FieldErrors = {};
 
   Object.entries(fieldValidators).forEach(([fieldName, validators]) => {
-    [validators].flat().forEach(validator => {
-      const errorMessage = validator(fieldValues[fieldName], fieldValues);
+    if (Array.isArray(validators)) {
+      validators.forEach(validator => {
+        const errorMessage = validator(fieldValues[fieldName], fieldValues);
+
+        if (errorMessage !== false && !fieldErrors[fieldName]) {
+          fieldErrors[fieldName] = errorMessage;
+        }
+      });
+    } else {
+      const errorMessage = validators(fieldValues[fieldName], fieldValues);
 
       if (errorMessage !== false && !fieldErrors[fieldName]) {
         fieldErrors[fieldName] = errorMessage;
       }
-    });
+    }
   });
   return fieldErrors;
 };
