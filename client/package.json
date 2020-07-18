@@ -54,7 +54,7 @@
     "formik": "^2.1.1",
     "history": "^4.10.1",
     "jwt-decode": "^2.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.9.0",
