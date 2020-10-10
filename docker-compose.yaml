@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+  jiraclient:
+    image: oldboyxx/jira_clone/client:0.1
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+      args:
+        - API_URL=http://localhost:8082
+    depends_on:
+      - jiraapi
+    ports:
+      - 8081:8081
+  jiraapi:
+    image: oldboyxx/jira_clone/api:0.1
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    links:
+      - "db:postgres"
+    depends_on:
+      - db
+    environment:
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USERNAME=jira
+      - DB_PASSWORD=jira
+      - DB_DATABASE=jira
+      - JWT_SECRET=development12345
+    ports:
+      - 8082:3000
+  db:
+    image: postgres:11.9-alpine
+    environment:
+      POSTGRES_DB: jira
+      POSTGRES_USER: jira
+      POSTGRES_PASSWORD: jira
+  adminer:
+    image: adminer
+    links:
+      - "db:postgres"
+    ports:
+      - 8083:8080
