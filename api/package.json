@@ -17,7 +17,7 @@
     "express-async-handler": "^1.1.4",
     "faker": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "module-alias": "^2.2.2",
     "pg": "^7.14.0",
     "reflect-metadata": "^0.1.13",
