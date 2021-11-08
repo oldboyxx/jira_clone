@@ -3,3 +3,4 @@ export enum ProjectCategory {
   MARKETING = 'marketing',
   BUSINESS = 'business',
 }
+
