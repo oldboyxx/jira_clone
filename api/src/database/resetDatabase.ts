@@ -7,3 +7,5 @@ const resetDatabase = async (): Promise<void> => {
 };
 
 export default resetDatabase;
+
+
