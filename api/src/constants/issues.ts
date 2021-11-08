@@ -18,3 +18,4 @@ export enum IssuePriority {
   LOW = '2',
   LOWEST = '1',
 }
+
