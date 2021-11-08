@@ -8,6 +8,8 @@ export const resetDatabase = catchErrors(async (_req, res) => {
   res.respond(true);
 });
 
+
+
 export const createAccount = catchErrors(async (_req, res) => {
   const user = await createTestAccount();
   res.respond({
