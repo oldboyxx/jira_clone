@@ -39,9 +39,12 @@ module.exports = {
   },
   devtool: 'eval-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'dev'),
+    static: {
+      directory: path.join(__dirname, 'dev'),
+    },
     historyApiFallback: true,
     hot: true,
+    compress: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
