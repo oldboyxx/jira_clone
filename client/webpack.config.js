@@ -39,7 +39,7 @@ module.exports = {
   },
   devtool: 'eval-source-map',
   devServer: {
-    contentBase: path.join(__dirname, 'dev'),
+    static: path.join(__dirname, 'dev'),
     historyApiFallback: true,
     hot: true,
   },
@@ -49,5 +49,8 @@ module.exports = {
       template: path.join(__dirname, 'src/index.html'),
       favicon: path.join(__dirname, 'src/favicon.png'),
     }),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env)
+   })
   ],
 };
