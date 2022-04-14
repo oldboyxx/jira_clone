@@ -1,6 +1,7 @@
+import { AppDataSource } from 'database/data-source';
 import { Issue } from 'entities';
-import { catchErrors } from 'errors';
-import { updateEntity, deleteEntity, createEntity, findEntityOrThrow } from 'utils/typeorm';
+import { catchErrors, EntityNotFoundError } from 'errors';
+import { createEntity } from 'utils/typeorm';
 
 export const getProjectIssues = catchErrors(async (req, res) => {
   const { projectId } = req.currentUser;
@@ -21,9 +22,13 @@ export const getProjectIssues = catchErrors(async (req, res) => {
 });
 
 export const getIssueWithUsersAndComments = catchErrors(async (req, res) => {
-  const issue = await findEntityOrThrow(Issue, req.params.issueId, {
+  const issue = await AppDataSource.manager.findOne(Issue, {
+    where: { id: (req.params.issueId as unknown) as number },
     relations: ['users', 'comments', 'comments.user'],
   });
+  if (!issue) {
+    throw new EntityNotFoundError('Issue');
+  }
   res.respond({ issue });
 });
 
@@ -34,17 +39,36 @@ export const create = catchErrors(async (req, res) => {
 });
 
 export const update = catchErrors(async (req, res) => {
-  const issue = await updateEntity(Issue, req.params.issueId, req.body);
-  res.respond({ issue });
+  const issueRepository = AppDataSource.getRepository(Issue);
+  const issue = await issueRepository.findOneBy({ id: (req.params.issueId as unknown) as number });
+
+  if (!issue) {
+    throw new EntityNotFoundError('Issue');
+  }
+
+  const updatedIssue = issueRepository.merge(issue, req.body);
+  const savedIssue = await issueRepository.save(updatedIssue);
+
+  res.respond({ issue: savedIssue });
 });
 
 export const remove = catchErrors(async (req, res) => {
-  const issue = await deleteEntity(Issue, req.params.issueId);
+  const issueRepository = AppDataSource.getRepository(Issue);
+  // TODO: probably find can be removed
+  const issue = await issueRepository.findOneBy({
+    id: (req.params.issueId as unknown) as number,
+  });
+  if (!issue) {
+    throw new EntityNotFoundError('Issue');
+  }
+  await AppDataSource.manager.remove(issue);
+
   res.respond({ issue });
 });
 
 const calculateListPosition = async ({ projectId, status }: Issue): Promise<number> => {
-  const issues = await Issue.find({ projectId, status });
+  const issueRepository = AppDataSource.getRepository(Issue);
+  const issues = await issueRepository.findBy({ projectId, status });
 
   const listPositions = issues.map(({ listPosition }) => listPosition);
 

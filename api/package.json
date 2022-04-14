@@ -19,10 +19,10 @@
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "module-alias": "^2.2.2",
-    "pg": "^7.14.0",
+    "pg": "^8.0.3",
     "reflect-metadata": "^0.1.13",
     "striptags": "^3.1.1",
-    "typeorm": "^0.2.20"
+    "typeorm": "^0.3.6"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
@@ -32,6 +32,7 @@
     "@types/jsonwebtoken": "^8.3.5",
     "@types/lodash": "^4.14.149",
     "@types/node": "^12.12.11",
+    "@types/pg": "^8.6.5",
     "@typescript-eslint/eslint-plugin": "^2.7.0",
     "@typescript-eslint/parser": "^2.7.0",
     "cross-env": "^6.0.3",
