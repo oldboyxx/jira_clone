@@ -8,7 +8,7 @@ import {
   ManyToOne,
 } from 'typeorm';
 
-import is from 'utils/validation';
+import is from '../utils/validation';
 import { Issue, User } from '.';
 
 @Entity()

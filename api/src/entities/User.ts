@@ -11,7 +11,7 @@ import {
   RelationId,
 } from 'typeorm';
 
-import is from 'utils/validation';
+import is from '../utils/validation';
 import { Comment, Issue, Project } from '.';
 
 @Entity()

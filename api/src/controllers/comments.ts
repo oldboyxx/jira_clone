@@ -1,7 +1,7 @@
-import { AppDataSource } from 'database/data-source';
-import { Comment } from 'entities';
-import { catchErrors, EntityNotFoundError } from 'errors';
-import { createEntity } from 'utils/typeorm';
+import { AppDataSource } from '../database/data-source';
+import { Comment } from '../entities';
+import { catchErrors, EntityNotFoundError } from '../errors';
+import { createEntity } from '../utils/typeorm';
 
 export const create = catchErrors(async (req, res) => {
   const comment = await createEntity(Comment, req.body);

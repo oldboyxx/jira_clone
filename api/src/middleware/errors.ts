@@ -1,7 +1,7 @@
 import { ErrorRequestHandler } from 'express';
 import { pick } from 'lodash';
 
-import { CustomError } from 'errors';
+import { CustomError } from '../errors';
 
 export const handleError: ErrorRequestHandler = (error, _req, res, _next) => {
   console.error(error);

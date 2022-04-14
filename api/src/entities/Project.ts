@@ -8,8 +8,8 @@ import {
   OneToMany,
 } from 'typeorm';
 
-import is from 'utils/validation';
-import { ProjectCategory } from 'constants/projects';
+import is from '../utils/validation';
+import { ProjectCategory } from '../constants/projects';
 import { Issue, User } from '.';
 
 @Entity()

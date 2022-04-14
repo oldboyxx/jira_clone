@@ -1,7 +1,7 @@
-import { AppDataSource } from 'database/data-source';
-import { Issue } from 'entities';
-import { catchErrors, EntityNotFoundError } from 'errors';
-import { createEntity } from 'utils/typeorm';
+import { AppDataSource } from '../database/data-source';
+import { Issue } from '../entities';
+import { catchErrors, EntityNotFoundError } from '../errors';
+import { createEntity } from '../utils/typeorm';
 
 export const getProjectIssues = catchErrors(async (req, res) => {
   const { projectId } = req.currentUser;

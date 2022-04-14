@@ -1,6 +1,6 @@
-import { Project, User, Issue, Comment } from 'entities';
-import { BadUserInputError } from 'errors';
-import { generateErrors } from 'utils/validation';
+import { Project, User, Issue, Comment } from '../entities';
+import { BadUserInputError } from '../errors';
+import { generateErrors } from '../utils/validation';
 
 type EntityConstructor = typeof Project | typeof User | typeof Issue | typeof Comment;
 type EntityInstance = Project | User | Issue | Comment;

@@ -1,7 +1,7 @@
-import { Project } from 'entities';
-import { catchErrors, EntityNotFoundError } from 'errors';
-import { issuePartial } from 'serializers/issues';
-import { AppDataSource } from 'database/data-source';
+import { Project } from '../entities';
+import { catchErrors, EntityNotFoundError } from '../errors';
+import { issuePartial } from '../serializers/issues';
+import { AppDataSource } from '../database/data-source';
 
 export const getProjectWithUsersAndIssues = catchErrors(async (req, res) => {
   const projectRepository = AppDataSource.getRepository(Project);

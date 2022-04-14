@@ -15,8 +15,8 @@ import {
   BeforeInsert,
 } from 'typeorm';
 
-import is from 'utils/validation';
-import { IssueType, IssueStatus, IssuePriority } from 'constants/issues';
+import is from '../utils/validation';
+import { IssueType, IssueStatus, IssuePriority } from '../constants/issues';
 import { Comment, Project, User } from '.';
 
 @Entity()
