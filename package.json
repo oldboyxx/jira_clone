@@ -4,17 +4,19 @@
   "author": "Ivor Reic",
   "license": "MIT",
   "scripts": {
-    "pre-commit": "cd api && npm run pre-commit && cd ../client && npm run pre-commit",
-    "install-dependencies": "npm install && cd api && npm install && cd ../client && npm install",
-    "build": "cd api && npm run build && cd ../client && npm run build",
-    "start:production": "cd api && npm run start:production && cd ../client && npm run start:production"
+    "pre-commit": "cd api && yarn run pre-commit && cd ../client && yarn run pre-commit",
+    "install-dependencies": "yarn && cd api && yarn && cd ../client && yarn",
+    "build": "cd api && yarn run build && cd ../client && yarn run build",
+    "start": "concurrently \"cd api && yarn start\" \"cd client && yarn start\"",
+    "start:production": "cd api && yarn start:production && cd ../client && yarn start:production"
   },
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "husky": "^4.0.0-beta.5"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pre-commit"
+      "pre-commit": "yarn run pre-commit"
     }
   },
   "dependencies": {}

@@ -1,18 +1,12 @@
 {
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "entry",
-        "corejs": 3
-      }
-    ],
+    ["@babel/preset-env", { "useBuiltIns": "entry", "corejs": 3 }],
     "@babel/react"
   ],
   "plugins": [
     ["@babel/plugin-proposal-decorators", { "legacy": true }],
     "@babel/plugin-proposal-export-namespace-from",
     "@babel/plugin-syntax-dynamic-import",
-    ["@babel/plugin-proposal-class-properties", { "loose": true }]
+    ["@babel/plugin-proposal-class-properties", { "loose": false }]
   ]
 }

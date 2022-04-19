@@ -27,7 +27,8 @@
     "@typescript-eslint/no-use-before-define": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "import/prefer-default-export": 0,
-    "import/no-cycle": 0
+    "import/no-cycle": 0,
+    "import/extensions": [2, { "js": "never", "ts": "never" }]
   },
   "settings": {
     // Allows us to lint absolute imports within codebase

@@ -1,33 +1,35 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Route, useRouteMatch, useHistory } from 'react-router-dom';
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
+import { Route, useRouteMatch, useHistory } from 'react-router-dom'
 
-import useMergeState from 'shared/hooks/mergeState';
-import { Breadcrumbs, Modal } from 'shared/components';
+import useMergeState from 'shared/hooks/mergeState'
+import { Breadcrumbs, Modal } from 'shared/components'
 
-import Header from './Header';
-import Filters from './Filters';
-import Lists from './Lists';
-import IssueDetails from './IssueDetails';
+import Header from './Header'
+import Filters from './Filters'
+import Lists from './Lists'
+import IssueDetails from './IssueDetails'
 
 const propTypes = {
   project: PropTypes.object.isRequired,
   fetchProject: PropTypes.func.isRequired,
   updateLocalProjectIssues: PropTypes.func.isRequired,
-};
+}
 
 const defaultFilters = {
   searchTerm: '',
   userIds: [],
   myOnly: false,
   recent: false,
-};
+}
 
 const ProjectBoard = ({ project, fetchProject, updateLocalProjectIssues }) => {
-  const match = useRouteMatch();
-  const history = useHistory();
+  const match = useRouteMatch()
+  const history = useHistory()
 
-  const [filters, mergeFilters] = useMergeState(defaultFilters);
+  const [filters, mergeFilters] = useMergeState(defaultFilters)
+
+  const deferredValues = React.useDeferredValue(filters)
 
   return (
     <Fragment>
@@ -41,7 +43,7 @@ const ProjectBoard = ({ project, fetchProject, updateLocalProjectIssues }) => {
       />
       <Lists
         project={project}
-        filters={filters}
+        filters={deferredValues}
         updateLocalProjectIssues={updateLocalProjectIssues}
       />
       <Route
@@ -66,9 +68,9 @@ const ProjectBoard = ({ project, fetchProject, updateLocalProjectIssues }) => {
         )}
       />
     </Fragment>
-  );
-};
+  )
+}
 
-ProjectBoard.propTypes = propTypes;
+ProjectBoard.propTypes = propTypes
 
-export default ProjectBoard;
+export default ProjectBoard

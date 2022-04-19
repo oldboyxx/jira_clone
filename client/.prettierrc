@@ -1,5 +1,10 @@
 {
-  "printWidth": 100,
+  "arrowParens": "avoid",
+  "printWidth": 80,
+  "quoteProps": "as-needed",
+  "semi": false,
   "singleQuote": true,
-  "trailingComma": "all"
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "useTabs": false
 }
