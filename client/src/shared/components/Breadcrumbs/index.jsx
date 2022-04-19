@@ -1,11 +1,11 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment } from 'react'
+import PropTypes from 'prop-types'
 
-import { Container, Divider } from './Styles';
+import { Container, Divider } from './Styles'
 
 const propTypes = {
   items: PropTypes.array.isRequired,
-};
+}
 
 const Breadcrumbs = ({ items }) => (
   <Container>
@@ -16,8 +16,8 @@ const Breadcrumbs = ({ items }) => (
       </Fragment>
     ))}
   </Container>
-);
+)
 
-Breadcrumbs.propTypes = propTypes;
+Breadcrumbs.propTypes = propTypes
 
-export default Breadcrumbs;
+export default Breadcrumbs
