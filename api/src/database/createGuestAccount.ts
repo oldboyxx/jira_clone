@@ -48,8 +48,8 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       estimate: 8,
       timeSpent: 4,
       reporterId: users[1].id,
-      project,
-      users: [users[0]],
+      // project,
+      // users: [users[0]],
     }),
     createEntity(Issue, {
       title: "Click on an issue to see what's behind it.",
@@ -61,8 +61,8 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       estimate: 5,
       timeSpent: 2,
       reporterId: users[2].id,
-      project,
-      users: [users[0]],
+      // project,
+      // users: [users[0]],
     }),
     createEntity(Issue, {
       title: 'Try dragging issues to different columns to transition their status.',
@@ -74,7 +74,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       estimate: 15,
       timeSpent: 12,
       reporterId: users[1].id,
-      project,
+      // project,
     }),
     createEntity(Issue, {
       title: 'You can use rich text with images in issue descriptions.',
@@ -86,8 +86,8 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       estimate: 4,
       timeSpent: 4,
       reporterId: users[0].id,
-      project,
-      users: [users[2]],
+      // project,
+      // users: [users[2]],
     }),
     createEntity(Issue, {
       title: 'Each issue can be assigned priority from lowest to highest.',
@@ -99,7 +99,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       estimate: 4,
       timeSpent: 1,
       reporterId: users[2].id,
-      project,
+      // project,
     }),
     createEntity(Issue, {
       title: 'Each issue has a single reporter but can have multiple assignees.',
@@ -111,8 +111,8 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       estimate: 6,
       timeSpent: 3,
       reporterId: users[1].id,
-      project,
-      users: [users[1], users[2]],
+      // project,
+      // users: [users[1], users[2]],
     }),
     createEntity(Issue, {
       title:
@@ -125,7 +125,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       estimate: 12,
       timeSpent: 11,
       reporterId: users[0].id,
-      project,
+      // project,
     }),
     createEntity(Issue, {
       title: 'Try leaving a comment on this issue.',
@@ -137,8 +137,8 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
       estimate: 10,
       timeSpent: 2,
       reporterId: users[0].id,
-      project,
-      users: [users[1]],
+      // project,
+      // users: [users[1]],
     }),
   ];
   return Promise.all(issues);

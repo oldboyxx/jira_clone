@@ -15,7 +15,7 @@ import is from '../utils/validation';
 import { Comment, Issue, Project } from '.';
 
 @Entity()
-class User extends BaseEntity {
+export class User extends BaseEntity {
   static validations = {
     name: [is.required(), is.maxLength(100)],
     email: [is.required(), is.email(), is.maxLength(200)],

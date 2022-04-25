@@ -11,24 +11,25 @@ import {
   ManyToMany,
   JoinTable,
   RelationId,
-  BeforeUpdate,
   BeforeInsert,
+  BeforeUpdate,
 } from 'typeorm';
 
-import is from '../utils/validation';
 import { IssueType, IssueStatus, IssuePriority } from '../constants/issues';
-import { Comment, Project, User } from '.';
+import { Comment } from './comment.entity';
+import Project from './project.entity';
+import User from './user.entity';
 
 @Entity()
-class Issue extends BaseEntity {
-  static validations = {
-    title: [is.required(), is.maxLength(200)],
-    type: [is.required(), is.oneOf(Object.values(IssueType))],
-    status: [is.required(), is.oneOf(Object.values(IssueStatus))],
-    priority: [is.required(), is.oneOf(Object.values(IssuePriority))],
-    listPosition: is.required(),
-    reporterId: is.required(),
-  };
+export class Issue extends BaseEntity {
+  // static validations = {
+  //   title: [is.required(), is.maxLength(200)],
+  //   type: [is.required(), is.oneOf(Object.values(IssueType))],
+  //   status: [is.required(), is.oneOf(Object.values(IssueStatus))],
+  //   priority: [is.required(), is.oneOf(Object.values(IssuePriority))],
+  //   listPosition: is.required(),
+  //   reporterId: is.required(),
+  // };
 
   @PrimaryGeneratedColumn()
   id: number;

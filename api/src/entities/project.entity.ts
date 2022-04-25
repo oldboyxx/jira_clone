@@ -13,7 +13,7 @@ import { ProjectCategory } from '../constants/projects';
 import { Issue, User } from '.';
 
 @Entity()
-class Project extends BaseEntity {
+export class Project extends BaseEntity {
   static validations = {
     name: [is.required(), is.maxLength(100)],
     url: is.url(),
