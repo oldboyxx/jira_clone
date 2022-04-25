@@ -32,9 +32,13 @@ export class IssueService {
     return issue;
   }
 
-  // update(id: number, updateIssueDto: UpdateIssueDto) {
-  //   return `This action updates a #${id} issue`;
-  // }
+  async update(id: number, updateIssueDto: UpdateIssueDto) {
+    const issue = await this.findOne(id);
+    const mergedIssue = this.issueRepository.merge(issue, updateIssueDto);
+    const savedIssue = await this.issueRepository.save(mergedIssue);
+
+    return savedIssue;
+  }
 
   async remove(id: number) {
     const issue = await this.findOne(id);

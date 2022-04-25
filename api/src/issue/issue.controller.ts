@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { IssueService } from './issue.service';
 import { CreateIssueDto } from './dto/create-issue.dto';
 import { UpdateIssueDto } from './dto/update-issue.dto';
@@ -22,10 +22,10 @@ export class IssueController {
     return this.issueService.findOne(+id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateIssueDto: UpdateIssueDto) {
-  //   return this.issueService.update(+id, updateIssueDto);
-  // }
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateIssueDto: UpdateIssueDto) {
+    return this.issueService.update(+id, updateIssueDto);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
