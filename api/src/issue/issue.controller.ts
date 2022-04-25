@@ -7,10 +7,10 @@ import { UpdateIssueDto } from './dto/update-issue.dto';
 export class IssueController {
   constructor(private readonly issueService: IssueService) {}
 
-  // @Post()
-  // create(@Body() createIssueDto: CreateIssueDto) {
-  //   return this.issueService.create(createIssueDto);
-  // }
+  @Post()
+  create(@Body() createIssueDto: CreateIssueDto) {
+    return this.issueService.create(createIssueDto);
+  }
 
   @Get()
   findAll() {

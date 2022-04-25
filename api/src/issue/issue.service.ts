@@ -11,21 +11,15 @@ export class IssueService {
     @InjectRepository(Issue)
     private issueRepository: Repository<Issue>,
   ) {}
-  // create(createIssueDto: CreateIssueDto) {
-  //   return 'This action adds a new issue';
-  // }
+
+  async create(createIssueDto: CreateIssueDto) {
+    const issueInstance = await this.issueRepository.create(createIssueDto);
+    issueInstance.listPosition = 1;
+    const createdIssue = await this.issueRepository.save(issueInstance);
+    return createdIssue;
+  }
 
   async findAll() {
-    // const issue = await AppDataSource.manager.findOne(Issue, {
-    //   where: { id: (req.params.issueId as unknown) as number },
-    //   relations: ['users', 'comments', 'comments.user'],
-    // });
-    // if (!issue) {
-    //   // throw new EntityNotFoundError('Issue');
-    //   throw new Error('there was an error with Issue');
-    // }
-    
-    // return issue;
     return await this.issueRepository.find();
   }
 
