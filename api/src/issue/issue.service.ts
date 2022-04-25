@@ -42,7 +42,8 @@ export class IssueService {
   //   return `This action updates a #${id} issue`;
   // }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} issue`;
-  // }
+  async remove(id: number) {
+    const issue = await this.findOne(id);
+    return await this.issueRepository.remove(issue);
+  }
 }

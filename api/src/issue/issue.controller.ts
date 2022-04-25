@@ -27,8 +27,8 @@ export class IssueController {
   //   return this.issueService.update(+id, updateIssueDto);
   // }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.issueService.remove(+id);
-  // }
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.issueService.remove(+id);
+  }
 }
