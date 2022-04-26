@@ -22,15 +22,6 @@ import User from './user.entity';
 
 @Entity()
 export class Issue extends BaseEntity {
-  // static validations = {
-  //   title: [is.required(), is.maxLength(200)],
-  //   type: [is.required(), is.oneOf(Object.values(IssueType))],
-  //   status: [is.required(), is.oneOf(Object.values(IssueStatus))],
-  //   priority: [is.required(), is.oneOf(Object.values(IssuePriority))],
-  //   listPosition: is.required(),
-  //   reporterId: is.required(),
-  // };
-
   @PrimaryGeneratedColumn()
   id: number;
 

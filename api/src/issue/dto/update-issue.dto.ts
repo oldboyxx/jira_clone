@@ -1,4 +1,28 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateIssueDto } from './create-issue.dto';
+import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
+import { IssuePriority, IssueStatus } from 'src/constants/issues';
 
-export class UpdateIssueDto extends PartialType(CreateIssueDto) {}
+export class UpdateIssueDto {
+  @IsOptional()
+  @IsString()
+  title: string;
+  
+  @IsOptional()
+  @IsString()
+  description: string | null;
+  
+  @IsOptional()
+  @IsNumber()
+  reporterId: number;
+  
+  @IsOptional()
+  @IsIn(Object.values(IssuePriority))
+  priority: IssuePriority;
+  
+  @IsOptional()
+  @IsIn(Object.values(IssueStatus))
+  status: IssueStatus;
+  
+  @IsOptional()
+  @IsNumber()
+  projectId: number;
+}
