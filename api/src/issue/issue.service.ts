@@ -24,7 +24,7 @@ export class IssueService {
   }
 
   async findOne(id: number) {
-    const issue = await this.issueRepository.findOneBy({ id });
+    const issue = await this.issueRepository.findOne({ where: { id, }, relations: { comments: true }});
     if (!issue) {
       throw new NotFoundException(Issue, 'Issue was not found');
     }
