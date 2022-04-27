@@ -1,5 +1,5 @@
 import { Comment, Issue, Project, User } from '../entities';
-import { ProjectCategory } from '../constants/projects';
+import { ProjectCategory } from '../projects/types';
 import { IssueType, IssueStatus, IssuePriority } from '../issue/types';
 import { createEntity } from '../utils/typeorm';
 

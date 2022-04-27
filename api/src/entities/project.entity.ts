@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 
 import is from '../utils/validation';
-import { ProjectCategory } from '../constants/projects';
+import { ProjectCategory } from '../projects/types';
 import { Issue, User } from '.';
 
 @Entity()

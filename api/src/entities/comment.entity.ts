@@ -13,10 +13,6 @@ import { Issue, User } from '.';
 
 @Entity()
 export class Comment extends BaseEntity {
-  // static validations = {
-  //   body: [is.required(), is.maxLength(50000)],
-  // };
-
   @PrimaryGeneratedColumn()
   id: number;
 
