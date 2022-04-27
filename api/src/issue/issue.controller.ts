@@ -8,7 +8,9 @@ export class IssueController {
   constructor(private readonly issueService: IssueService) {}
 
   @Post()
-  create(@Body() createIssueDto: CreateIssueDto) {
+  create(
+    @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })) createIssueDto: CreateIssueDto
+  ) {
     return this.issueService.create(createIssueDto);
   }
 

@@ -1,20 +1,26 @@
+import { IsIn, IsNumber, IsOptional, IsString } from "class-validator";
 import { IssuePriority, IssueStatus, IssueType } from "src/constants/issues";
 
-  // static validations = {
-  //   title: [is.required(), is.maxLength(200)],
-  //   type: [is.required(), is.oneOf(Object.values(IssueType))],
-  //   status: [is.required(), is.oneOf(Object.values(IssueStatus))],
-  //   priority: [is.required(), is.oneOf(Object.values(IssuePriority))],
-  //   listPosition: is.required(),
-  //   reporterId: is.required(),
-  // };
-
 export class CreateIssueDto {
+  @IsString()
   title: string;
+
+  @IsIn(Object.values(IssueType))
   type: IssueType;
+
+  @IsOptional()
+  @IsString()
   description: string | null;
+
+  @IsNumber()
   reporterId: number;
+
+  @IsIn(Object.values(IssuePriority))
   priority: IssuePriority;
+
+  @IsIn(Object.values(IssueStatus))
   status: IssueStatus;
+
+  @IsNumber()
   projectId: number;
 }
