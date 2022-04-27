@@ -21,12 +21,12 @@ const Project = () => {
   const issueSearchModalHelpers = createQueryParamModalHelpers('issue-search');
   const issueCreateModalHelpers = createQueryParamModalHelpers('issue-create');
 
-  const [{ data, error, setLocalData }, fetchProject] = useApi.get('/project');
+  const [{ data, error, setLocalData }, fetchProject] = useApi.get('/projects/1');
 
   if (!data) return <PageLoader />;
   if (error) return <PageError />;
 
-  const { project } = data;
+  const project = data;
 
   const updateLocalProjectIssues = (issueId, updatedFields) => {
     setLocalData(currentData => ({
