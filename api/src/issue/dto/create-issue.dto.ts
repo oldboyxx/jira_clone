@@ -1,5 +1,5 @@
 import { IsIn, IsNumber, IsOptional, IsString } from "class-validator";
-import { IssuePriority, IssueStatus, IssueType } from "src/constants/issues";
+import { IssuePriority, IssueStatus, IssueType } from "src/issue/types";
 
 export class CreateIssueDto {
   @IsString()

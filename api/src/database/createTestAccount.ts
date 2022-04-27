@@ -1,6 +1,6 @@
 import { Comment, Issue, Project, User } from '../entities';
 import { ProjectCategory } from '../constants/projects';
-import { IssueType, IssueStatus, IssuePriority } from '../constants/issues';
+import { IssueType, IssueStatus, IssuePriority } from '../issue/types';
 import { createEntity } from '../utils/typeorm';
 
 const seedUsers = (): Promise<User[]> => {

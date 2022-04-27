@@ -15,7 +15,7 @@ import {
   BeforeUpdate,
 } from 'typeorm';
 
-import { IssueType, IssueStatus, IssuePriority } from '../constants/issues';
+import { IssueType, IssueStatus, IssuePriority } from '../issue/types';
 import { Comment } from './comment.entity';
 import Project from './project.entity';
 import User from './user.entity';
