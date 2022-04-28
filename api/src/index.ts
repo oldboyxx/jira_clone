@@ -9,7 +9,7 @@ import { handleError } from './middleware/errors';
 import { RouteNotFoundError } from './errors';
 
 import { AppDataSource } from './database/data-source';
-import { attachPublicRoutes, attachPrivateRoutes } from './routes';
+import { attachPublicRoutes } from './routes';
 
 const establishDatabaseConnection = async (): Promise<void> => {
   await AppDataSource.initialize();
@@ -27,8 +27,6 @@ const initializeExpress = (): void => {
   attachPublicRoutes(app);
 
   app.use('/', authenticateUser);
-
-  attachPrivateRoutes(app);
 
   app.use((req, _res, next) => next(new RouteNotFoundError(req.originalUrl)));
   app.use(handleError);
