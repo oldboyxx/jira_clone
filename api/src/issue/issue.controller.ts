@@ -11,6 +11,7 @@ export class IssueController {
   create(
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })) createIssueDto: CreateIssueDto
   ) {
+    delete createIssueDto.users;
     return this.issueService.create(createIssueDto);
   }
 
@@ -29,6 +30,7 @@ export class IssueController {
     @Param('id', ParseIntPipe) id: number,
     @Body(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true })) updateIssueDto: UpdateIssueDto
   ) {
+    delete updateIssueDto.users;
     return this.issueService.update(id, updateIssueDto);
   }
 

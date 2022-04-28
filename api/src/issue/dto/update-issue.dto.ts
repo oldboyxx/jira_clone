@@ -1,4 +1,5 @@
-import { IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
+import { Allow, IsArray, IsIn, IsNumber, IsOptional, IsString } from 'class-validator';
+import { User } from 'src/entities';
 import { IssuePriority, IssueStatus } from 'src/issue/types';
 
 export class UpdateIssueDto {
@@ -25,4 +26,11 @@ export class UpdateIssueDto {
   @IsOptional()
   @IsNumber()
   projectId: number;
+
+  @IsArray()
+  @IsNumber({}, { each: true })
+  userIds: number[];
+
+  @Allow()
+  users?: User[];
 }
