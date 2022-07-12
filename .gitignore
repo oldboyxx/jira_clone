@@ -10,3 +10,4 @@
 # production
 **/build
 **/npm-debug.log*
+.idea
