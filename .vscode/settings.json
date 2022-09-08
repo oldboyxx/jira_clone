@@ -1,4 +1,5 @@
 {
+  "editor.rulers": [100],
   "eslint.workingDirectories": [
     {
       "directory": "./client",
