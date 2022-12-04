@@ -31,6 +31,16 @@ There are many showcase/example React projects out there but most of them are wa
 ## Setting up development environment 🛠
 
 - Install [postgreSQL](https://www.postgresql.org/) if you don't have it already and create a database named `jira_development`.
+
+
+7IPritHu0wat$
+
+Run docker stack deploy -c stack.yml postgres (or docker-compose -f stack.yml up), wait for it to initialize completely, and visit http://swarm-ip:8080, http://localhost:8080, or http://host-ip:8080 (as appropriate).
+
+
+SQLSTATE[08006] [7] connection to server at "db" (172.18.0.3), port 5432 
+failed: FATAL: password authentication failed for user "dbadmin@myazuresandbox.com"
+
 - `git clone https://github.com/oldboyxx/jira_clone.git`
 - Create an empty `.env` file in `/api`, copy `/api/.env.example` contents into it, and fill in your database username and password.
 - `npm run install-dependencies`
