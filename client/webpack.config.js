@@ -42,6 +42,8 @@ module.exports = {
     contentBase: path.join(__dirname, 'dev'),
     historyApiFallback: true,
     hot: true,
+    host: '0.0.0.0',
+    disableHostCheck: true,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+COMPOSE_FILE="local"
+COMPOSE="docker-compose -f docker/docker-compose.$COMPOSE_FILE.yml"
+
+if [[ -z "$1" ]]
+then
+    echo "You must specify a command to proceed."
+    exit 0
+fi
+
+if [[ "$1" == "up" ]]
+then
+    $COMPOSE $@
+elif [[ "$1" == "down" ]]
+then
+    $COMPOSE $@
+fi

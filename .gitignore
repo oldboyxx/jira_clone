@@ -10,3 +10,5 @@
 # production
 **/build
 **/npm-debug.log*
+
+*.log

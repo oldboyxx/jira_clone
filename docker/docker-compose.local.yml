@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  sql:
+    image: postgres:11.18-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: username # The PostgreSQL user (useful to connect to the database)
+      POSTGRES_PASSWORD: password # The PostgreSQL password (useful to connect to the database)
+      POSTGRES_DB: jira_development # The PostgreSQL default database (automatically created at first launch
+  app:
+    build:
+      context: ../
+      dockerfile: ./docker/App/Dockerfile
+    volumes:
+      - ../:/app:rw
+    ports:
+      - '8080:8080'
+      - '3000:3000'
+    depends_on:
+      sql:
+        condition: service_started
+    links:
+      - sql
