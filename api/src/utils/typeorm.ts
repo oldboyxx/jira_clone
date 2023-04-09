@@ -11,10 +11,9 @@ const entities: { [key: string]: EntityConstructor } = { Comment, Issue, Project
 
 export const findEntityOrThrow = async <T extends EntityConstructor>(
   Constructor: T,
-  id: number | string,
-  options?: FindOneOptions,
+  options: FindOneOptions,
 ): Promise<InstanceType<T>> => {
-  const instance = await Constructor.findOne(id, options);
+  const instance = await Constructor.findOne(options);
   if (!instance) {
     throw new EntityNotFoundError(Constructor.name);
   }
@@ -47,7 +46,7 @@ export const updateEntity = async <T extends EntityConstructor>(
   id: number | string,
   input: Partial<InstanceType<T>>,
 ): Promise<InstanceType<T>> => {
-  const instance = await findEntityOrThrow(Constructor, id);
+  const instance = await findEntityOrThrow(Constructor, { where: { id } });
   Object.assign(instance, input);
   return validateAndSaveEntity(instance);
 };
@@ -56,7 +55,7 @@ export const deleteEntity = async <T extends EntityConstructor>(
   Constructor: T,
   id: number | string,
 ): Promise<InstanceType<T>> => {
-  const instance = await findEntityOrThrow(Constructor, id);
+  const instance = await findEntityOrThrow(Constructor, { where: { id } });
   await instance.remove();
   return instance;
 };
